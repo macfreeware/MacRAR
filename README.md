@@ -115,7 +115,7 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
 - **About window** (MacRAR menu → About MacRAR): version/build, developer, short usage notes and shortcuts, tool versions and Finder extension status.
 - **Test**, **Preview** (Quick Look / Space), open with a double-click, drag and drop (open an archive / archive files), context menus.
 - A two-mode window like WinRAR: a file manager when no archive is open, the archive's contents once you enter one. Leave with Enclosing Folder / Backspace.
-- **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). The new language takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
+- **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** or right in the **Setup Assistant** on first launch (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). The new language takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
 
 ## Requirements
 

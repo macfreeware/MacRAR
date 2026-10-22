@@ -34,21 +34,7 @@ struct SettingsView: View {
                 Toggle("Gizli dosyaları göster", isOn: Binding(get: { model.showHidden }, set: { _ in model.toggleHidden() }))
             }
             Section {
-                Picker("Dil", selection: $language) {
-                    ForEach(AppLanguage.allCases) { (Text(verbatim: "\($0.flag)  ") + Text($0.title)).tag($0) }
-                }
-                .onChange(of: language) { _, new in new.save(); model.publishFinderState() }
-                if language != AppLanguage.atLaunch {
-                    // Seçilen dilde: okuyamadığı bir dilden çıkan kullanıcı da düğmeyi bulabilsin.
-                    let next = language.bundle
-                    HStack {
-                        Text(String(localized: "Yeni dil MacRAR yeniden açıldığında geçerli olur.", bundle: next))
-                            .font(.caption).foregroundStyle(.secondary)
-                        Spacer()
-                        Button(String(localized: "Şimdi Yeniden Başlat", bundle: next)) { relaunch() }
-                            .buttonStyle(.borderedProminent)
-                    }
-                }
+                LanguageChooser(language: $language)
             }
             Section {
                 Button("Parola Yöneticisi…") {
@@ -63,14 +49,6 @@ struct SettingsView: View {
         }
         .formStyle(.grouped)
         .frame(height: language != AppLanguage.atLaunch ? 350 : 310)
-    }
-
-    private func relaunch() {
-        let config = NSWorkspace.OpenConfiguration()
-        config.createsNewApplicationInstance = true
-        NSWorkspace.shared.openApplication(at: Bundle.main.bundleURL, configuration: config) { _, _ in
-            DispatchQueue.main.async { NSApp.terminate(nil) }
-        }
     }
 
     // MARK: Finder

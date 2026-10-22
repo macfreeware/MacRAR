@@ -38,6 +38,7 @@ struct SetupAssistantView: View {
     @State private var defaultsOK = false
     @State private var message: String?
     @State private var busy = false
+    @State private var language = AppLanguage.saved
 
     private var installed: Bool { DefaultApps.isInstalledInApplications() }
     private var allGood: Bool { (rarOK || unrarOK || unarOK) && finder == .enabled && defaultsOK && installed }
@@ -72,6 +73,13 @@ struct SetupAssistantView: View {
             Text("MacRAR'a hoş geldiniz").font(.system(size: 22, weight: .bold))
             Text(allGood ? "Her şey hazır. Keyifli kullanımlar!" : "Birkaç adımda her şeyi hazırlayalım.")
                 .font(.callout).foregroundStyle(.secondary)
+            // İlk açılışta dil burada da seçilebilsin (Ayarlar ▸ Genel ▸ Dil ile aynı).
+            VStack(spacing: 8) {
+                LanguageChooser(language: $language)
+                    .fixedSize()
+            }
+            .padding(.top, 8)
+            .padding(.horizontal, 24)
         }
         .padding(.vertical, 16)
     }

@@ -117,7 +117,7 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 - **Hakkında penceresi** (MacRAR menüsü → MacRAR Hakkında): sürüm/derleme, geliştirici, kısa kullanım ve kısayollar, araç sürümleri ile Finder eklentisi durumu.
 - **Sına**, **Önizle** (Quick Look / Boşluk), çift tıkla açma, sürükle-bırak (arşivi aç / dosyaları arşivle), bağlam menüleri.
 - WinRAR gibi iki kipli pencere: arşiv açık değilken dosya yöneticisi, arşive girince arşiv içeriği. Üst klasör / Backspace ile çıkış.
-- **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir, yeni dil MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
+- **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den ya da ilk açılışta doğrudan **Kurulum Yardımcısı**'ndan (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir, yeni dil MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
 
 ## Gereksinimler
 
