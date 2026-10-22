@@ -1,0 +1,7 @@
+/* MacRAR — English Info.plist strings. Document type names are keyed by their Info.plist value. */
+
+"CFBundleDisplayName" = "MacRAR";
+"NSHumanReadableCopyright" = "© 2026 Rafet SAPANCI · GPL-3.0";
+"MacRAR Finder komutları" = "MacRAR Finder commands";
+"RAR / 7-Zip Arşivi" = "RAR / 7-Zip Archive";
+"Arşiv" = "Archive";

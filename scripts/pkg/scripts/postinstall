@@ -1,0 +1,64 @@
+#!/bin/bash
+# MacRAR kurulum sonrası: Finder eklentisini tanıt ve etkinleştir, Finder'ı yeniden başlat, uygulamayı aç.
+#
+# En iyi çaba: bir adım başarısız olsa da kurulum başarısız sayılmaz (her zaman 0 ile çıkar); ayrıntılar günlükte.
+# Yönetici (root) olarak çalışır, ama eklenti seçimi ve Finder kullanıcının oturumuna aittir; bu yüzden
+# adımlar konsoldaki (giriş yapmış) kullanıcı olarak çalıştırılır.
+#
+# Sınama için: MACRAR_DRY_RUN=1 (komutları çalıştırmadan yalnızca yazar), MACRAR_APP=<yol>, MACRAR_TEST_USER=<kullanıcı>.
+
+APP="${MACRAR_APP:-/Applications/MacRAR.app}"
+EXT="$APP/Contents/PlugIns/MacRARFinder.appex"
+EXT_ID="local.macrar.app.FinderSync"
+LSREGISTER="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister"
+LOG="${MACRAR_LOG:-/tmp/MacRAR-kurulum.log}"
+DRY="${MACRAR_DRY_RUN:-0}"
+
+log() { echo "[$(/bin/date '+%F %T')] $*" >> "$LOG"; }
+
+CONSOLE_USER="${MACRAR_TEST_USER:-$(/usr/bin/stat -f%Su /dev/console 2>/dev/null)}"
+log "MacRAR kurulum sonrası başladı (konsol kullanıcısı: '${CONSOLE_USER}', root: $([ "$(/usr/bin/id -u)" = 0 ] && echo evet || echo hayır), deneme: $DRY)"
+
+if [ ! -d "$APP" ]; then
+  log "HATA: $APP bulunamadı; adımlar atlandı"
+  exit 0
+fi
+
+# Giriş yapmış bir kullanıcı yoksa (uzaktan/otomatik kurulum) kullanıcı adımları atlanır.
+if [ -z "$CONSOLE_USER" ] || [ "$CONSOLE_USER" = "root" ] || [ "$CONSOLE_USER" = "loginwindow" ]; then
+  log "Giriş yapmış kullanıcı yok; Finder eklentisi etkinleştirilemedi. Kullanıcı giriş yapınca: pluginkit -e use -i $EXT_ID"
+  exit 0
+fi
+
+USER_ID="$(/usr/bin/id -u "$CONSOLE_USER")"
+
+# Komutu konsol kullanıcısı olarak çalıştır (root ise oturuma geçerek; değilse doğrudan).
+as_user() {
+  log "+ $*"
+  [ "$DRY" = "1" ] && return 0
+  if [ "$(/usr/bin/id -u)" = "0" ]; then
+    /bin/launchctl asuser "$USER_ID" /usr/bin/sudo -u "$CONSOLE_USER" "$@" >> "$LOG" 2>&1
+  else
+    "$@" >> "$LOG" 2>&1
+  fi
+  local rc=$?
+  [ $rc -ne 0 ] && log "  (çıkış kodu $rc; devam ediliyor)"
+  return 0
+}
+
+# 1) Uygulamayı ve eklentiyi sisteme tanıt (Servisler girdileri, dosya ilişkileri, ikon)
+as_user "$LSREGISTER" -f "$APP"
+as_user /usr/bin/pluginkit -a "$EXT"
+as_user /System/Library/CoreServices/pbs -update
+
+# 2) Finder sağ tık menüsünü etkinleştir
+as_user /usr/bin/pluginkit -e use -i "$EXT_ID"
+
+# 3) Finder eski eklenti bağlantısını tuttuğundan menü için bir kez yeniden başlatılır
+as_user /usr/bin/killall Finder
+
+# 4) MacRAR'ı aç: ilk açılışta Kurulum Yardımcısı (rar araçları, varsayılan uygulama) görünür
+as_user /usr/bin/open -a "$APP"
+
+log "MacRAR kurulum sonrası bitti"
+exit 0

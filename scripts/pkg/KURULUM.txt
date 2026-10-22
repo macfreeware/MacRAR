@@ -1,0 +1,55 @@
+MacRAR — KURULUM YARDIMI
+========================
+
+Bu dosya, MacRAR kurulum paketiyle (MacRAR-<sürüm>.pkg) birlikte dağıtılır.
+
+1) KURULUM PAKETİNİ AÇMA (macOS güvenlik uyarısı)
+   MacRAR, Apple tarafından noter onaylı değildir; bu yüzden indirilen paketi ilk açarken macOS
+   "Apple, ... kötü amaçlı yazılım içermediğini doğrulayamadı" diyerek engeller. Bu normaldir:
+   a) MacRAR-<sürüm>.pkg dosyasına çift tıklayın; uyarı çıkınca "Tamam" deyin.
+   b) Sistem Ayarları ▸ Gizlilik ve Güvenlik bölümünü açın.
+   c) Aşağıda "MacRAR-<sürüm>.pkg engellendi" yazan yerde "Yine de Aç" düğmesine basın ve onaylayın.
+   d) Kurulum penceresi açılır; yönergeleri izleyin (yönetici parolası istenir).
+
+   Dosyanın bozulmadığını doğrulamak için SHA-256 özetini (MacRAR-<sürüm>.pkg.sha256) kontrol edebilirsiniz:
+       shasum -a 256 MacRAR-<sürüm>.pkg
+
+2) KURULUM NE YAPAR
+   - MacRAR.app'i Uygulamalar klasörüne kurar.
+   - Finder sağ tık menüsü eklentisini etkinleştirir ve Finder'ı yeniden başlatır.
+   - MacRAR'ı açar; ilk açılışta "Kurulum Yardımcısı" kalan adımları gösterir.
+
+3) RAR ARAÇLARI
+   - RAR arşivlerini AÇMAK için gereken ücretsiz "unrar" (RARLAB) MacRAR ile birlikte gelir; ek bir şey gerekmez.
+   - RAR arşivi OLUŞTURMAK/DÜZENLEMEK için RARLAB'ın "rar" aracı gerekir. RARLAB lisansı rar deneme sürümünün
+     başka bir yazılımın içinde dağıtılmasına izin vermediği için MacRAR onu paketlemez; bunun yerine ilk açılışta
+     Kurulum Yardımcısı'nda "rar'ı RARLAB'dan indir ve kur" düğmesi vardır (Yardım > Kurulum Yardımcısı...).
+     Resmi paket https://www.rarlab.com adresinden indirilir ve yönetici parolası gerekmeden
+     ~/Library/Application Support/MacRAR/tools/rar klasörüne kurulur.
+   - Elle kurmak isterseniz: https://www.rarlab.com/download.htm adresinden "RAR for macOS" (komut satırı) paketini indirin
+     (Apple Silicon: rarmacos-arm-..., Intel: rarmacos-x64-...), "rar" dosyasını /usr/local/bin klasörüne kopyalayın.
+   Lisans: rar deneme sürümü en çok 40 gün ücretsizdir; sonrasında RARLAB lisansı satın almanız gerekir.
+   (Not: Homebrew'daki "rar" paketi macOS güvenlik denetiminden geçmediği için devre dışı bırakılmıştır;
+   "brew install --cask rar" artık çalışmaz.)
+   ZIP / 7Z / TAR için ek araç gerekmez.
+
+4) SAĞ TIK MENÜSÜ GÖRÜNMÜYORSA
+       pluginkit -e use -i local.macrar.app.FinderSync && killall Finder
+   Ya da: Sistem Ayarları ▸ Genel ▸ Oturum Açma Öğeleri ve Eklentiler ▸ Eklentiler ▸ Finder ▸ MacRAR.
+
+5) VARSAYILAN UYGULAMA
+   MacRAR ▸ Ayarlar ▸ Dosya türleri (macOS değişikliği onaylamanızı ister).
+
+6) KALDIRMA
+   MacRAR içinde: Yardım ▸ MacRAR'ı Kaldır...  (uygulamayı, Finder eklentisini ve kurulum kaydını siler;
+   ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar).
+   Ya da Terminal'de (dağıtımla gelen betik):
+       bash uninstall.sh
+   Uygulamayı yalnızca Çöp Kutusu'na atarsanız ayarlar, ~/Library/Application Support/MacRAR ve
+   Anahtar Zinciri'ndeki kayıtlı parolalar geride kalır.
+
+7) SORUN GİDERME
+   - Kurulum günlüğü: /tmp/MacRAR-kurulum.log
+   - Parola yöneticisi ilk kullanımda Anahtar Zinciri izni isteyebilir ("Her Zaman İzin Ver" deyin).
+
+MacRAR, RARLAB veya WinRAR ile bağlantılı değildir.

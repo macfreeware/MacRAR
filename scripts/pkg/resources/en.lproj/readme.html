@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><style>body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px;color:#222}h1{font-size:20px;margin:0 0 6px}h2{font-size:14px;margin:16px 0 4px}code{background:#eee;padding:1px 5px;border-radius:4px;font-family:Menlo,monospace;font-size:12px}ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12px}@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}}</style></head><body>
+<h1>Read Me: requirements and tips</h1>
+<h2>Requirements</h2>
+<ul>
+<li>macOS 15 or later (Apple Silicon and Intel)</li>
+<li><b>Opening RAR archives:</b> RARLAB's free <code>unrar</code> tool comes with MacRAR; nothing else is needed.</li>
+<li><b>Creating/editing RAR archives:</b> needs RARLAB's <code>rar</code> tool. On first launch the <b>Setup Assistant</b> offers a “Download and install rar from RARLAB” button: the official package is downloaded from <code>rarlab.com</code> and installed without an administrator password. The <code>rar</code> trial is free for up to 40 days, after which a RARLAB license is needed.</li>
+<li>ZIP, 7Z and TAR need nothing extra.</li>
+</ul>
+<h2>After installing</h2>
+<ul>
+<li>The <b>Setup Assistant</b> (shown on first launch; reopen it with <i>Help ▸ Setup Assistant…</i>) completes missing steps with one click.</li>
+<li><b>Default app:</b> MacRAR ▸ Settings ▸ File Types.</li>
+<li><b>Finder menu:</b> right-click a file, folder or archive; the <code>MacRAR · …</code> items appear.</li>
+<li><b>Language:</b> MacRAR follows the system language (English or Turkish); change it in MacRAR ▸ Settings ▸ General ▸ Language.</li>
+</ul>
+<h2>If the right-click menu does not appear</h2>
+<ol>
+<li>In Terminal: <code>pluginkit -e use -i local.macrar.app.FinderSync &amp;&amp; killall Finder</code></li>
+<li>Or: System Settings ▸ General ▸ Login Items &amp; Extensions ▸ Extensions ▸ Finder ▸ MacRAR.</li>
+</ol>
+<h2>Uninstalling</h2>
+<p>Use <i>Help ▸ Uninstall MacRAR…</i>, run the <code>uninstall.sh</code> script that comes with the download, or delete MacRAR from the Applications folder.</p>
+<h2>License</h2>
+<p>MacRAR is free software distributed under the GNU General Public License version 3 (GPL-3.0); the license text is inside the app (<code>MacRAR.app/Contents/Resources/LICENSE</code>) and in <code>LICENSE.txt</code> next to the installer. The bundled <code>unrar</code> is a separate program distributed under RARLAB's own license (<code>Contents/Resources/unrar/*/license.txt</code>).</p>
+<p class="n">Installer log: <code>/tmp/MacRAR-kurulum.log</code></p>
+</body></html>

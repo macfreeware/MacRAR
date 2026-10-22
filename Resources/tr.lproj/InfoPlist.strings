@@ -1,0 +1,7 @@
+/* MacRAR — Türkçe Info.plist metinleri. Belge türü adlarının anahtarı Info.plist'teki değerleridir. */
+
+"CFBundleDisplayName" = "MacRAR";
+"NSHumanReadableCopyright" = "© 2026 Rafet SAPANCI · GPL-3.0";
+"MacRAR Finder komutları" = "MacRAR Finder komutları";
+"RAR / 7-Zip Arşivi" = "RAR / 7-Zip Arşivi";
+"Arşiv" = "Arşiv";

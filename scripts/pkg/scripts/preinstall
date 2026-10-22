@@ -1,0 +1,4 @@
+#!/bin/bash
+# Güncelleme sırasında çalışan MacRAR'ı kapat (en iyi çaba; kurulumu asla engellemez).
+/usr/bin/pkill -x MacRAR 2>/dev/null
+exit 0

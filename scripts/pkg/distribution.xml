@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>MacRAR</title>
+    <welcome file="welcome.html" mime-type="text/html"/>
+    <readme file="readme.html" mime-type="text/html"/>
+    <conclusion file="conclusion.html" mime-type="text/html"/>
+
+    <options customize="never" require-scripts="false" hostArchitectures="arm64,x86_64"/>
+    <volume-check>
+        <allowed-os-versions><os-version min="15.0"/></allowed-os-versions>
+    </volume-check>
+    <domains enable_anywhere="false" enable_localSystem="true" enable_currentUserHome="false"/>
+
+    <choices-outline>
+        <line choice="default"><line choice="local.macrar.pkg"/></line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="local.macrar.pkg" visible="false"><pkg-ref id="local.macrar.pkg"/></choice>
+    <pkg-ref id="local.macrar.pkg" version="@VERSION@" onConclusion="none">MacRAR-component.pkg</pkg-ref>
+</installer-gui-script>

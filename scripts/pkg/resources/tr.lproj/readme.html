@@ -1,0 +1,27 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><style>body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px;color:#222}h1{font-size:20px;margin:0 0 6px}h2{font-size:14px;margin:16px 0 4px}code{background:#eee;padding:1px 5px;border-radius:4px;font-family:Menlo,monospace;font-size:12px}ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12px}@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}}</style></head><body>
+<h1>Okubeni: gereksinimler ve ipuçları</h1>
+<h2>Gereksinimler</h2>
+<ul>
+<li>macOS 15 veya üzeri (Apple Silicon ve Intel)</li>
+<li><b>RAR arşivlerini açmak:</b> RARLAB'ın ücretsiz <code>unrar</code> aracı MacRAR ile birlikte gelir; ek bir şey gerekmez.</li>
+<li><b>RAR arşivi oluşturmak/düzenlemek:</b> RARLAB'ın <code>rar</code> aracı gerekir. MacRAR ilk açılışta <b>Kurulum Yardımcısı</b>'nda “rar'ı RARLAB'dan indir ve kur” düğmesi sunar: resmi paket <code>rarlab.com</code> adresinden indirilir ve yönetici parolası istenmeden kurulur. <code>rar</code> deneme sürümü en çok 40 gün ücretsizdir, sonrasında RARLAB lisansı gerekir.</li>
+<li>ZIP, 7Z ve TAR için ek bir şey gerekmez.</li>
+</ul>
+<h2>Kurulumdan sonra</h2>
+<ul>
+<li><b>Kurulum Yardımcısı</b> (ilk açılışta çıkar; <i>Yardım ▸ Kurulum Yardımcısı…</i> ile tekrar açılır) eksik adımları tek tıkla tamamlatır.</li>
+<li><b>Varsayılan uygulama:</b> MacRAR ▸ Ayarlar ▸ Varsayılan uygulama.</li>
+<li><b>Finder menüsü:</b> bir dosya, klasör ya da arşive sağ tıklayın; <code>MacRAR · …</code> girdileri görünür.</li>
+<li><b>Dil:</b> MacRAR sistem dilini izler (Türkçe ya da İngilizce); MacRAR ▸ Ayarlar ▸ Genel ▸ Dil'den değiştirebilirsiniz.</li>
+</ul>
+<h2>Sağ tık menüsü görünmüyorsa</h2>
+<ol>
+<li>Terminal'de: <code>pluginkit -e use -i local.macrar.app.FinderSync &amp;&amp; killall Finder</code></li>
+<li>Ya da: Sistem Ayarları ▸ Genel ▸ Oturum Açma Öğeleri ve Eklentiler ▸ Eklentiler ▸ Finder ▸ MacRAR.</li>
+</ol>
+<h2>Kaldırma</h2>
+<p><i>Yardım ▸ MacRAR’ı Kaldır…</i> komutunu kullanın, dağıtımla birlikte gelen <code>uninstall.sh</code> betiğini çalıştırın ya da MacRAR'ı Uygulamalar klasöründen silin.</p>
+<h2>Lisans</h2>
+<p>MacRAR özgür yazılımdır ve GNU Genel Kamu Lisansı sürüm 3 (GPL-3.0) ile dağıtılır; lisans metni uygulamanın içinde (<code>MacRAR.app/Contents/Resources/LICENSE</code>) ve kurulum paketinin yanındaki <code>LICENSE.txt</code> dosyasındadır. Birlikte gelen <code>unrar</code>, RARLAB’ın kendi lisansıyla (<code>Contents/Resources/unrar/*/license.txt</code>) dağıtılan ayrı bir programdır.</p>
+<p class="n">Kurulum günlüğü: <code>/tmp/MacRAR-kurulum.log</code></p>
+</body></html>
