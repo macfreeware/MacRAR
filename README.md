@@ -131,7 +131,7 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
 - **About window** (MacRAR menu → About MacRAR): version/build, developer, short usage notes and shortcuts, tool versions and Finder extension status.
 - **Test**, **Preview** (Quick Look / Space), open with a double-click, drag and drop (open an archive / archive files), context menus.
 - A two-mode window like WinRAR: a file manager when no archive is open, the archive's contents once you enter one. Leave with Enclosing Folder / Backspace.
-- **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** or right in the **Setup Assistant** on first launch (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). The new language takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
+- **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** or right in the **Setup Assistant** on first launch (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). In the Setup Assistant the language changes instantly; a change made in Settings takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
 
 ## Requirements
 
@@ -151,7 +151,7 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
   on the `unar`/`bsdtar` command line (RAR passwords go through stdin).
   Creating ZIP/7Z/TAR works without them.
   You can change tool paths in the **Settings ▸ Tools** tab.
-- To build: the Xcode command-line tools (Swift 5.9+) and an internet connection: `scripts/build_app.sh` downloads the free `unrar` from RARLAB (SHA-256 verified) into `build/cache` and puts it in the app.
+- To build: the Xcode command-line tools (Swift 5.10+) and an internet connection: `scripts/build_app.sh` downloads the free `unrar` from RARLAB (SHA-256 verified) into `build/cache` and puts it in the app.
 
 ## Installation
 
@@ -328,7 +328,7 @@ scripts/check_strings.sh   # lists missing strings in both languages; exits with
 ## Known limitations
 
 - When dragging files out to extract them, the first try fails if a password is needed; the password is asked for and remembered, so drag again.
-- Formats other than RAR have no test, delete or rename.
+- 7Z and TAR archives are read-only: files cannot be added, deleted or renamed in them (RAR and ZIP can be edited).
 - Files with `*` or `?` in their name may be treated as wildcards by RAR commands (a limitation of rar).
 - On a cold start the main window stays hidden for about 1 second so the app can tell why it was opened (a Finder command or the user).
 - **Password** prompts coming from Finder appear in the main window for now (the Add/Extract windows are separate).

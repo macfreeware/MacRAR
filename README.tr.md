@@ -133,7 +133,7 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 - **Hakkında penceresi** (MacRAR menüsü → MacRAR Hakkında): sürüm/derleme, geliştirici, kısa kullanım ve kısayollar, araç sürümleri ile Finder eklentisi durumu.
 - **Sına**, **Önizle** (Quick Look / Boşluk), çift tıkla açma, sürükle-bırak (arşivi aç / dosyaları arşivle), bağlam menüleri.
 - WinRAR gibi iki kipli pencere: arşiv açık değilken dosya yöneticisi, arşive girince arşiv içeriği. Üst klasör / Backspace ile çıkış.
-- **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den ya da ilk açılışta doğrudan **Kurulum Yardımcısı**'ndan (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir, yeni dil MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
+- **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den ya da ilk açılışta doğrudan **Kurulum Yardımcısı**'ndan (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir. Kurulum Yardımcısı'nda dil anında değişir; Ayarlar'dan yapılan değişiklik MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
 
 ## Gereksinimler
 
@@ -153,7 +153,7 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
   komut satırında geçici olarak görünür (RAR parolaları ise stdin ile gider).
   ZIP/7Z/TAR oluşturma bunlarsız çalışır.
   Araç yollarını **Ayarlar ▸ Araçlar** sekmesinden değiştirebilirsiniz.
-- Derlemek için Xcode komut satırı araçları (Swift 5.9+) ve internet bağlantısı: `scripts/build_app.sh`, ücretsiz `unrar`ı RARLAB'dan (SHA-256 doğrulamalı) `build/cache` içine indirip uygulamaya koyar.
+- Derlemek için Xcode komut satırı araçları (Swift 5.10+) ve internet bağlantısı: `scripts/build_app.sh`, ücretsiz `unrar`ı RARLAB'dan (SHA-256 doğrulamalı) `build/cache` içine indirip uygulamaya koyar.
 
 ## Kurulum
 
@@ -330,7 +330,7 @@ scripts/check_strings.sh   # her iki dilde eksik metinleri listeler; eksik yoksa
 ## Bilinen sınırlar
 
 - Sürükleyerek çıkarmada parola gerekiyorsa ilk deneme başarısız olur; parola sorulur ve hatırlanır, sürüklemeyi tekrarlayın.
-- RAR dışı biçimlerde sınama, silme ve yeniden adlandırma yoktur.
+- 7Z ve TAR arşivleri salt okunurdur: içlerine dosya eklenemez, silinemez ya da yeniden adlandırılamaz (RAR ve ZIP düzenlenebilir).
 - Adında `*` veya `?` geçen dosyalar RAR komutlarında joker karakter olarak yorumlanabilir (rar'ın sınırlaması).
 - Soğuk açılışta ana pencere, açılış nedeni (Finder komutu mu, kullanıcı mı) anlaşılsın diye ilk yaklaşık 1 saniye gizli tutulur.
 - Finder'dan gelen **parola** soruları şimdilik ana pencerede çıkar (Ekle/Çıkar pencereleri bağımsızdır).
