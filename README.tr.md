@@ -177,7 +177,7 @@ RAR araçları (`rar`/`unrar`), Finder menüsü ve varsayılan uygulama durumunu
 Paketi kendiniz üretmek için:
 
 ```bash
-scripts/build_pkg.sh     # build/MacRAR-<sürüm>.pkg + .sha256 + KURULUM.txt + uninstall.sh + LICENSE.txt
+scripts/build_pkg.sh     # build/MacRAR-<sürüm>.pkg + .sha256 + KURULUM.txt + INSTALL.txt + uninstall.sh + LICENSE.txt
 PKG_SIGN_IDENTITY="Developer ID Installer: …" scripts/build_pkg.sh   # (isteğe bağlı) imzalı paket
 ```
 

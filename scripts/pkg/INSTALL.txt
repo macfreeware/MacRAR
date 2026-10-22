@@ -1,0 +1,61 @@
+MacRAR — INSTALLATION HELP
+==========================
+
+This file is distributed with the MacRAR installer (MacRAR-<version>.pkg).
+(Türkçe: KURULUM.txt dosyasına bakın)
+
+1) OPENING THE INSTALLER (macOS security warning)
+   MacRAR is not notarized by Apple, so the first time you open the downloaded package macOS blocks it,
+   saying it could not verify that it is free of malware. This is expected:
+   a) Double-click MacRAR-<version>.pkg; when the warning appears, click "Done".
+      Do NOT click "Move to Trash".
+   b) Open System Settings ▸ Privacy & Security and scroll down to Security.
+   c) Next to "MacRAR-<version>.pkg" was blocked to protect your Mac, click "Open Anyway";
+      confirm with your password or Touch ID.
+   d) The installer opens; follow the steps (an administrator password is required).
+   Prefer Terminal? Run
+       xattr -d com.apple.quarantine ~/Downloads/MacRAR-<version>.pkg
+   and then double-click the package.
+
+   To check that the file is not corrupted, compare its SHA-256 digest with MacRAR-<version>.pkg.sha256:
+       shasum -a 256 MacRAR-<version>.pkg
+
+2) WHAT THE INSTALLER DOES
+   - Installs MacRAR.app in the Applications folder.
+   - Turns on the Finder right-click menu extension and restarts Finder.
+   - Opens MacRAR; on first launch the "Setup Assistant" shows the remaining steps.
+
+3) RAR TOOLS
+   - The free "unrar" tool (RARLAB) needed to OPEN RAR archives comes with MacRAR; nothing else is needed.
+   - To CREATE/EDIT RAR archives you need RARLAB's "rar" tool. The RARLAB license does not allow the rar trial
+     to be distributed inside other software, so MacRAR does not bundle it. Instead, the Setup Assistant has a
+     "Download and install the RAR tools from RARLAB" button on first launch (Help ▸ Setup Assistant…).
+     The official package is downloaded from https://www.rarlab.com and installed, without an administrator
+     password, into ~/Library/Application Support/MacRAR/tools/rar.
+   - To install it by hand: download "RAR for macOS" (command line) from https://www.rarlab.com/download.htm
+     (Apple Silicon: rarmacos-arm-..., Intel: rarmacos-x64-...) and copy the "rar" file to /usr/local/bin.
+   License: the rar trial is free for up to 40 days; after that you need to buy a RARLAB license.
+   (Note: the "rar" package in Homebrew has been disabled because it does not pass macOS security checks;
+   "brew install --cask rar" no longer works.)
+   ZIP / 7Z / TAR need no extra tools.
+
+4) IF THE RIGHT-CLICK MENU DOES NOT APPEAR
+       pluginkit -e use -i local.macrar.app.FinderSync && killall Finder
+   Or: System Settings ▸ General ▸ Login Items & Extensions ▸ Extensions ▸ Finder ▸ MacRAR.
+
+5) DEFAULT APP
+   MacRAR ▸ Settings ▸ File Types (macOS asks you to confirm the change).
+
+6) UNINSTALLING
+   Inside MacRAR: Help ▸ Uninstall MacRAR…  (removes the app, the Finder extension and the installer receipt;
+   offers options for settings, downloaded tools and saved passwords).
+   Or in Terminal (script included in the download):
+       bash uninstall.sh
+   If you only move the app to the Trash, the settings, ~/Library/Application Support/MacRAR and
+   the saved passwords in the Keychain stay behind.
+
+7) TROUBLESHOOTING
+   - Installer log: /tmp/MacRAR-kurulum.log
+   - The password manager may ask for Keychain access on first use (choose "Always Allow").
+
+MacRAR is not affiliated with RARLAB or WinRAR.

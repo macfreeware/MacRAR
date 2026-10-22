@@ -81,7 +81,8 @@ public final class KeychainPasswordStore: PasswordStoring {
         guard update == errSecItemNotFound else { throw PasswordVaultError.keychain(update) }
         var add = baseQuery
         add[kSecValueData as String] = data
-        add[kSecAttrLabel as String] = "MacRAR kayıtlı arşiv parolaları"
+        // Dilden bağımsız: ad yalnızca kayıt ilk oluşturulurken verilir, sonradan dil değişse de kalır.
+        add[kSecAttrLabel as String] = "MacRAR archive passwords"
         let status = SecItemAdd(add as CFDictionary, nil)
         guard status == errSecSuccess else { throw PasswordVaultError.keychain(status) }
     }

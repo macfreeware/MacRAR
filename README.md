@@ -175,7 +175,7 @@ It shows the status of the RAR tools (`rar`/`unrar`), the Finder menu and the de
 To build the installer yourself:
 
 ```bash
-scripts/build_pkg.sh     # build/MacRAR-<version>.pkg + .sha256 + KURULUM.txt + uninstall.sh + LICENSE.txt
+scripts/build_pkg.sh     # build/MacRAR-<version>.pkg + .sha256 + KURULUM.txt + INSTALL.txt + uninstall.sh + LICENSE.txt
 PKG_SIGN_IDENTITY="Developer ID Installer: …" scripts/build_pkg.sh   # (optional) signed package
 ```
 

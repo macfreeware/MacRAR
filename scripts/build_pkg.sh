@@ -2,7 +2,7 @@
 # MacRAR kurulum paketini (.pkg) üretir.  Kullanım: scripts/build_pkg.sh
 #   SKIP_APP_BUILD=1     build/MacRAR.app zaten hazırsa yeniden derlemez
 #   PKG_SIGN_IDENTITY=…  ("Developer ID Installer: …") verilirse paket imzalanır; yoksa imzasız üretilir
-# Çıktı: build/MacRAR-<sürüm>.pkg, .sha256, KURULUM.txt, uninstall.sh ve LICENSE.txt (dağıtımla birlikte verilecekler)
+# Çıktı: build/MacRAR-<sürüm>.pkg, .sha256, KURULUM.txt, INSTALL.txt, uninstall.sh ve LICENSE.txt (dağıtımla birlikte verilecekler)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -68,6 +68,7 @@ rm -rf "${STAGE:?}"
 
 # Dağıtımla birlikte verilecek yardım dosyaları
 sed "s/<sürüm>/$VERSION/g" scripts/pkg/KURULUM.txt > build/KURULUM.txt
+sed "s/<version>/$VERSION/g" scripts/pkg/INSTALL.txt > build/INSTALL.txt
 cp scripts/uninstall.sh build/uninstall.sh
 cp LICENSE build/LICENSE.txt
 ( cd build && shasum -a 256 "MacRAR-$VERSION.pkg" > "MacRAR-$VERSION.pkg.sha256" )
