@@ -881,17 +881,19 @@ final class AppModelTests: XCTestCase {
         for needle in ["welcome.html", "readme.html", "conclusion.html", "@VERSION@", "local.macrar.pkg", "enable_localSystem=\"true\""] {
             XCTAssertTrue(xml.contains(needle), needle)
         }
-        // Sayfalar her dil için ayrı klasörde; Installer sistemin diline uyanı gösterir.
-        for lang in ["tr", "en"] {
-            for f in ["welcome.html", "readme.html", "conclusion.html"] {
-                let html = try String(contentsOf: repoRoot.appendingPathComponent("scripts/pkg/resources/\(lang).lproj/\(f)"), encoding: .utf8)
-                XCTAssertTrue(html.contains("charset=\"utf-8\"") && html.contains("MacRAR"), "\(lang)/\(f)")
+        // Her sayfa iki dili içerir; sol alttaki TR / EN düğmeleri (yalnızca CSS) dili anında değiştirir.
+        // build_pkg.sh @LANG@ / @CHECKED_*@ yerlerini her dil klasörü için doldurur.
+        for f in ["welcome.html", "readme.html", "conclusion.html"] {
+            let html = try String(contentsOf: repoRoot.appendingPathComponent("scripts/pkg/resources/\(f)"), encoding: .utf8)
+            XCTAssertTrue(html.contains("charset=\"utf-8\"") && html.contains("MacRAR"), f)
+            for needle in ["@LANG@", "@CHECKED_TR@", "@CHECKED_EN@", "class=\"tr\"", "class=\"en\"", "label for=\"l-tr\"", "label for=\"l-en\""] {
+                XCTAssertTrue(html.contains(needle), "\(f): \(needle)")
             }
-            let readme = try String(contentsOf: repoRoot.appendingPathComponent("scripts/pkg/resources/\(lang).lproj/readme.html"), encoding: .utf8)
-            XCTAssertTrue(readme.contains("rarlab.com") && readme.contains("unrar") && readme.contains("pluginkit -e use"), "\(lang): okubeni, kurulum sonrası adımları içermeli")
-            XCTAssertTrue(readme.contains("GPL-3.0"), "\(lang): okubeni lisansı belirtmeli")
-            XCTAssertFalse(readme.contains("brew install --cask rar"), "\(lang): devre dışı bırakılmış brew komutu önerilmemeli")
         }
+        let readme = try String(contentsOf: repoRoot.appendingPathComponent("scripts/pkg/resources/readme.html"), encoding: .utf8)
+        XCTAssertTrue(readme.contains("rarlab.com") && readme.contains("unrar") && readme.contains("pluginkit -e use"), "Okubeni, kurulum sonrası adımları içermeli")
+        XCTAssertTrue(readme.contains("GPL-3.0") && readme.contains("Lisans") && readme.contains("License"), "Okubeni iki dilde lisansı belirtmeli")
+        XCTAssertFalse(readme.contains("brew install --cask rar"), "devre dışı bırakılmış brew komutu önerilmemeli")
         for script in ["scripts/build_pkg.sh", "scripts/uninstall.sh", "scripts/pkg/scripts/preinstall", "scripts/pkg/scripts/postinstall"] {
             let p = Process(); p.executableURL = URL(fileURLWithPath: "/bin/bash")
             p.arguments = ["-n", repoRoot.appendingPathComponent(script).path]

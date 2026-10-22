@@ -38,8 +38,16 @@ pkgbuild --root "$STAGE/payload" \
          "$STAGE/MacRAR-component.pkg" >/dev/null 2> >(grep -v '^write: Permission denied$' >&2)
 
 echo "▸ Kurulum paketi (adım adım pencereli)…"
-# Karşılama/okubeni/bitiş sayfaları dil klasörlerinde (tr.lproj, en.lproj); Installer sistemin diline uyanı gösterir.
-cp -R scripts/pkg/resources/*.lproj "$STAGE/resources/"
+# Karşılama/okubeni/bitiş sayfaları her iki dili içerir (sol altta TR / EN). Installer sistemin diline uyan klasörü seçer;
+# sayfa o dille açılır, kullanıcı düğmelerle anında öbürüne geçer.
+for lang in tr en; do
+  mkdir -p "$STAGE/resources/$lang.lproj"
+  for page in scripts/pkg/resources/*.html; do
+    tr_on=""; en_on=""; [[ "$lang" == tr ]] && tr_on="checked" || en_on="checked"
+    sed -e "s/@LANG@/$lang/g" -e "s/@CHECKED_TR@/$tr_on/" -e "s/@CHECKED_EN@/$en_on/" "$page" \
+      > "$STAGE/resources/$lang.lproj/$(basename "$page")"
+  done
+done
 sed "s/@VERSION@/$VERSION/g" scripts/pkg/distribution.xml > "$STAGE/distribution.xml"
 SIGN_ARGS=()
 if [[ -n "${PKG_SIGN_IDENTITY:-}" ]]; then SIGN_ARGS=(--sign "$PKG_SIGN_IDENTITY"); fi

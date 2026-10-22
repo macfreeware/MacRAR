@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- Kurulum paketi sayfası (Türkçe + İngilizce). scripts/build_pkg.sh her dil klasörü (tr.lproj, en.lproj) için
+     @LANG@ yerine o dili koyar; sayfa o dille açılır, sol alttaki TR / EN düğmeleriyle anında öbürüne geçilir. -->
+<html lang="@LANG@"><head><meta charset="utf-8"><style>
+body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px 56px;color:#222}
+h1{font-size:20px;margin:0 0 6px}h2{font-size:14px;margin:16px 0 4px}
+code{background:#eee;padding:1px 5px;border-radius:4px;font-family:Menlo,monospace;font-size:12px}
+ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12px}
+/* Dil seçimi yalnızca CSS ile: Installer betik çalıştırmasa da çalışır, sayfa yeniden yüklenmez. */
+.lang-radio{position:absolute;opacity:0;pointer-events:none}
+#l-en:checked~.tr,#l-tr:checked~.en{display:none}
+.langbar{position:fixed;left:12px;bottom:10px;display:flex;gap:6px;padding:4px;border-radius:9px;
+  background:rgba(245,245,247,.96);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.langbar label{cursor:pointer;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:600;color:#333;user-select:none}
+.langbar label:hover{background:rgba(0,0,0,.06)}
+#l-tr:checked~.langbar label[for=l-tr],#l-en:checked~.langbar label[for=l-en]{background:#0a64e6;color:#fff}
+@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}
+  .langbar{background:rgba(44,44,46,.96)}.langbar label{color:#ddd}.langbar label:hover{background:rgba(255,255,255,.08)}}
+</style></head><body>
+<input type="radio" name="lang" id="l-tr" class="lang-radio" @CHECKED_TR@>
+<input type="radio" name="lang" id="l-en" class="lang-radio" @CHECKED_EN@>
+<div class="tr" lang="tr">
+<h1>Okubeni: gereksinimler ve ipuçları</h1>
+<h2>Gereksinimler</h2>
+<ul>
+<li>macOS 15 veya üzeri (Apple Silicon ve Intel)</li>
+<li><b>RAR arşivlerini açmak:</b> RARLAB'ın ücretsiz <code>unrar</code> aracı MacRAR ile birlikte gelir; ek bir şey gerekmez.</li>
+<li><b>RAR arşivi oluşturmak/düzenlemek:</b> RARLAB'ın <code>rar</code> aracı gerekir. MacRAR ilk açılışta <b>Kurulum Yardımcısı</b>'nda “rar'ı RARLAB'dan indir ve kur” düğmesi sunar: resmi paket <code>rarlab.com</code> adresinden indirilir ve yönetici parolası istenmeden kurulur. <code>rar</code> deneme sürümü en çok 40 gün ücretsizdir, sonrasında RARLAB lisansı gerekir.</li>
+<li>ZIP, 7Z ve TAR için ek bir şey gerekmez.</li>
+</ul>
+<h2>Kurulumdan sonra</h2>
+<ul>
+<li><b>Kurulum Yardımcısı</b> (ilk açılışta çıkar; <i>Yardım ▸ Kurulum Yardımcısı…</i> ile tekrar açılır) eksik adımları tek tıkla tamamlatır.</li>
+<li><b>Varsayılan uygulama:</b> MacRAR ▸ Ayarlar ▸ Varsayılan uygulama.</li>
+<li><b>Finder menüsü:</b> bir dosya, klasör ya da arşive sağ tıklayın; <code>MacRAR · …</code> girdileri görünür.</li>
+<li><b>Dil:</b> MacRAR sistem dilini izler (Türkçe ya da İngilizce); MacRAR ▸ Ayarlar ▸ Genel ▸ Dil'den değiştirebilirsiniz.</li>
+</ul>
+<h2>Sağ tık menüsü görünmüyorsa</h2>
+<ol>
+<li>Terminal'de: <code>pluginkit -e use -i local.macrar.app.FinderSync &amp;&amp; killall Finder</code></li>
+<li>Ya da: Sistem Ayarları ▸ Genel ▸ Oturum Açma Öğeleri ve Eklentiler ▸ Eklentiler ▸ Finder ▸ MacRAR.</li>
+</ol>
+<h2>Kaldırma</h2>
+<p><i>Yardım ▸ MacRAR’ı Kaldır…</i> komutunu kullanın, dağıtımla birlikte gelen <code>uninstall.sh</code> betiğini çalıştırın ya da MacRAR'ı Uygulamalar klasöründen silin.</p>
+<h2>Lisans</h2>
+<p>MacRAR özgür yazılımdır ve GNU Genel Kamu Lisansı sürüm 3 (GPL-3.0) ile dağıtılır; lisans metni uygulamanın içinde (<code>MacRAR.app/Contents/Resources/LICENSE</code>) ve kurulum paketinin yanındaki <code>LICENSE.txt</code> dosyasındadır. Birlikte gelen <code>unrar</code>, RARLAB’ın kendi lisansıyla (<code>Contents/Resources/unrar/*/license.txt</code>) dağıtılan ayrı bir programdır.</p>
+<p class="n">Kurulum günlüğü: <code>/tmp/MacRAR-kurulum.log</code></p>
+</div>
+<div class="en" lang="en">
+<h1>Read Me: requirements and tips</h1>
+<h2>Requirements</h2>
+<ul>
+<li>macOS 15 or later (Apple Silicon and Intel)</li>
+<li><b>Opening RAR archives:</b> RARLAB's free <code>unrar</code> tool comes with MacRAR; nothing else is needed.</li>
+<li><b>Creating/editing RAR archives:</b> needs RARLAB's <code>rar</code> tool. On first launch the <b>Setup Assistant</b> offers a “Download and install rar from RARLAB” button: the official package is downloaded from <code>rarlab.com</code> and installed without an administrator password. The <code>rar</code> trial is free for up to 40 days, after which a RARLAB license is needed.</li>
+<li>ZIP, 7Z and TAR need nothing extra.</li>
+</ul>
+<h2>After installing</h2>
+<ul>
+<li>The <b>Setup Assistant</b> (shown on first launch; reopen it with <i>Help ▸ Setup Assistant…</i>) completes missing steps with one click.</li>
+<li><b>Default app:</b> MacRAR ▸ Settings ▸ File Types.</li>
+<li><b>Finder menu:</b> right-click a file, folder or archive; the <code>MacRAR · …</code> items appear.</li>
+<li><b>Language:</b> MacRAR follows the system language (English or Turkish); change it in MacRAR ▸ Settings ▸ General ▸ Language.</li>
+</ul>
+<h2>If the right-click menu does not appear</h2>
+<ol>
+<li>In Terminal: <code>pluginkit -e use -i local.macrar.app.FinderSync &amp;&amp; killall Finder</code></li>
+<li>Or: System Settings ▸ General ▸ Login Items &amp; Extensions ▸ Extensions ▸ Finder ▸ MacRAR.</li>
+</ol>
+<h2>Uninstalling</h2>
+<p>Use <i>Help ▸ Uninstall MacRAR…</i>, run the <code>uninstall.sh</code> script that comes with the download, or delete MacRAR from the Applications folder.</p>
+<h2>License</h2>
+<p>MacRAR is free software distributed under the GNU General Public License version 3 (GPL-3.0); the license text is inside the app (<code>MacRAR.app/Contents/Resources/LICENSE</code>) and in <code>LICENSE.txt</code> next to the installer. The bundled <code>unrar</code> is a separate program distributed under RARLAB's own license (<code>Contents/Resources/unrar/*/license.txt</code>).</p>
+<p class="n">Installer log: <code>/tmp/MacRAR-kurulum.log</code></p>
+</div>
+<div class="langbar"><label for="l-tr">🇹🇷 TR</label><label for="l-en">🇬🇧 EN</label></div>
+<script>
+// Varsa: seçilen dil öteki sayfalarda da (Beni Oku, Özet) geçerli olsun. Betik çalışmazsa düğmeler yine CSS ile çalışır.
+try {
+  var saved = localStorage.getItem("macrar-installer-lang");
+  if (saved === "tr" || saved === "en") document.getElementById("l-" + saved).checked = true;
+  ["tr", "en"].forEach(function (l) {
+    document.getElementById("l-" + l).addEventListener("change", function () { localStorage.setItem("macrar-installer-lang", l); });
+  });
+} catch (e) {}
+</script>
+</body></html>
