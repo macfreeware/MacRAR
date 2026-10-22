@@ -1,25 +1,20 @@
 <!doctype html>
-<!-- Kurulum paketi sayfası (Türkçe + İngilizce). scripts/build_pkg.sh her dil klasörü (tr.lproj, en.lproj) için
-     @LANG@ yerine o dili koyar; sayfa o dille açılır, sol alttaki TR / EN düğmeleriyle anında öbürüne geçilir. -->
+<!-- Kurulum paketi sayfası, iki dilde. macOS Installer sayfayı biçimli metne çevirir (betik, form ve CSS ile gizleme çalışmaz);
+     bu yüzden iki dil alt alta durur. scripts/build_pkg.sh her dil klasörü (tr.lproj, en.lproj) için o dili üste alır:
+     @LANG@ yerine dili, @BODY@ yerine dosyanın sonundaki TR ve EN bloklarını (o dil önce, araya çizgi) koyar. -->
 <html lang="@LANG@"><head><meta charset="utf-8"><style>
-body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px 56px;color:#222}
+body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px;color:#222}
 h1{font-size:20px;margin:0 0 6px}h2{font-size:14px;margin:16px 0 4px}
 code{background:#eee;padding:1px 5px;border-radius:4px;font-family:Menlo,monospace;font-size:12px}
 ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12px}
-/* Dil seçimi yalnızca CSS ile: Installer betik çalıştırmasa da çalışır, sayfa yeniden yüklenmez. */
-.lang-radio{position:absolute;opacity:0;pointer-events:none}
-#l-en:checked~.tr,#l-tr:checked~.en{display:none}
-.langbar{position:fixed;left:12px;bottom:10px;display:flex;gap:6px;padding:4px;border-radius:9px;
-  background:rgba(245,245,247,.96);box-shadow:0 1px 4px rgba(0,0,0,.18)}
-.langbar label{cursor:pointer;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:600;color:#333;user-select:none}
-.langbar label:hover{background:rgba(0,0,0,.06)}
-#l-tr:checked~.langbar label[for=l-tr],#l-en:checked~.langbar label[for=l-en]{background:#0a64e6;color:#fff}
-@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}
-  .langbar{background:rgba(44,44,46,.96)}.langbar label{color:#ddd}.langbar label:hover{background:rgba(255,255,255,.08)}}
+.lang{font-size:12px;font-weight:600;color:#0a64e6;margin:0 0 6px}
+hr{border:0;border-top:1px solid #ccc;margin:22px 0 14px}
+@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}.lang{color:#4c9bff}hr{border-top-color:#555}}
 </style></head><body>
-<input type="radio" name="lang" id="l-tr" class="lang-radio" @CHECKED_TR@>
-<input type="radio" name="lang" id="l-en" class="lang-radio" @CHECKED_EN@>
-<div class="tr" lang="tr">
+@BODY@
+</body></html>
+<!--TR-->
+<p class="lang">🇹🇷 Türkçe</p>
 <h1>MacRAR kurulumuna hoş geldiniz</h1>
 <p>macOS için WinRAR tarzı arşiv yöneticisi: RAR, ZIP, 7Z ve TAR arşivlerini açmadan gezin, çıkarın, sıkıştırın; Finder'a tam entegre çalışır.</p>
 <h2>Bu kurulum sizin için şunları yapar</h2>
@@ -30,8 +25,9 @@ ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12
 <li>MacRAR açılır ve <b>Kurulum Yardımcısı</b> gerekli kalan adımları gösterir (RAR araçları, varsayılan uygulama).</li>
 </ol>
 <p class="n">Kurulum yönetici parolanızı isteyecektir. MacRAR, RARLAB veya WinRAR ile bağlantılı değildir.</p>
-</div>
-<div class="en" lang="en">
+<!--/TR-->
+<!--EN-->
+<p class="lang">🇬🇧 English</p>
 <h1>Welcome to the MacRAR installer</h1>
 <p>A WinRAR-style archive manager for macOS: browse, extract and compress RAR, ZIP, 7Z and TAR archives without unpacking them first; fully integrated with Finder.</p>
 <h2>This installer will</h2>
@@ -42,16 +38,4 @@ ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12
 <li>Open MacRAR, whose <b>Setup Assistant</b> shows any remaining steps (RAR tools, default app).</li>
 </ol>
 <p class="n">The installer will ask for your administrator password. MacRAR is not affiliated with RARLAB or WinRAR.</p>
-</div>
-<div class="langbar"><label for="l-tr">🇹🇷 TR</label><label for="l-en">🇬🇧 EN</label></div>
-<script>
-// Varsa: seçilen dil öteki sayfalarda da (Beni Oku, Özet) geçerli olsun. Betik çalışmazsa düğmeler yine CSS ile çalışır.
-try {
-  var saved = localStorage.getItem("macrar-installer-lang");
-  if (saved === "tr" || saved === "en") document.getElementById("l-" + saved).checked = true;
-  ["tr", "en"].forEach(function (l) {
-    document.getElementById("l-" + l).addEventListener("change", function () { localStorage.setItem("macrar-installer-lang", l); });
-  });
-} catch (e) {}
-</script>
-</body></html>
+<!--/EN-->

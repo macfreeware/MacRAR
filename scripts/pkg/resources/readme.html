@@ -1,25 +1,20 @@
 <!doctype html>
-<!-- Kurulum paketi sayfası (Türkçe + İngilizce). scripts/build_pkg.sh her dil klasörü (tr.lproj, en.lproj) için
-     @LANG@ yerine o dili koyar; sayfa o dille açılır, sol alttaki TR / EN düğmeleriyle anında öbürüne geçilir. -->
+<!-- Kurulum paketi sayfası, iki dilde. macOS Installer sayfayı biçimli metne çevirir (betik, form ve CSS ile gizleme çalışmaz);
+     bu yüzden iki dil alt alta durur. scripts/build_pkg.sh her dil klasörü (tr.lproj, en.lproj) için o dili üste alır:
+     @LANG@ yerine dili, @BODY@ yerine dosyanın sonundaki TR ve EN bloklarını (o dil önce, araya çizgi) koyar. -->
 <html lang="@LANG@"><head><meta charset="utf-8"><style>
-body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px 56px;color:#222}
+body{font-family:-apple-system,Helvetica,sans-serif;font-size:13px;line-height:1.5;margin:14px 18px;color:#222}
 h1{font-size:20px;margin:0 0 6px}h2{font-size:14px;margin:16px 0 4px}
 code{background:#eee;padding:1px 5px;border-radius:4px;font-family:Menlo,monospace;font-size:12px}
 ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12px}
-/* Dil seçimi yalnızca CSS ile: Installer betik çalıştırmasa da çalışır, sayfa yeniden yüklenmez. */
-.lang-radio{position:absolute;opacity:0;pointer-events:none}
-#l-en:checked~.tr,#l-tr:checked~.en{display:none}
-.langbar{position:fixed;left:12px;bottom:10px;display:flex;gap:6px;padding:4px;border-radius:9px;
-  background:rgba(245,245,247,.96);box-shadow:0 1px 4px rgba(0,0,0,.18)}
-.langbar label{cursor:pointer;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:600;color:#333;user-select:none}
-.langbar label:hover{background:rgba(0,0,0,.06)}
-#l-tr:checked~.langbar label[for=l-tr],#l-en:checked~.langbar label[for=l-en]{background:#0a64e6;color:#fff}
-@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}
-  .langbar{background:rgba(44,44,46,.96)}.langbar label{color:#ddd}.langbar label:hover{background:rgba(255,255,255,.08)}}
+.lang{font-size:12px;font-weight:600;color:#0a64e6;margin:0 0 6px}
+hr{border:0;border-top:1px solid #ccc;margin:22px 0 14px}
+@media(prefers-color-scheme:dark){body{color:#ddd}code{background:#333}.n{color:#999}.lang{color:#4c9bff}hr{border-top-color:#555}}
 </style></head><body>
-<input type="radio" name="lang" id="l-tr" class="lang-radio" @CHECKED_TR@>
-<input type="radio" name="lang" id="l-en" class="lang-radio" @CHECKED_EN@>
-<div class="tr" lang="tr">
+@BODY@
+</body></html>
+<!--TR-->
+<p class="lang">🇹🇷 Türkçe</p>
 <h1>Okubeni: gereksinimler ve ipuçları</h1>
 <h2>Gereksinimler</h2>
 <ul>
@@ -45,8 +40,9 @@ ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12
 <h2>Lisans</h2>
 <p>MacRAR özgür yazılımdır ve GNU Genel Kamu Lisansı sürüm 3 (GPL-3.0) ile dağıtılır; lisans metni uygulamanın içinde (<code>MacRAR.app/Contents/Resources/LICENSE</code>) ve kurulum paketinin yanındaki <code>LICENSE.txt</code> dosyasındadır. Birlikte gelen <code>unrar</code>, RARLAB’ın kendi lisansıyla (<code>Contents/Resources/unrar/*/license.txt</code>) dağıtılan ayrı bir programdır.</p>
 <p class="n">Kurulum günlüğü: <code>/tmp/MacRAR-kurulum.log</code></p>
-</div>
-<div class="en" lang="en">
+<!--/TR-->
+<!--EN-->
+<p class="lang">🇬🇧 English</p>
 <h1>Read Me: requirements and tips</h1>
 <h2>Requirements</h2>
 <ul>
@@ -72,16 +68,4 @@ ol,ul{margin:4px 0 4px 20px;padding:0}li{margin:3px 0}.n{color:#666;font-size:12
 <h2>License</h2>
 <p>MacRAR is free software distributed under the GNU General Public License version 3 (GPL-3.0); the license text is inside the app (<code>MacRAR.app/Contents/Resources/LICENSE</code>) and in <code>LICENSE.txt</code> next to the installer. The bundled <code>unrar</code> is a separate program distributed under RARLAB's own license (<code>Contents/Resources/unrar/*/license.txt</code>).</p>
 <p class="n">Installer log: <code>/tmp/MacRAR-kurulum.log</code></p>
-</div>
-<div class="langbar"><label for="l-tr">🇹🇷 TR</label><label for="l-en">🇬🇧 EN</label></div>
-<script>
-// Varsa: seçilen dil öteki sayfalarda da (Beni Oku, Özet) geçerli olsun. Betik çalışmazsa düğmeler yine CSS ile çalışır.
-try {
-  var saved = localStorage.getItem("macrar-installer-lang");
-  if (saved === "tr" || saved === "en") document.getElementById("l-" + saved).checked = true;
-  ["tr", "en"].forEach(function (l) {
-    document.getElementById("l-" + l).addEventListener("change", function () { localStorage.setItem("macrar-installer-lang", l); });
-  });
-} catch (e) {}
-</script>
-</body></html>
+<!--/EN-->

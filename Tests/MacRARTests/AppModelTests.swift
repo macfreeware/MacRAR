@@ -881,12 +881,12 @@ final class AppModelTests: XCTestCase {
         for needle in ["welcome.html", "readme.html", "conclusion.html", "@VERSION@", "local.macrar.pkg", "enable_localSystem=\"true\""] {
             XCTAssertTrue(xml.contains(needle), needle)
         }
-        // Her sayfa iki dili içerir; sol alttaki TR / EN düğmeleri (yalnızca CSS) dili anında değiştirir.
-        // build_pkg.sh @LANG@ / @CHECKED_*@ yerlerini her dil klasörü için doldurur.
+        // Her sayfa iki dili alt alta içerir (Installer sayfayı biçimli metne çevirir; tıklanabilir seçici çalışmaz).
+        // build_pkg.sh her dil klasörü için @LANG@ ve @BODY@ yerlerini doldurur, o dili üste alır.
         for f in ["welcome.html", "readme.html", "conclusion.html"] {
             let html = try String(contentsOf: repoRoot.appendingPathComponent("scripts/pkg/resources/\(f)"), encoding: .utf8)
             XCTAssertTrue(html.contains("charset=\"utf-8\"") && html.contains("MacRAR"), f)
-            for needle in ["@LANG@", "@CHECKED_TR@", "@CHECKED_EN@", "class=\"tr\"", "class=\"en\"", "label for=\"l-tr\"", "label for=\"l-en\""] {
+            for needle in ["@LANG@", "@BODY@", "<!--TR-->", "<!--/TR-->", "<!--EN-->", "<!--/EN-->", "🇹🇷 Türkçe", "🇬🇧 English"] {
                 XCTAssertTrue(html.contains(needle), "\(f): \(needle)")
             }
         }

@@ -38,14 +38,21 @@ pkgbuild --root "$STAGE/payload" \
          "$STAGE/MacRAR-component.pkg" >/dev/null 2> >(grep -v '^write: Permission denied$' >&2)
 
 echo "▸ Kurulum paketi (adım adım pencereli)…"
-# Karşılama/okubeni/bitiş sayfaları her iki dili içerir (sol altta TR / EN). Installer sistemin diline uyan klasörü seçer;
-# sayfa o dille açılır, kullanıcı düğmelerle anında öbürüne geçer.
+# Karşılama/okubeni/bitiş sayfaları iki dili alt alta içerir (Installer sayfaları biçimli metne çevirir; tıklanabilir
+# dil seçici çalışmaz). Installer sistemin diline uyan klasörü seçer; o klasördeki sayfada o dil üstte durur.
 for lang in tr en; do
   mkdir -p "$STAGE/resources/$lang.lproj"
   for page in scripts/pkg/resources/*.html; do
-    tr_on=""; en_on=""; [[ "$lang" == tr ]] && tr_on="checked" || en_on="checked"
-    sed -e "s/@LANG@/$lang/g" -e "s/@CHECKED_TR@/$tr_on/" -e "s/@CHECKED_EN@/$en_on/" "$page" \
-      > "$STAGE/resources/$lang.lproj/$(basename "$page")"
+    python3 -I - "$page" "$lang" "$STAGE/resources/$lang.lproj/$(basename "$page")" <<'PY'
+import re, sys
+src, lang, out = sys.argv[1:4]
+text = open(src, encoding="utf-8").read()
+page, rest = text.split("</body></html>", 1)
+blocks = {k: re.search(rf"<!--{k}-->\n(.*?)<!--/{k}-->", rest, re.S).group(1) for k in ("TR", "EN")}
+first, second = ("TR", "EN") if lang == "tr" else ("EN", "TR")
+body = blocks[first] + "<hr>\n" + blocks[second]
+open(out, "w", encoding="utf-8").write(page.replace("@LANG@", lang).replace("@BODY@", body.strip()) + "</body></html>\n")
+PY
   done
 done
 sed "s/@VERSION@/$VERSION/g" scripts/pkg/distribution.xml > "$STAGE/distribution.xml"
