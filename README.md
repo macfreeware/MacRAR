@@ -31,9 +31,9 @@
 > Prefer Terminal? Run `xattr -d com.apple.quarantine ~/Downloads/MacRAR-*.pkg`, then double-click the package.
 
 <p align="center">
-  <img src="docs/screenshots/gatekeeper-warning.png" width="298" alt="macOS warning: the package was not opened. Click Done.">
+  <img src="docs/screenshots/gatekeeper-warning.png" width="327" alt="macOS warning: the package was not opened. Click Done.">
   &nbsp;
-  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="520" alt="System Settings, Privacy &amp; Security: Open Anyway">
+  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="551" alt="System Settings, Privacy &amp; Security: Open Anyway">
 </p>
 <p align="center"><sub>Left: click <b>Done</b>. Right: <b>System Settings ▸ Privacy &amp; Security ▸ Open Anyway</b>. (Screenshots from a Turkish macOS.)</sub></p>
 
@@ -77,31 +77,31 @@ Asked for encrypted archives, with the saved passwords menu and the option to sa
 
 Passwords are stored in the macOS Keychain.
 
-<p align="center"><img src="docs/screenshots/password-manager.png" width="520" alt="Password manager"></p>
+<p align="center"><img src="docs/screenshots/password-manager.png" width="568" alt="Password manager"></p>
 
 ### Settings ▸ General
 
 Hidden files, interface language and the password manager.
 
-<p align="center"><img src="docs/screenshots/settings-general.png" width="600" alt="Settings ▸ General"></p>
+<p align="center"><img src="docs/screenshots/settings-general.png" width="648" alt="Settings ▸ General"></p>
 
 ### Settings ▸ Finder
 
 Timestamp format for quick compression and the right-click menu switch.
 
-<p align="center"><img src="docs/screenshots/settings-finder.png" width="600" alt="Settings ▸ Finder"></p>
+<p align="center"><img src="docs/screenshots/settings-finder.png" width="648" alt="Settings ▸ Finder"></p>
 
 ### Settings ▸ File Types
 
 The default app for RAR, 7Z, ZIP and TAR.GZ.
 
-<p align="center"><img src="docs/screenshots/settings-file-types.png" width="600" alt="Settings ▸ File Types"></p>
+<p align="center"><img src="docs/screenshots/settings-file-types.png" width="648" alt="Settings ▸ File Types"></p>
 
 ### Setup Assistant
 
 Shows the status of the RAR tools, the Finder menu and the default app, with one-click fixes.
 
-<p align="center"><img src="docs/screenshots/setup-assistant.png" width="580" alt="Setup Assistant"></p>
+<p align="center"><img src="docs/screenshots/setup-assistant.png" width="628" alt="Setup Assistant"></p>
 
 ## Features
 

@@ -31,9 +31,9 @@
 > Terminal'i tercih ederseniz: `xattr -d com.apple.quarantine ~/Downloads/MacRAR-*.pkg` komutunu çalıştırıp pakete çift tıklayın.
 
 <p align="center">
-  <img src="docs/screenshots/gatekeeper-warning.png" width="298" alt="macOS uyarısı: paket açılmadı. Bitti'ye tıklayın.">
+  <img src="docs/screenshots/gatekeeper-warning.png" width="327" alt="macOS uyarısı: paket açılmadı. Bitti'ye tıklayın.">
   &nbsp;
-  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="520" alt="Sistem Ayarları, Gizlilik ve Güvenlik: Yine de Aç">
+  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="551" alt="Sistem Ayarları, Gizlilik ve Güvenlik: Yine de Aç">
 </p>
 <p align="center"><sub>Solda: <b>Bitti</b>'ye tıklayın. Sağda: <b>Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç</b>.</sub></p>
 
@@ -79,31 +79,31 @@ Bir raporun iki sürümü: yalnızca bir arşivde olan ve içeriği (CRC) farkl�
 
 Parolalar macOS Anahtar Zinciri'nde saklanır.
 
-<p align="center"><img src="docs/screenshots/password-manager.png" width="520" alt="Parola yöneticisi"></p>
+<p align="center"><img src="docs/screenshots/password-manager.png" width="568" alt="Parola yöneticisi"></p>
 
 ### Ayarlar ▸ Genel
 
 Gizli dosyalar, arayüz dili ve parola yöneticisi.
 
-<p align="center"><img src="docs/screenshots/settings-general.png" width="600" alt="Ayarlar ▸ Genel"></p>
+<p align="center"><img src="docs/screenshots/settings-general.png" width="648" alt="Ayarlar ▸ Genel"></p>
 
 ### Ayarlar ▸ Finder
 
 Hızlı sıkıştırmanın zaman damgası biçimi ve sağ tık menüsü anahtarı.
 
-<p align="center"><img src="docs/screenshots/settings-finder.png" width="600" alt="Ayarlar ▸ Finder"></p>
+<p align="center"><img src="docs/screenshots/settings-finder.png" width="648" alt="Ayarlar ▸ Finder"></p>
 
 ### Ayarlar ▸ Dosya türleri
 
 RAR, 7Z, ZIP ve TAR.GZ için varsayılan uygulama.
 
-<p align="center"><img src="docs/screenshots/settings-file-types.png" width="600" alt="Ayarlar ▸ Dosya türleri"></p>
+<p align="center"><img src="docs/screenshots/settings-file-types.png" width="648" alt="Ayarlar ▸ Dosya türleri"></p>
 
 ### Kurulum Yardımcısı
 
 RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksikleri tek tıkla düzeltir.
 
-<p align="center"><img src="docs/screenshots/setup-assistant.png" width="580" alt="Kurulum Yardımcısı"></p>
+<p align="center"><img src="docs/screenshots/setup-assistant.png" width="628" alt="Kurulum Yardımcısı"></p>
 
 ## Özellikler
 
