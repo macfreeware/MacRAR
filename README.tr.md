@@ -21,6 +21,22 @@
   <a href="https://gitlab.com/freeware2/macrar/-/releases">Tüm sürümler</a> · <a href="#kurulum">Kurulum adımları</a> · Arayüz Türkçe ve İngilizce
 </p>
 
+> [!warning] Kurulum paketini ilk açışınızda macOS onu engeller. Bu beklenen bir durumdur.
+> MacRAR ücretsizdir ve Apple tarafından onaylanmamıştır (noter onayı yok). Bu yüzden indirdiğiniz `MacRAR-<sürüm>.pkg` dosyasına ilk kez çift tıkladığınızda macOS paketi *doğrulayamadığını* söyler ve açmaz. Yalnızca bir kez izin vermeniz yeterli:
+>
+> 1. Uyarıda **Bitti**'ye tıklayın. *Çöp Sepeti'ne Taşı*'ya **tıklamayın**.
+> 2. **Sistem Ayarları ▸ Gizlilik ve Güvenlik**'i açın ve **Güvenlik** bölümüne inin.
+> 3. *"MacRAR-&lt;sürüm&gt;.pkg", Mac'inizi korumak için engellendi* satırındaki **Yine de Aç**'a tıklayıp parolanız ya da Touch ID ile onaylayın. Kurulum penceresi açılır.
+>
+> Terminal'i tercih ederseniz: `xattr -d com.apple.quarantine ~/Downloads/MacRAR-*.pkg` komutunu çalıştırıp pakete çift tıklayın.
+
+<p align="center">
+  <img src="docs/screenshots/gatekeeper-warning.png" width="298" alt="macOS uyarısı: paket açılmadı. Bitti'ye tıklayın.">
+  &nbsp;
+  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="520" alt="Sistem Ayarları, Gizlilik ve Güvenlik: Yine de Aç">
+</p>
+<p align="center"><sub>Solda: <b>Bitti</b>'ye tıklayın. Sağda: <b>Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç</b>.</sub></p>
+
 > MacRAR, RARLAB veya WinRAR ile bağlantılı değildir. Kurulum paketi yalnızca RARLAB'ın ücretsiz **`unrar`** aracını (değiştirilmemiş, lisansıyla birlikte) taşır;
 > `rar` paketlenmez, Kurulum Yardımcısı onu isteğiniz üzerine doğrudan rarlab.com'dan indirir.
 
@@ -149,8 +165,8 @@ Dağıtımla birlikte gelen **`MacRAR-<sürüm>.pkg`** dosyasını açın ve ad�
 2. **Finder sağ tık menüsü eklentisini etkinleştirir** ve Finder'ı yeniden başlatır,
 3. MacRAR'ı açar; ilk açılışta **Kurulum Yardımcısı** kalan adımları (RAR araçları, varsayılan uygulama) tek tıkla gösterir.
 
-Böylece elle yapılacak bir şey kalmaz. Paket Apple tarafından noter onaylı değildir; ilk açılışta macOS engellerse
-**Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ "Yine de Aç"** deyin (adımlar `KURULUM.txt` dosyasında).
+Böylece elle yapılacak bir şey kalmaz. Paket Apple tarafından noter onaylı olmadığından **macOS ilk açılışta onu engeller**: uyarıda **Bitti**'ye tıklayın, sonra
+**Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ "Yine de Aç"** deyin (bu sayfanın başındaki ekran görüntülü uyarıya bakın).
 Kurulum günlüğü: `/tmp/MacRAR-kurulum.log`. Kaldırmak için: MacRAR içinde **Yardım ▸ MacRAR’ı Kaldır…** (uygulamayı, Finder eklentisini ve kurulum kaydını siler; ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar) ya da terminalden `bash uninstall.sh`.
 Uygulamayı yalnızca Çöp Kutusu’na atarsanız ayarlar, `~/Library/Application Support/MacRAR` ve Anahtar Zinciri’ndeki parolalar geride kalır.
 

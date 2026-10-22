@@ -21,6 +21,22 @@
   <a href="https://gitlab.com/freeware2/macrar/-/releases">All releases</a> · <a href="#installation">Installation steps</a> · The interface is in English and Turkish
 </p>
 
+> [!warning] First time you open the installer, macOS blocks it. This is expected.
+> MacRAR is free and not notarized by Apple, so when you double-click the downloaded `MacRAR-<version>.pkg` for the first time, macOS says it *could not verify* the package and does not open it. You only need to allow it once:
+>
+> 1. In the warning, click **Done**. Do **not** click *Move to Trash*.
+> 2. Open **System Settings ▸ Privacy & Security** and scroll down to **Security**.
+> 3. Next to *"MacRAR-&lt;version&gt;.pkg" was blocked to protect your Mac*, click **Open Anyway** and confirm with your password or Touch ID. The installer opens.
+>
+> Prefer Terminal? Run `xattr -d com.apple.quarantine ~/Downloads/MacRAR-*.pkg`, then double-click the package.
+
+<p align="center">
+  <img src="docs/screenshots/gatekeeper-warning.png" width="298" alt="macOS warning: the package was not opened. Click Done.">
+  &nbsp;
+  <img src="docs/screenshots/gatekeeper-open-anyway.png" width="520" alt="System Settings, Privacy &amp; Security: Open Anyway">
+</p>
+<p align="center"><sub>Left: click <b>Done</b>. Right: <b>System Settings ▸ Privacy &amp; Security ▸ Open Anyway</b>. (Screenshots from a Turkish macOS.)</sub></p>
+
 > MacRAR is not affiliated with RARLAB or WinRAR. The installer only carries RARLAB's free **`unrar`** tool (unmodified, with its license);
 > `rar` is not bundled; the Setup Assistant downloads it straight from rarlab.com when you ask it to.
 
@@ -147,8 +163,8 @@ Open the **`MacRAR-<version>.pkg`** file and follow the steps (you will be asked
 2. **turns on the Finder right-click menu extension** and restarts Finder,
 3. opens MacRAR; on first launch the **Setup Assistant** shows the remaining steps (RAR tools, default app) with one-click fixes.
 
-Nothing is left to do by hand. The package is not notarized by Apple; if macOS blocks it on first launch, choose
-**System Settings ▸ Privacy & Security ▸ "Open Anyway"** (the steps are in `KURULUM.txt`).
+Nothing is left to do by hand. The package is not notarized by Apple, so **macOS blocks it the first time you open it**: click **Done** in the warning, then
+**System Settings ▸ Privacy & Security ▸ "Open Anyway"** (see the warning with screenshots at the top of this page).
 Installer log: `/tmp/MacRAR-kurulum.log`. To uninstall: **Help ▸ Uninstall MacRAR…** inside MacRAR (removes the app, the Finder extension and the installer receipt; offers options for settings, downloaded tools and saved passwords), or `bash uninstall.sh` in Terminal.
 If you only move the app to the Trash, the settings, `~/Library/Application Support/MacRAR` and the passwords in the Keychain stay behind.
 
