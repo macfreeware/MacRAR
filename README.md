@@ -54,8 +54,8 @@ The file browser with the sample archives; the action bar has Add, Extract, Test
 
 > **Work with archives straight from Finder, without opening MacRAR.** Right-click any file, folder or archive and the MacRAR items are right there in Finder's own menu, with the MacRAR icon:
 >
-> - **Archives:** Open · Extract Files… · Extract Here · Extract to a folder named after the archive
-> - **Files and folders:** Add to Archive… · Compress to “name.rar” / “name.zip” · Compress to a timestamped RAR / ZIP
+> - **Archives:** Open · Extract Files… · Extract Here · Extract to “archive name/”
+> - **Files and folders:** Add to Archive… · Compress to “name.rar” / “name.zip” · Compress to Timestamped RAR / ZIP
 >
 > The work runs in the background with a small progress panel, and the items follow the language chosen in MacRAR (here English, while Finder itself is Turkish).
 
@@ -122,14 +122,13 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
 - **Merge archives:** select 2 or more archives and collect their contents in one new archive (for files with the same path the later archive wins; you are warned first).
 - **Compare archives:** compares the contents of two archives without extracting them (only in one of them, CRC/size differences). For ZIP the CRC is read from the central directory.
 - **Estimated archive size in the Add window** (approximated by sampling the sources).
-- **Hint/note field in the password manager.**
-- **Password manager:** store the passwords you use for archives in the macOS Keychain and pick them from a list later.
+- **Password manager:** store the passwords you use for archives in the macOS Keychain and pick them from a list later; each entry can have a hint/note.
 - **Finder integration:** MacRAR items with an icon in the main right-click menu, depending on the selection (compress to RAR and ZIP, open, extract); operations
   run **without opening the main window**, with a small progress panel; MacRAR icon on `.rar` / `.7z` files.
 - **Setup Assistant** and **Settings** (General / Finder / File Types / Tools); install `rar` from RARLAB with one click;
   **Help ▸ Uninstall MacRAR…**
-- **About window** (MacRAR menu → About MacRAR): version/build, developer, short usage notes and shortcuts, tool versions and Finder extension status.
-- **Test**, **Preview** (Quick Look / Space), open with a double-click, drag and drop (open an archive / archive files), context menus.
+- **About window** (MacRAR menu ▸ About MacRAR): version/build, developer, short usage notes and shortcuts, tool versions and Finder extension status.
+- **Preview** (Quick Look / Space), open with a double-click, drag and drop (open an archive / archive files), context menus.
 - A two-mode window like WinRAR: a file manager when no archive is open, the archive's contents once you enter one. Leave with Enclosing Folder / Backspace.
 - **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** or right in the **Setup Assistant** on first launch (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). In the Setup Assistant the language changes instantly; a change made in Settings takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
 
@@ -140,15 +139,15 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
   the files and license texts are taken unmodified from the official package by `scripts/fetch_unrar.sh`, verified by SHA-256).
   If `unrar`/`rar` is installed on your system, that one is used.
 - **Creating/editing RAR:** needs RARLAB's `rar` tool. The RARLAB license forbids distributing the trial version inside other software without written
-  permission, so MacRAR does **not** bundle it. The **“Download and install rar”** button in the Setup Assistant (or in the warning bar of the main window)
-  downloads the official package from `https://www.rarlab.com`, verifies it by running `rar`/`unrar` and installs it without an administrator password
+  permission, so MacRAR does **not** bundle it. The **“Download and install rar from RARLAB”** button in the Setup Assistant (**“Download and install RAR”** in the warning bar
+  of the main window) downloads the official package from `https://www.rarlab.com`, verifies it by running `rar`/`unrar` and installs it without an administrator password
   in `~/Library/Application Support/MacRAR/tools/rar`. To install it manually, download the package from
   [rarlab.com/download.htm](https://www.rarlab.com/download.htm) and copy the `rar` file into `/usr/local/bin`.
-  The `rar` trial is free for up to 40 days, after which a RARLAB license is needed. *Note: the Homebrew `rar` cask was disabled on 2026-09-01 because it
+  The `rar` trial is free for up to 40 days, after which a RARLAB license is needed. *Note: the Homebrew `rar` cask was disabled on 1 September 2026 because it
   failed Gatekeeper checks; `brew install --cask rar` no longer works.*
 - **Optional (`unar`):** if there is no `unrar`/`rar` at all and `unar` + `lsar` are installed, MacRAR uses them to open, list, test and extract RAR archives (read-only).
   Limits: extracting without the folder structure is not supported, a conflicting top folder is renamed (`src` → `src-1`), and the password is briefly visible
-  on the `unar`/`bsdtar` command line (RAR passwords go through stdin).
+  on the `unar`/`bsdtar` command line (with `rar`/`unrar`, RAR passwords go through stdin).
   Creating ZIP/7Z/TAR works without them.
   You can change tool paths in the **Settings ▸ Tools** tab.
 - To build: the Xcode command-line tools (Swift 5.10+) and an internet connection: `scripts/build_app.sh` downloads the free `unrar` from RARLAB (SHA-256 verified) into `build/cache` and puts it in the app.
@@ -157,20 +156,20 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
 
 ### With the installer (recommended)
 
-Open the **`MacRAR-<version>.pkg`** file and follow the steps (you will be asked for an administrator password). The installer:
+Open the downloaded **`MacRAR-<version>.pkg`** file and follow the steps (you will be asked for an administrator password). The installer:
 
 1. installs MacRAR in the `Applications` folder,
 2. **turns on the Finder right-click menu extension** and restarts Finder,
 3. opens MacRAR; on first launch the **Setup Assistant** shows the remaining steps (RAR tools, default app) with one-click fixes.
 
-Nothing is left to do by hand. The package is not notarized by Apple, so **macOS blocks it the first time you open it**: click **Done** in the warning, then
-**System Settings ▸ Privacy & Security ▸ "Open Anyway"** (see the warning with screenshots at the top of this page).
+After installation nothing is left to do by hand. The package is not notarized by Apple, so **macOS blocks it the first time you open it**: click **Done** in the warning, then
+**System Settings ▸ Privacy & Security ▸ Open Anyway** (see the warning with screenshots at the top of this page).
 Installer log: `/tmp/MacRAR-kurulum.log`. To uninstall: **Help ▸ Uninstall MacRAR…** inside MacRAR (removes the app, the Finder extension and the installer receipt; offers options for settings, downloaded tools and saved passwords), or `bash uninstall.sh` in Terminal.
 If you only move the app to the Trash, the settings, `~/Library/Application Support/MacRAR` and the passwords in the Keychain stay behind.
 
 The **Setup Assistant** opens automatically on MacRAR's first launch; open it later with **Help ▸ Setup Assistant…**.
 It shows the status of the RAR tools (`rar`/`unrar`), the Finder menu and the default app, and offers buttons to fix what is missing
-(“Download and install from RARLAB” for `rar`).
+(“Download and install rar from RARLAB” for `rar`).
 
 To build the installer yourself:
 
@@ -190,7 +189,7 @@ pluginkit -e use -i local.macrar.app.FinderSync && killall Finder   # turns on t
 Without `INSTALL=1` the script only produces `build/MacRAR.app`. Run `killall Finder` after every reinstall
 (Finder keeps the old extension connection; otherwise the right-click menu disappears).
 
-You can also turn the extension on in the interface: System Settings → General → Login Items & Extensions → Extensions → **Finder** → MacRAR.
+You can also turn the extension on in the interface: System Settings ▸ General ▸ Login Items & Extensions ▸ Extensions ▸ **Finder** ▸ MacRAR.
 
 ### Signing and Keychain access
 
@@ -203,7 +202,8 @@ SIGN_IDENTITY="Apple Development: Your Name (TEAMID)" UNIVERSAL=1 INSTALL=1 scri
 ```
 
 Because the identity stays the same, "Always Allow" given once keeps working in later updates.
-An ad-hoc signed app may need right-click → Open for the Gatekeeper warning on first launch.
+A locally built app is not quarantined, so Gatekeeper usually does not warn; if it does, use
+**System Settings ▸ Privacy & Security ▸ Open Anyway** (macOS 15 no longer offers right-click ▸ Open).
 
 ## Using it in Finder
 
@@ -211,7 +211,7 @@ An ad-hoc signed app may need right-click → Open for the Gatekeeper warning on
 
 Once the extension is on, MacRAR items (with its icon) appear directly in the right-click menu and change with the selection:
 
-- **Archive file** selected: `MacRAR · Open`, `Extract Files…`, `Extract Here`, `Extract to “archivename/”`
+- **Archive file** selected: `MacRAR · Open`, `Extract Files…`, `Extract Here`, `Extract to “archive name/”`
 - **File/folder** selected: `Add to Archive…` (with all options such as a password), `Compress to “name.rar”`, `Compress to Timestamped RAR`
   and, with macOS's built-in `bsdtar`, `Compress to “name.zip”`, `Compress to Timestamped ZIP` (ZIP does not need `rar`).
   **If `rar` is not installed, the RAR compression items are hidden**; the app writes the `rar` status (and the chosen interface language) to
@@ -225,7 +225,7 @@ in ZIP/7Z/TAR it is skipped. If several archives are selected, each is extracted
 windows also open without the main window, in a movable separate window (with the MacRAR band on top). The main window only opens for a password prompt,
 an error or `MacRAR · Open`. There are no separate MacRAR items under Services/Quick Actions; everything is in Finder's main right-click
 menu.
-If **MacRAR was started by the operation**, it quits by itself when the work is done; if it was already open and you are using it, it is left alone.
+If **a Finder operation started MacRAR**, MacRAR quits by itself when the work is done; if it was already open and you are using it, it stays open.
 `MacRAR · Open` keeps the window open.
 
 ### Timestamped names
@@ -238,8 +238,8 @@ and as "Add a timestamp to the name" in the Add window.
 
 MacRAR declares the `.rar` and `.7z` types with its own icon; Finder shows these files with the MacRAR icon.
 **Default app:** the **Settings ▸ File Types** tab shows the current default app for RAR, 7Z, ZIP and TAR.GZ;
-"Make MacRAR the default" (with macOS's confirmation) makes a double-click open MacRAR. The buttons are only enabled while MacRAR is installed
-in the `Applications` folder. (Alternative: right-click an archive → Get Info → Open with → MacRAR → Change All.)
+Click "Make MacRAR the default" and confirm macOS's prompt; double-clicking these files then opens them in MacRAR. The buttons are only enabled while MacRAR is installed
+in the `Applications` folder. (Another way: right-click an archive ▸ Get Info ▸ Open with ▸ MacRAR ▸ Change All.)
 If the icon is stuck in the cache, run `killall Finder` (and `killall Dock` if needed).
 
 ## Settings
@@ -255,7 +255,7 @@ If the icon is stuck in the cache, run `killall Finder` (and `killall Dock` if n
 
 When opening an encrypted archive (or in the **Password** tab of the Archive window) you can pick a password you used before from the **Saved passwords** menu,
 and add a new one with **“Save this password in the password manager”**. Each entry can have an optional **hint/note** (not the password itself); the hint appears next to the name in the saved-password menus. The password is saved only after it actually opens the archive
-(a wrong password is never saved; the same password is not added twice; the result is shown in a notice). Manage them with **Commands → Password Manager…**
+(a wrong password is never saved; the same password is not added twice; the result is shown in a notice). Manage them with **Commands ▸ Password Manager…**
 (⇧⌘P) or Settings ▸ General: add / edit / delete / show / copy (a copied password is cleared from the clipboard after 30 s).
 
 Passwords are stored as a single item in the macOS **Keychain**; the app only touches the Keychain when a password is needed.

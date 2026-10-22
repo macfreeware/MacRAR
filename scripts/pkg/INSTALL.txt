@@ -29,7 +29,7 @@ This file is distributed with the MacRAR installer (MacRAR-<version>.pkg).
    - The free "unrar" tool (RARLAB) needed to OPEN RAR archives comes with MacRAR; nothing else is needed.
    - To CREATE/EDIT RAR archives you need RARLAB's "rar" tool. The RARLAB license does not allow the rar trial
      to be distributed inside other software, so MacRAR does not bundle it. Instead, the Setup Assistant has a
-     "Download and install the RAR tools from RARLAB" button on first launch (Help ▸ Setup Assistant…).
+     "Download and install rar from RARLAB" button on first launch (Help ▸ Setup Assistant…).
      The official package is downloaded from https://www.rarlab.com and installed, without an administrator
      password, into ~/Library/Application Support/MacRAR/tools/rar.
    - To install it by hand: download "RAR for macOS" (command line) from https://www.rarlab.com/download.htm

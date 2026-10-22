@@ -22,7 +22,7 @@
 </p>
 
 > [!warning] Kurulum paketini ilk açışınızda macOS onu engeller. Bu beklenen bir durumdur.
-> MacRAR ücretsizdir ve Apple tarafından onaylanmamıştır (noter onayı yok). Bu yüzden indirdiğiniz `MacRAR-<sürüm>.pkg` dosyasına ilk kez çift tıkladığınızda macOS paketi *doğrulayamadığını* söyler ve açmaz. Yalnızca bir kez izin vermeniz yeterli:
+> MacRAR ücretsizdir ve Apple onaylı olmadığı için indirdiğiniz `MacRAR-<sürüm>.pkg` dosyasına ilk kez çift tıkladığınızda macOS paketi *doğrulayamadığını* söyler ve açmaz. Yalnızca bir kez izin vermeniz yeterli:
 >
 > 1. Uyarıda **Bitti**'ye tıklayın. *Çöp Sepeti'ne Taşı*'ya **tıklamayın**.
 > 2. **Sistem Ayarları ▸ Gizlilik ve Güvenlik**'i açın ve **Güvenlik** bölümüne inin.
@@ -56,8 +56,8 @@ Sürümler ve değişiklik notları: [GitLab ▸ Sürümler](https://gitlab.com/
 
 > **Arşivlerle MacRAR'ı açmadan, doğrudan Finder'dan çalışın.** Herhangi bir dosya, klasör ya da arşive sağ tıklayın; MacRAR girdileri simgesiyle Finder'ın kendi menüsündedir:
 >
-> - **Arşivlerde:** Aç · Dosyaları Çıkar… · Buraya Çıkar · Arşiv adıyla klasöre çıkar
-> - **Dosya ve klasörlerde:** Arşive Ekle… · “ad.rar” / “ad.zip” olarak Sıkıştır · Zaman damgalı RAR / ZIP'e Sıkıştır
+> - **Arşivlerde:** Aç · Dosyaları Çıkar… · Buraya Çıkar · “arşiv adı/” klasörüne Çıkar
+> - **Dosya ve klasörlerde:** Arşive Ekle… · “ad.rar” / “ad.zip” olarak Sıkıştır · Zaman Damgalı RAR'a / ZIP'e Sıkıştır
 >
 > İşlem arka planda, küçük bir ilerleme paneliyle yürür; girdiler MacRAR'da seçilen dili izler (burada Finder Türkçeyken menü İngilizce).
 
@@ -71,7 +71,7 @@ Bir raporun iki sürümü: yalnızca bir arşivde olan ve içeriği (CRC) farkl�
 
 ### Parola sorusu
 
-Şifreli arşivlerde çıkar; kayıtlı parolalar menüsü ve parolayı kaydetme seçeneğiyle.
+Şifreli arşivlerde açılır; kayıtlı parolalar menüsünü ve parolayı kaydetme seçeneğini içerir.
 
 <p align="center"><img src="docs/screenshots/password-prompt.png" alt="Parola sorusu"></p>
 
@@ -113,7 +113,7 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
   arşiv adıyla alt klasör. Arşivden Finder'a **sürükleyerek** çıkarma (çıkarma bırakma anında yapılır).
 - **Sıkıştırma:** RAR5, RAR4, ZIP (AES-256 parolalı), 7Z, TAR.GZ/BZ2/XZ. RAR için yöntem (0–5), sözlük boyutu, katı arşiv,
   parola + dosya adı şifreleme, kurtarma kaydı, parçalara bölme, kilitleme, yorum, sınama, arşivlemeden sonra silme.
-  Ada isteğe bağlı **zaman damgası** (biçimi seçilebilir). **Arşivle** penceresi Genel / Parola / Gelişmiş sekmelerine ayrılmıştır
+  Arşiv adına isteğe bağlı **zaman damgası** (biçimi seçilebilir). **Arşivle** penceresi Genel / Parola / Gelişmiş sekmelerine ayrılmıştır
   (parolayı göster, kayıtlı parolalardan seç). ZIP/7Z/TAR için `rar` gerekmez.
 - **Gerçek ilerleme:** sıkıştırma ve çıkarmada bayt bazlı, geri gitmeyen ilerleme çubuğu (büyük tek dosyada da akar).
 - **Arşiv düzenleme:** **RAR** için dosya ekleme, silme, yeniden adlandırma, yorum, kurtarma kaydı, kilitleme, onarma. **ZIP** için ekleme
@@ -124,14 +124,13 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 - **Arşivleri birleştir:** 2 veya daha fazla arşiv seçilip içerikleri tek yeni arşivde toplanır (aynı yoldaki dosyalarda sonraki arşiv geçerli olur; önceden uyarır).
 - **Arşivleri karşılaştır:** iki arşivin içeriği diske çıkarılmadan karşılaştırılır (yalnızca birinde olanlar, CRC/boyut farkı). ZIP'te CRC, merkezî dizinden okunur.
 - **Ekle penceresinde tahmini arşiv boyutu** (kaynaklardan örnek alınarak yaklaşık hesaplanır).
-- **Parola yöneticisinde ipucu/not alanı.**
-- **Parola yöneticisi:** kullandığınız arşiv parolalarını macOS Anahtar Zinciri'nde saklayıp sonra listeden seçin.
+- **Parola yöneticisi:** kullandığınız arşiv parolalarını macOS Anahtar Zinciri'nde saklayıp sonra listeden seçin; her kayda ipucu/not eklenebilir.
 - **Finder entegrasyonu:** ana sağ tık menüsünde seçime göre değişen, simgeli MacRAR girdileri (RAR ve ZIP ile sıkıştır, aç, çıkar); işlemler
-  **ana pencere açılmadan**, küçük bir ilerleme paneliyle yürür; `.rar` / `.7z` dosyalarında MacRAR ikonu.
+  **ana pencere açılmadan**, küçük bir ilerleme paneliyle yürür; `.rar` / `.7z` dosyalarında MacRAR simgesi.
 - **Kurulum Yardımcısı** ve **Ayarlar** (Genel / Finder / Dosya türleri / Araçlar); `rar`'ı tek tıkla RARLAB'dan indirip kurma;
   **Yardım ▸ MacRAR'ı Kaldır…**
-- **Hakkında penceresi** (MacRAR menüsü → MacRAR Hakkında): sürüm/derleme, geliştirici, kısa kullanım ve kısayollar, araç sürümleri ile Finder eklentisi durumu.
-- **Sına**, **Önizle** (Quick Look / Boşluk), çift tıkla açma, sürükle-bırak (arşivi aç / dosyaları arşivle), bağlam menüleri.
+- **Hakkında penceresi** (MacRAR menüsü ▸ MacRAR Hakkında): sürüm/derleme, geliştirici, kısa kullanım ve kısayollar, araç sürümleri ile Finder eklentisi durumu.
+- **Önizle** (Quick Look / Boşluk), çift tıkla açma, sürükle-bırak (arşivi aç / dosyaları arşivle), bağlam menüleri.
 - WinRAR gibi iki kipli pencere: arşiv açık değilken dosya yöneticisi, arşive girince arşiv içeriği. Üst klasör / Backspace ile çıkış.
 - **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den ya da ilk açılışta doğrudan **Kurulum Yardımcısı**'ndan (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir. Kurulum Yardımcısı'nda dil anında değişir; Ayarlar'dan yapılan değişiklik MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
 
@@ -139,18 +138,18 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 
 - macOS 15 veya üzeri
 - **RAR açmak:** RARLAB'ın ücretsiz `unrar` aracı uygulamayla birlikte gelir (RARLAB lisansı madde 3.a: UnRAR bileşenleri ayrı dağıtılabilir;
-  dosya ve lisans metinleri `scripts/fetch_unrar.sh` ile resmi pakettan, SHA-256 doğrulanarak değiştirilmeden alınır).
+  dosya ve lisans metinleri `scripts/fetch_unrar.sh` ile resmi paketten, SHA-256 doğrulanarak değiştirilmeden alınır).
   Sisteminizde `unrar`/`rar` kuruluysa o kullanılır.
 - **RAR oluşturmak/düzenlemek:** RARLAB'ın `rar` aracı gerekir. RARLAB lisansı deneme sürümünün başka bir yazılımın içinde dağıtılmasını yazılı izin
-  olmadan yasaklar, bu yüzden MacRAR onu **paketlemez**. Kurulum Yardımcısı'ndaki (veya ana penceredeki uyarı çubuğundaki) **“rar’ı indir ve kur”**
-  düğmesi resmi paketi `https://www.rarlab.com` adresinden indirir, `rar`/`unrar`ı çalıştırarak doğrular ve yönetici parolası istemeden
+  olmadan yasaklar, bu yüzden MacRAR onu **paketlemez**. Kurulum Yardımcısı'ndaki **“rar'ı RARLAB'dan indir ve kur”** düğmesi (ana penceredeki uyarı çubuğunda
+  **“RAR'ı indir ve kur”**) resmi paketi `https://www.rarlab.com` adresinden indirir, `rar`/`unrar`ı çalıştırarak doğrular ve yönetici parolası istemeden
   `~/Library/Application Support/MacRAR/tools/rar` klasörüne kurar. Elle kurmak isterseniz paketi
   [rarlab.com/download.htm](https://www.rarlab.com/download.htm) adresinden indirip `rar` dosyasını `/usr/local/bin` içine kopyalayın.
-  `rar` deneme sürümü en çok 40 gün ücretsizdir, sonrasında RARLAB lisansı gerekir. *Not: Homebrew'daki `rar` kaskı Gatekeeper denetiminden geçmediği için
-  2026-09-01'de devre dışı bırakıldı; `brew install --cask rar` artık çalışmaz.*
+  `rar` deneme sürümü en çok 40 gün ücretsizdir, sonrasında RARLAB lisansı gerekir. *Not: Homebrew'daki `rar` paketi (cask) Gatekeeper denetiminden geçmediği için
+  1 Eylül 2026'da devre dışı bırakıldı; `brew install --cask rar` artık çalışmaz.*
 - **İsteğe bağlı (`unar`):** `unrar`/`rar` hiç yoksa ve `unar` + `lsar` kuruluysa MacRAR RAR arşivlerini bunlarla (salt okunur) açar, listeler, sınar ve çıkarır.
-  Sınırlar: “klasör yapısını koruma” kapalı açma desteklenmez, çakışan üst klasör yeniden adlandırılır (`src` → `src-1`) ve parola `unar`/`bsdtar`
-  komut satırında geçici olarak görünür (RAR parolaları ise stdin ile gider).
+  Sınırlar: klasör yapısı olmadan çıkarma desteklenmez, çakışan üst klasör yeniden adlandırılır (`src` → `src-1`) ve parola `unar`/`bsdtar`
+  komut satırında geçici olarak görünür (`rar`/`unrar` kullanıldığında RAR parolaları stdin ile gider).
   ZIP/7Z/TAR oluşturma bunlarsız çalışır.
   Araç yollarını **Ayarlar ▸ Araçlar** sekmesinden değiştirebilirsiniz.
 - Derlemek için Xcode komut satırı araçları (Swift 5.10+) ve internet bağlantısı: `scripts/build_app.sh`, ücretsiz `unrar`ı RARLAB'dan (SHA-256 doğrulamalı) `build/cache` içine indirip uygulamaya koyar.
@@ -159,20 +158,20 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 
 ### Kurulum paketiyle (önerilen)
 
-Dağıtımla birlikte gelen **`MacRAR-<sürüm>.pkg`** dosyasını açın ve adımları izleyin (yönetici parolası istenir). Kurulum:
+İndirdiğiniz **`MacRAR-<sürüm>.pkg`** dosyasını açın ve adımları izleyin (yönetici parolası istenir). Kurulum:
 
 1. MacRAR'ı `Uygulamalar` klasörüne kurar,
 2. **Finder sağ tık menüsü eklentisini etkinleştirir** ve Finder'ı yeniden başlatır,
-3. MacRAR'ı açar; ilk açılışta **Kurulum Yardımcısı** kalan adımları (RAR araçları, varsayılan uygulama) tek tıkla gösterir.
+3. MacRAR'ı açar; ilk açılışta **Kurulum Yardımcısı** kalan adımları (RAR araçları, varsayılan uygulama) gösterir ve tek tıkla düzeltmenizi sağlar.
 
-Böylece elle yapılacak bir şey kalmaz. Paket Apple tarafından noter onaylı olmadığından **macOS ilk açılışta onu engeller**: uyarıda **Bitti**'ye tıklayın, sonra
-**Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ "Yine de Aç"** deyin (bu sayfanın başındaki ekran görüntülü uyarıya bakın).
-Kurulum günlüğü: `/tmp/MacRAR-kurulum.log`. Kaldırmak için: MacRAR içinde **Yardım ▸ MacRAR’ı Kaldır…** (uygulamayı, Finder eklentisini ve kurulum kaydını siler; ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar) ya da terminalden `bash uninstall.sh`.
-Uygulamayı yalnızca Çöp Kutusu’na atarsanız ayarlar, `~/Library/Application Support/MacRAR` ve Anahtar Zinciri’ndeki parolalar geride kalır.
+Kurulumdan sonra elle yapılacak bir şey kalmaz. Paket Apple onaylı olmadığı için **macOS ilk açılışta onu engeller**: uyarıda **Bitti**'ye tıklayın, sonra
+**Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç**'a tıklayın (bu sayfanın başındaki ekran görüntülü uyarıya bakın).
+Kurulum günlüğü: `/tmp/MacRAR-kurulum.log`. Kaldırmak için: MacRAR içinde **Yardım ▸ MacRAR'ı Kaldır…** (uygulamayı, Finder eklentisini ve kurulum kaydını siler; ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar) ya da Terminal'de `bash uninstall.sh`.
+Uygulamayı yalnızca Çöp Sepeti'ne atarsanız ayarlar, `~/Library/Application Support/MacRAR` ve Anahtar Zinciri'ndeki parolalar geride kalır.
 
-**Kurulum Yardımcısı**, MacRAR'ın ilk açılışında otomatik çıkar; sonradan **Yardım ▸ Kurulum Yardımcısı…** ile açılır.
+**Kurulum Yardımcısı**, MacRAR'ın ilk açılışında kendiliğinden açılır; sonradan **Yardım ▸ Kurulum Yardımcısı…** ile açılır.
 RAR araçları (`rar`/`unrar`), Finder menüsü ve varsayılan uygulama durumunu gösterir, eksikleri düzeltme düğmeleri sunar
-(`rar` için “RARLAB'dan indir ve kur”).
+(`rar` için “rar'ı RARLAB'dan indir ve kur”).
 
 Paketi kendiniz üretmek için:
 
@@ -192,7 +191,7 @@ pluginkit -e use -i local.macrar.app.FinderSync && killall Finder   # Finder sa�
 `INSTALL=1` olmadan betik yalnızca `build/MacRAR.app` üretir. Her yeniden kurulumdan sonra `killall Finder` çalıştırın
 (Finder eski eklenti bağlantısını tutar; yapılmazsa sağ tık menüsü kaybolur).
 
-Eklentiyi arayüzden de açabilirsiniz: Sistem Ayarları → Genel → Oturum Açma Öğeleri ve Eklentiler → Eklentiler → **Finder** → MacRAR.
+Eklentiyi arayüzden de açabilirsiniz: Sistem Ayarları ▸ Genel ▸ Oturum Açma Öğeleri ve Eklentiler ▸ Eklentiler ▸ **Finder** ▸ MacRAR.
 
 ### İmzalama ve Anahtar Zinciri izni
 
@@ -205,7 +204,8 @@ SIGN_IDENTITY="Apple Development: Ad Soyad (TAKIMID)" UNIVERSAL=1 INSTALL=1 scri
 ```
 
 Kimlik sabit kaldığı için "Her Zaman İzin Ver" bir kez verildiğinde sonraki güncellemelerde de geçerli olur.
-Ad-hoc imzalı uygulamada ilk açılışta Gatekeeper uyarısı için sağ tık → Aç gerekebilir.
+Yerelde derlenen uygulama karantinaya alınmadığı için genellikle Gatekeeper uyarısı çıkmaz; çıkarsa
+**Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç**'a tıklayın (macOS 15'te sağ tık ▸ Aç yolu yoktur).
 
 ## Finder'da kullanım
 
@@ -213,7 +213,7 @@ Ad-hoc imzalı uygulamada ilk açılışta Gatekeeper uyarısı için sağ tık 
 
 Eklenti etkinleştirilince MacRAR girdileri (simgesiyle) doğrudan sağ tık menüsüne gelir ve seçime göre değişir:
 
-- **Arşiv dosyası** seçiliyse: `MacRAR · Aç`, `Dosyaları Çıkar…`, `Buraya Çıkar`, `“arşivadı/” klasörüne Çıkar`
+- **Arşiv dosyası** seçiliyse: `MacRAR · Aç`, `Dosyaları Çıkar…`, `Buraya Çıkar`, `“arşiv adı/” klasörüne Çıkar`
 - **Dosya/klasör** seçiliyse: `Arşive Ekle…` (parola vb. tüm seçeneklerle), `“ad.rar” olarak Sıkıştır`, `Zaman Damgalı RAR'a Sıkıştır`
   ve macOS'un yerleşik `bsdtar`'ı ile `“ad.zip” olarak Sıkıştır`, `Zaman Damgalı ZIP'e Sıkıştır` (ZIP için `rar` gerekmez).
   **`rar` kurulu değilse RAR sıkıştırma girdileri menüde görünmez**; uygulama `rar` durumunu (ve seçilen arayüz dilini) `~/Library/Application Support/MacRAR/finder.state`
@@ -227,7 +227,7 @@ küçük, marka bantlı bir **ilerleme paneli** gösterilir (X ile kapatmak işl
 pencereleri de ana pencere olmadan, taşınabilir bağımsız bir pencerede (üstünde MacRAR bandıyla) açılır. Ana pencere yalnızca parola sorusu,
 hata ya da `MacRAR · Aç` için açılır. Servisler/Hızlı Eylemler altında ayrı MacRAR girdileri yoktur; her şey Finder'ın ana sağ tık
 menüsündedir.
-MacRAR'ı işlemi **o başlattıysa** iş bitince kendiliğinden kapanır; zaten açıksa ve siz kullanıyorsanız dokunulmaz.
+MacRAR'ı Finder'daki bir işlem **başlattıysa**, iş bitince MacRAR kendiliğinden kapanır; zaten açıksa ve siz kullanıyorsanız açık kalır.
 `MacRAR · Aç` pencereyi açık bırakır.
 
 ### Zaman damgalı adlar
@@ -236,13 +236,13 @@ MacRAR'ı işlemi **o başlattıysa** iş bitince kendiliğinden kapanır; zaten
 (`-`, `_`, boşluk, yok) seçilir; ayarlarda canlı örnek ad görünür. Aynı işlem uygulamada Komutlar menüsünde (⌥⌘Z / ⇧⌥⌘Z)
 ve Ekle penceresindeki "Ada zaman damgası ekle" seçeneğinde de vardır.
 
-### Dosya ilişkileri ve ikon
+### Dosya ilişkileri ve simge
 
-MacRAR, `.rar` ve `.7z` türlerini kendi ikonuyla tanımlar; Finder'da bu dosyalar MacRAR ikonuyla görünür.
+MacRAR, `.rar` ve `.7z` türlerini kendi simgesiyle tanımlar; Finder'da bu dosyalar MacRAR simgesiyle görünür.
 **Varsayılan uygulama:** **Ayarlar ▸ Dosya türleri** sekmesinde RAR, 7Z, ZIP ve TAR.GZ için şu anki varsayılan uygulama görünür;
-"MacRAR'ı varsayılan yap" ile (macOS onay penceresiyle) çift tıklayınca MacRAR açılır. Düğmeler yalnızca MacRAR `Uygulamalar` klasöründe
-kuruluyken etkindir. (Alternatif: bir arşive sağ tık → Bilgi Ver → Birlikte aç → MacRAR → Tümünü Değiştir.)
-İkon önbellekte kalırsa `killall Finder` (gerekirse `killall Dock`) çalıştırın.
+"MacRAR'ı varsayılan yap" düğmesine basıp macOS'un sorusunu onayladığınızda bu dosyalar çift tıklayınca MacRAR'da açılır. Düğmeler yalnızca MacRAR `Uygulamalar` klasöründe
+kuruluyken etkindir. (Başka bir yol: bir arşive sağ tıklayın ▸ Bilgi Ver ▸ Birlikte aç ▸ MacRAR ▸ Tümünü Değiştir.)
+Simge önbellekte kalırsa `killall Finder` (gerekirse `killall Dock`) çalıştırın.
 
 ## Ayarlar
 
@@ -257,7 +257,7 @@ kuruluyken etkindir. (Alternatif: bir arşive sağ tık → Bilgi Ver → Birlik
 
 Şifreli bir arşiv açarken (veya Arşivle penceresinin **Parola** sekmesinde) **Kayıtlı parolalar** menüsünden daha önce kullandığınız bir parolayı seçebilir,
 **“Bu parolayı parola yöneticisine kaydet”** ile yenisini ekleyebilirsiniz. Her kayda isteğe bağlı bir **ipucu/not** yazılabilir (parolanın kendisini değil); ipucu kayıtlı parola menülerinde adın yanında görünür. Parola, arşivi gerçekten açtıktan sonra kaydedilir
-(yanlış parola kaydedilmez; aynı parola iki kez eklenmez; kayıt sonucu bildirimle gösterilir). Yönetim: **Komutlar → Parola Yöneticisi…**
+(yanlış parola kaydedilmez; aynı parola iki kez eklenmez; kayıt sonucu bildirimle gösterilir). Yönetim: **Komutlar ▸ Parola Yöneticisi…**
 (⇧⌘P) veya Ayarlar ▸ Genel; ekle / düzenle / sil / göster / kopyala (kopyalanan parola panodan 30 sn sonra silinir).
 
 Parolalar macOS **Anahtar Zinciri**'nde tek bir öğe olarak saklanır; uygulama Anahtar Zinciri'ne yalnızca parola gerektiğinde dokunur.
@@ -281,7 +281,7 @@ dosyayı silerseniz uygulama bir sonraki açılışta yenisini üretir.
 
 Araçlarla ilgili öğrenilenler:
 
-- CLI her zaman `LC_ALL=en_US.UTF-8` ile çalıştırılır; aksi halde GUI uygulamasında Türkçe dosya adları bozulur.
+- CLI her zaman `LC_ALL=en_US.UTF-8` ile çalıştırılır; aksi hâlde GUI uygulamasında Türkçe dosya adları bozulur.
 - RAR parolaları komut satırına değil **stdin**'e yazılır (`-p` değersiz), böylece `ps` çıktısında görünmez. İstisnalar: ZIP için `bsdtar --passphrase` ve `unar -p`.
   Foundation `Process`, ASCII dışı argümanları NFD'ye çevirir (`ş` → `s` + çengel) ve parolayı bozar; bu yüzden bu parolalar `/bin/sh` + `printf`
   ile baytı baytına iletilir.

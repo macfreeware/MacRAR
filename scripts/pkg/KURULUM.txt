@@ -5,7 +5,7 @@ Bu dosya, MacRAR kurulum paketiyle (MacRAR-<sürüm>.pkg) birlikte dağıtılır
 (English: see INSTALL.txt)
 
 1) KURULUM PAKETİNİ AÇMA (macOS güvenlik uyarısı)
-   MacRAR, Apple tarafından noter onaylı değildir; bu yüzden indirilen paketi ilk açarken macOS
+   MacRAR Apple onaylı olmadığı için, indirilen paketi ilk açarken macOS
    "Apple, ... kötü amaçlı yazılım içermediğini doğrulayamadı" diyerek engeller. Bu normaldir:
    a) MacRAR-<sürüm>.pkg dosyasına çift tıklayın; uyarı çıkınca "Bitti"ye tıklayın.
       "Çöp Sepeti'ne Taşı"ya TIKLAMAYIN.
@@ -29,7 +29,7 @@ Bu dosya, MacRAR kurulum paketiyle (MacRAR-<sürüm>.pkg) birlikte dağıtılır
    - RAR arşivlerini AÇMAK için gereken ücretsiz "unrar" (RARLAB) MacRAR ile birlikte gelir; ek bir şey gerekmez.
    - RAR arşivi OLUŞTURMAK/DÜZENLEMEK için RARLAB'ın "rar" aracı gerekir. RARLAB lisansı rar deneme sürümünün
      başka bir yazılımın içinde dağıtılmasına izin vermediği için MacRAR onu paketlemez; bunun yerine ilk açılışta
-     Kurulum Yardımcısı'nda "RAR araçlarını RARLAB’dan indir ve kur" düğmesi vardır (Yardım > Kurulum Yardımcısı...).
+     Kurulum Yardımcısı'nda "rar'ı RARLAB'dan indir ve kur" düğmesi vardır (Yardım ▸ Kurulum Yardımcısı…).
      Resmi paket https://www.rarlab.com adresinden indirilir ve yönetici parolası gerekmeden
      ~/Library/Application Support/MacRAR/tools/rar klasörüne kurulur.
    - Elle kurmak isterseniz: https://www.rarlab.com/download.htm adresinden "RAR for macOS" (komut satırı) paketini indirin
@@ -51,7 +51,7 @@ Bu dosya, MacRAR kurulum paketiyle (MacRAR-<sürüm>.pkg) birlikte dağıtılır
    ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar).
    Ya da Terminal'de (dağıtımla gelen betik):
        bash uninstall.sh
-   Uygulamayı yalnızca Çöp Kutusu'na atarsanız ayarlar, ~/Library/Application Support/MacRAR ve
+   Uygulamayı yalnızca Çöp Sepeti'ne atarsanız ayarlar, ~/Library/Application Support/MacRAR ve
    Anahtar Zinciri'ndeki kayıtlı parolalar geride kalır.
 
 7) SORUN GİDERME
