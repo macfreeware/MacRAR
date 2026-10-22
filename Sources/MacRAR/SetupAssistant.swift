@@ -11,6 +11,14 @@ enum SetupAssistant {
     static var needsFirstRun: Bool { !UserDefaults.standard.bool(forKey: doneKey) }
     static func markDone() { UserDefaults.standard.set(true, forKey: doneKey) }
 
+    /// "Daha sonra" ile dil değiştirilip uygulama yeniden açıldıysa, Kurulum Yardımcısı o açılışta bir kez gösterilmez.
+    static let skipOnceKey = "setupAssistantSkipOnce"
+    static func consumeSkipOnce() -> Bool {
+        let skip = UserDefaults.standard.bool(forKey: skipOnceKey)
+        UserDefaults.standard.removeObject(forKey: skipOnceKey)
+        return skip
+    }
+
     /// Finder eklentisini etkinleştirir (kullanıcının "Etkinleştir" tıklaması).
     static func enableFinderExtension() async -> Bool { await setFinderExtension(enabled: true) }
 
@@ -62,6 +70,9 @@ struct SetupAssistantView: View {
             footer
         }
         .frame(width: 580, height: 700)
+        .background(WindowTitle(String(localized: "MacRAR Kurulum Yardımcısı", bundle: language.bundle)))
+        // Dil seçilince bu pencere anında o dilde çizilir; uygulamanın geri kalanı pencere kapanınca yeniden açılarak geçer.
+        .environment(\.locale, language.locale)
         .task { await refresh() }
     }
 
@@ -75,7 +86,7 @@ struct SetupAssistantView: View {
                 .font(.callout).foregroundStyle(.secondary)
             // İlk açılışta dil burada da seçilebilsin (Ayarlar ▸ Genel ▸ Dil ile aynı).
             VStack(spacing: 8) {
-                LanguageChooser(language: $language)
+                LanguageChooser(language: $language, restartHint: false)
                     .fixedSize()
             }
             .padding(.top, 8)
@@ -101,11 +112,11 @@ struct SetupAssistantView: View {
                             Text(progress).font(.caption).foregroundStyle(.secondary)
                         }
                     }
-                    Text(ToolGuidance.rarAutoInstallNote).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-                    Text(ToolGuidance.rarLicenseNote).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                    Text(ToolGuidance.rarAutoInstallNote(bundle: language.bundle)).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                    Text(ToolGuidance.rarLicenseNote(bundle: language.bundle)).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     DisclosureGroup("Elle kurmak isterseniz") {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(ToolGuidance.rarInstallSteps).font(.callout).fixedSize(horizontal: false, vertical: true)
+                            Text(ToolGuidance.rarInstallSteps(bundle: language.bundle)).font(.callout).fixedSize(horizontal: false, vertical: true)
                             Link("RARLAB indirme sayfasını aç (\(ToolGuidance.rarlabDownloadText))", destination: ToolGuidance.rarlabDownloadURL)
                                 .font(.callout).focusEffectDisabled()
                         }
@@ -152,8 +163,8 @@ struct SetupAssistantView: View {
         HStack {
             Button("Yenile") { Task { await refresh() } }
             Spacer()
-            Button("Daha sonra") { dismiss() }
-            Button("Bitti") { SetupAssistant.markDone(); dismiss() }
+            Button("Daha sonra") { finish(done: false) }
+            Button("Bitti") { finish(done: true) }
                 .keyboardShortcut(.defaultAction)
         }
         .padding(14)
@@ -177,6 +188,16 @@ struct SetupAssistantView: View {
 
     // MARK: Eylemler
 
+    /// Pencereyi kapatır. Dil burada değiştirildiyse MacRAR kendini sessizce yeniden açar: ana pencere ve menüler de seçilen dilde
+    /// gelsin (kullanıcıya ayrıca "yeniden başlat" sorulmaz). "Daha sonra"da yardımcı o açılışta tekrar çıkmaz.
+    private func finish(done: Bool) {
+        if done { SetupAssistant.markDone() }
+        dismiss()
+        guard language != AppLanguage.atLaunch else { return }
+        if !done { UserDefaults.standard.set(true, forKey: SetupAssistant.skipOnceKey) }
+        LanguageChooser.relaunch()
+    }
+
     private func refresh() async {
         let t = model.tools
         rarOK = t.rar != nil
@@ -195,14 +216,14 @@ struct SetupAssistantView: View {
     private func enableFinder() async {
         busy = true; defer { busy = false }
         let ok = await SetupAssistant.enableFinderExtension()
-        message = ok ? String(localized: "Eklenti etkinleştirildi. Menünün görünmesi için Finder'ı yeniden başlatın.") : String(localized: "Eklenti etkinleştirilemedi.")
+        message = ok ? String(localized: "Eklenti etkinleştirildi. Menünün görünmesi için Finder'ı yeniden başlatın.", bundle: language.bundle) : String(localized: "Eklenti etkinleştirilemedi.", bundle: language.bundle)
         await refresh()
     }
 
     private func restartFinder() async {
         busy = true; defer { busy = false }
         await SetupAssistant.restartFinder()
-        message = String(localized: "Finder yeniden başlatıldı. Bir dosyaya sağ tıklayıp MacRAR girdilerine bakın.")
+        message = String(localized: "Finder yeniden başlatıldı. Bir dosyaya sağ tıklayıp MacRAR girdilerine bakın.", bundle: language.bundle)
         try? await Task.sleep(for: .seconds(1))
         await refresh()
     }
@@ -211,9 +232,21 @@ struct SetupAssistantView: View {
         busy = true; defer { busy = false }
         for kind in DefaultApps.kinds where kind.primary && !DefaultApps.current(for: kind).isMacRAR {
             do { try await DefaultApps.makeDefault(kind) }
-            catch { message = String(localized: "Değiştirilemedi (.\(kind.ext)): \(error.localizedDescription)"); await refresh(); return }
+            catch { message = String(localized: "Değiştirilemedi (.\(kind.ext)): \(error.localizedDescription)", bundle: language.bundle); await refresh(); return }
         }
         message = nil
         await refresh()
+    }
+}
+
+/// Görünümün penceresinin başlığını verir (sahne başlığı açılış dilinde sabit kalır; dil anında değişince bu güncellenir).
+private struct WindowTitle: NSViewRepresentable {
+    let title: String
+    init(_ title: String) { self.title = title }
+
+    func makeNSView(context: Context) -> NSView { NSView() }
+    func updateNSView(_ view: NSView, context: Context) {
+        let title = title
+        DispatchQueue.main.async { view.window?.title = title }   // pencere ilk çizimde henüz bağlanmamış olabilir
     }
 }

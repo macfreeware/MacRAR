@@ -23,15 +23,22 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         }
     }
 
-    /// Bu seçimle açıldığında MacRAR'ın kullanacağı çeviri: yeniden başlat notu geçilen dilde yazılsın diye.
-    var bundle: Bundle {
+    /// Bu seçimle açıldığında MacRAR'ın kullanacağı çevirinin dil kodu ("tr", "en").
+    var code: String? {
         var preferences = [rawValue]
         if self == .system {
             preferences = UserDefaults.standard.persistentDomain(forName: UserDefaults.globalDomain)?["AppleLanguages"] as? [String] ?? []
         }
-        let code = Bundle.preferredLocalizations(from: Bundle.main.localizations, forPreferences: preferences).first
-        return code.flatMap { Bundle.main.path(forResource: $0, ofType: "lproj") }.flatMap(Bundle.init(path:)) ?? .main
+        return Bundle.preferredLocalizations(from: Bundle.main.localizations, forPreferences: preferences).first
     }
+
+    /// Bu seçimin çevirisi: yeniden başlat notu ve Kurulum Yardımcısı'nın metinleri uygulamayı yeniden açmadan bu dilde yazılır.
+    var bundle: Bundle {
+        code.flatMap { Bundle.main.path(forResource: $0, ofType: "lproj") }.flatMap(Bundle.init(path:)) ?? .main
+    }
+
+    /// SwiftUI metinleri (`Text("…")`) çeviriyi ortamın `locale` değerine göre seçer; bir görünümü bu dilde çizmek için.
+    var locale: Locale { code.map(Locale.init(identifier:)) ?? .current }
 
     /// Seçimi, Bundle'ın bir sonraki açılışta okuyacağı yere yazar.
     func save() {
@@ -51,6 +58,8 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 /// Bayraklı dil seçici ve (dil değiştiyse) seçilen dilde "yeniden başlat" satırı. Ayarlar ▸ Genel ve Kurulum Yardımcısı ortak kullanır.
 struct LanguageChooser: View {
     @Binding var language: AppLanguage
+    /// false: görünüm dili anında değiştiriyor (Kurulum Yardımcısı); "yeniden başlat" satırı gösterilmez.
+    var restartHint = true
 
     var body: some View {
         Picker("Dil", selection: $language) {
@@ -60,7 +69,7 @@ struct LanguageChooser: View {
             new.save()
             AppModel.shared.publishFinderState()   // Finder menüsü de seçilen dili kullansın
         }
-        if language != AppLanguage.atLaunch {
+        if restartHint, language != AppLanguage.atLaunch {
             // Seçilen dilde: okuyamadığı bir dilden çıkan kullanıcı da düğmeyi bulabilsin.
             let next = language.bundle
             HStack {

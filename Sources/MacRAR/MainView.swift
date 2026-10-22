@@ -19,7 +19,7 @@ struct MainView: View {
             .tint(Brand.blue)
             .onAppear {
                 // İlk normal açılışta Kurulum Yardımcısı; Finder'dan başlatılan hızlı işlemlerde gösterme.
-                if SetupAssistant.needsFirstRun, !model.quickSession { openWindow(id: "setup") }
+                if SetupAssistant.needsFirstRun, !SetupAssistant.consumeSkipOnce(), !model.quickSession { openWindow(id: "setup") }
             }
             .with(AppOverlayModifier(model: model))
             .with(AppSheetsModifier(model: model))
