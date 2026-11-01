@@ -5,8 +5,12 @@
 <h1 align="center">MacRAR</h1>
 
 <p align="center">
-  macOS için WinRAR tarzı bir <b>arşiv yöneticisi</b>: RAR, ZIP, 7Z ve TAR.<br>
+  macOS için ücretsiz ve açık kaynak, WinRAR tarzı bir <b>arşiv yöneticisi</b>: RAR, ZIP, 7Z ve TAR.<br>
   Arka planda RARLAB'ın <code>rar</code> / <code>unrar</code> araçlarını ve macOS'un <code>bsdtar</code>'ını çalıştırır; üzerine yerel bir SwiftUI arayüzü ve Finder entegrasyonu koyar.
+</p>
+
+<p align="center">
+  Mac için ücretsiz bir <b>WinRAR</b> alternatifi; <b>Keka</b>, <b>BetterZip</b> ve <b>The Unarchiver</b>'a da alternatif.
 </p>
 
 <p align="center">
@@ -336,6 +340,34 @@ scripts/check_strings.sh   # her iki dilde eksik metinleri listeler; eksik yoksa
 - Finder'dan gelen **parola** soruları şimdilik ana pencerede çıkar (Ekle/Çıkar pencereleri bağımsızdır).
 - `rar` sıkıştırılamayan verilerde (zip, video, rastgele) ikinci bir hızlı geçiş yapar; çubukta kısa bir hızlanma görülebilir.
 - Finder menüsündeki `“ad.rar” olarak Sıkıştır` yazısı, eklenti dosya sistemine bakamadığı için adında nokta olan klasörlerde yanıltıcı olabilir (işlem doğru çalışır).
+
+## Sık sorulan sorular
+
+### MacRAR ücretsiz mi?
+
+Evet. MacRAR, GPL-3.0 lisansıyla ücretsiz ve açık kaynaktır; RAR dosyalarını açmak ve çıkarmak da ücretsizdir, çünkü RARLAB'ın ücretsiz `unrar` aracı uygulamayla gelir. Yalnızca **RAR** arşivi oluşturmak ya da düzenlemek için RARLAB'ın `rar` aracı gerekir; 40 gün ücretsiz denenebilir, sonrasında RARLAB lisansı ister. ZIP, 7Z ve TAR oluşturmak için hiç gerekmez.
+
+### Mac'te RAR dosyası nasıl açılır?
+
+MacRAR'ı kurun ve içine bakmak için `.rar` dosyasına çift tıklayın ya da Finder'da sağ tıklayıp ana pencereyi açmadan çıkarın. Parolalı arşivler parolayı sorar.
+
+### Mac'te RAR dosyası oluşturabilir miyim?
+
+Evet. MacRAR'ın Kurulum Yardımcısı RARLAB'ın `rar` aracını rarlab.com'dan tek tıkla indirir; ardından parolalı, dosya adları şifreli, kurtarma kayıtlı ya da parçalara bölünmüş RAR5 veya RAR4 arşivleri oluşturabilirsiniz.
+
+### Finder'ın sağ tık menüsünden sıkıştırıp çıkarabilir miyim?
+
+Evet. Finder'da dosyalara sağ tıklayıp RAR ya da ZIP olarak sıkıştırabilir, bir arşive sağ tıklayıp çıkarabilir ya da açabilirsiniz. İşlem, MacRAR'ın ana penceresi açılmadan küçük bir ilerleme paneliyle yapılır.
+
+### Hangi Mac'lerde çalışır?
+
+macOS 15 Sequoia veya üstü yüklü Apple Silicon ve Intel Mac'lerde.
+
+### macOS neden ilk seferde engelliyor?
+
+MacRAR, ücretli geliştirici hesabı gerektiren Apple onayından (notarization) geçmemiştir. **Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç** ile bir kez izin verin; ayrıntılar [Kurulum](#kurulum) bölümünde.
+
+<sub>WinRAR, Keka, BetterZip ve The Unarchiver yalnızca karşılaştırma için anılmıştır; MacRAR'ın bunlarla ya da RARLAB ile bir bağı yoktur.</sub>
 
 ## Lisans
 

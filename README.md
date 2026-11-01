@@ -5,8 +5,12 @@
 <h1 align="center">MacRAR</h1>
 
 <p align="center">
-  A WinRAR-style <b>archive manager</b> for macOS: RAR, ZIP, 7Z and TAR.<br>
+  A free, open-source, WinRAR-style <b>archive manager</b> for macOS: RAR, ZIP, 7Z and TAR.<br>
   Under the hood it runs RARLAB's <code>rar</code> / <code>unrar</code> tools and macOS's <code>bsdtar</code>, with a native SwiftUI interface and Finder integration on top.
+</p>
+
+<p align="center">
+  A free <b>WinRAR</b> alternative for the Mac, and an alternative to <b>Keka</b>, <b>BetterZip</b> and <b>The Unarchiver</b>.
 </p>
 
 <p align="center">
@@ -334,6 +338,34 @@ scripts/check_strings.sh   # lists missing strings in both languages; exits with
 - **Password** prompts coming from Finder appear in the main window for now (the Add/Extract windows are separate).
 - On incompressible data (zip, video, random) `rar` makes a second fast pass; the bar may briefly speed up.
 - The `Compress to “name.rar”` label in the Finder menu can be misleading for folders with a dot in their name, because the extension cannot look at the file system (the operation itself works correctly).
+
+## FAQ
+
+### Is MacRAR free?
+
+Yes. MacRAR is free and open source under the GPL-3.0 license, and opening and extracting RAR files is free too: RARLAB's free `unrar` comes with the app. Only creating or editing **RAR** archives needs RARLAB's `rar` tool, which is free to try for 40 days and then needs a RARLAB license. Creating ZIP, 7Z and TAR archives never needs it.
+
+### How do I open a RAR file on a Mac?
+
+Install MacRAR and double-click the `.rar` file to look inside, or right-click it in the Finder and extract it without opening the main window. Password-protected archives ask for the password.
+
+### Can I create RAR files on a Mac?
+
+Yes. MacRAR's Setup Assistant downloads RARLAB's `rar` from rarlab.com with one click; then you can create RAR5 or RAR4 archives with a password, file name encryption, a recovery record or split volumes.
+
+### Can I compress and extract from the Finder right-click menu?
+
+Yes. Right-click files in the Finder to compress them to RAR or ZIP, or right-click an archive to extract or open it. The work runs with a small progress panel, without opening MacRAR's main window.
+
+### Which Macs does it run on?
+
+Apple Silicon and Intel Macs with macOS 15 Sequoia or later.
+
+### Why does macOS block it the first time?
+
+MacRAR is not notarized by Apple, which needs a paid developer account. Allow it once in **System Settings ▸ Privacy & Security ▸ Open Anyway**; see [Installation](#installation).
+
+<sub>WinRAR, Keka, BetterZip and The Unarchiver are named only for comparison; MacRAR is not affiliated with them or with RARLAB.</sub>
 
 ## License
 
