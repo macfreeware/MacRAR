@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://gitlab.com/freeware2/macrar/-/releases">All releases</a> · <a href="#installation">Installation steps</a> · The interface is in English and Turkish
+  <a href="https://macfreeware.github.io/macrar/">Website</a> · <a href="https://gitlab.com/freeware2/macrar/-/releases">All releases</a> · <a href="#installation">Installation steps</a> · The interface is in English and Turkish
 </p>
 
 > [!warning] First time you open the installer, macOS blocks it. This is expected.

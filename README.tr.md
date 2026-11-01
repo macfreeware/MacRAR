@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://gitlab.com/freeware2/macrar/-/releases">Tüm sürümler</a> · <a href="#kurulum">Kurulum adımları</a> · Arayüz Türkçe ve İngilizce
+  <a href="https://macfreeware.github.io/tr/macrar/">Web sitesi</a> · <a href="https://gitlab.com/freeware2/macrar/-/releases">Tüm sürümler</a> · <a href="#kurulum">Kurulum adımları</a> · Arayüz Türkçe ve İngilizce
 </p>
 
 > [!warning] Kurulum paketini ilk açışınızda macOS onu engeller. Bu beklenen bir durumdur.
