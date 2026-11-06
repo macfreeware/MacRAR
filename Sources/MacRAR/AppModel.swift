@@ -86,6 +86,8 @@ final class AppModel {
         if sheet == nil { SheetPanel.shared.hide() }
     }
     var operation: OperationState?
+    /// `perform` ile süren iş sayısı. `operation` gecikmeli işlerde ilk yarım saniye boş kalır; bu sayı boş kalmaz.
+    private(set) var runningWork = 0
     var alert: AlertInfo?
     var previewURL: URL?
     /// Kısa süreli, engellemeyen bildirim (örn. "Parola kaydedildi").
@@ -114,6 +116,12 @@ final class AppModel {
     /// `rarInstallProgress` nil değilse kurulum sürüyordur.
     var rarInstallProgress: String?
     var rarInstallMessage: String?
+
+    /// Uygulama güncellenip yeniden başlatılabilir mi? Sıkıştırma, çıkarma, Finder işleri ve `rar` kurulumu sürerken ya da
+    /// bir diyalog açıkken hayır: paket değişince araçlar kaybolur, açık sayfa da uygulamanın kapanmasını engeller.
+    var isIdleForUpdate: Bool {
+        operation == nil && runningWork == 0 && sheet == nil && alert == nil && rarInstallProgress == nil && !quickSession
+    }
 
     func installRAR() async {
         guard rarInstallProgress == nil else { return }
@@ -652,6 +660,8 @@ final class AppModel {
                               delayed: Bool = false,
                               warnings: @escaping (T) -> [String] = { _ in [] },
                               work: @escaping @Sendable () async throws -> T) async -> Result<T, Error> {
+        runningWork += 1
+        defer { runningWork -= 1 }
         let op = OperationState(title: title)
         if delayed {
             Task {

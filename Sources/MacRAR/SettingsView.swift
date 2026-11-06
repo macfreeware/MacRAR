@@ -10,6 +10,7 @@ struct SettingsView: View {
     @AppStorage("stampPattern") private var stampPattern = ArchiveNaming.defaultPattern
     @AppStorage("stampSeparator") private var stampSeparator = ArchiveNaming.defaultSeparator
     @AppStorage("quickReveal") private var quickReveal = true
+    @AppStorage("updateAutoCheck") private var updateAutoCheck = true
     @State private var customMode = false
     @State private var language = AppLanguage.saved
 
@@ -46,9 +47,17 @@ struct SettingsView: View {
             } footer: {
                 Text("Şifreli arşivlerde kullandığınız parolaları macOS Anahtar Zinciri’nde saklayıp sonra listeden seçebilirsiniz.")
             }
+            Section {
+                Toggle("Güncellemeleri otomatik denetle", isOn: $updateAutoCheck)
+                Button("Güncellemeleri Denetle…") { UpdateController.shared.checkFromMenu() }
+            } header: {
+                Text("Güncellemeler")
+            } footer: {
+                Text("Günde en çok bir kez GitLab’a son sürüm sorulur; bu Mac hakkında bilgi gönderilmez.")
+            }
         }
         .formStyle(.grouped)
-        .frame(height: language != AppLanguage.atLaunch ? 350 : 310)
+        .frame(height: language != AppLanguage.atLaunch ? 480 : 440)
     }
 
     // MARK: Finder

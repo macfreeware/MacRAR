@@ -21,7 +21,8 @@ This file is distributed with the MacRAR installer (MacRAR-<version>.pkg).
        shasum -a 256 MacRAR-<version>.pkg
 
 2) WHAT THE INSTALLER DOES
-   - Installs MacRAR.app in the Applications folder.
+   - Installs MacRAR.app in the Applications folder and gives it to the user who installs it,
+     so that it can update itself to later versions.
    - Turns on the Finder right-click menu extension and restarts Finder.
    - Opens MacRAR; on first launch the "Setup Assistant" shows the remaining steps.
 
@@ -54,7 +55,12 @@ This file is distributed with the MacRAR installer (MacRAR-<version>.pkg).
    If you only move the app to the Trash, the settings, ~/Library/Application Support/MacRAR and
    the saved passwords in the Keychain stay behind.
 
-7) TROUBLESHOOTING
+7) UPDATES
+   MacRAR checks GitLab for a new version and asks you; "Update Now" downloads, verifies, swaps it in and reopens.
+   Check by hand: MacRAR ▸ Check for Updates…  Automatic check: MacRAR ▸ Settings ▸ General.
+   1.1.3 and older cannot update themselves; install 1.2.0 once with this package.
+
+8) TROUBLESHOOTING
    - Installer log: /tmp/MacRAR-kurulum.log
    - The password manager may ask for Keychain access on first use (choose "Always Allow").
 

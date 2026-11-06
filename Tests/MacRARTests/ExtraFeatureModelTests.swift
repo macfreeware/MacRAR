@@ -194,4 +194,36 @@ final class ExtraFeatureModelTests: XCTestCase {
         await vault.update(item)
         XCTAssertEqual(vault.items.first { $0.name == "Notsuz" }?.hint, "Yedek diski")
     }
+
+    // MARK: Güncelleme
+
+    func testUpdateWaitsForWorkDialogsAndFinderSessions() async throws {
+        XCTAssertTrue(model.isIdleForUpdate)
+
+        // Gecikmeli işte `operation` ilk yarım saniye boştur; yine de iş sürüyor sayılır.
+        let release = AsyncStream<Void>.makeStream()
+        let work = Task {
+            await model.perform("Deneme", tracker: ProgressTracker(), delayed: true) { for await _ in release.stream { break } }
+        }
+        while model.runningWork == 0 { await Task.yield() }
+        XCTAssertNil(model.operation)
+        XCTAssertFalse(model.isIdleForUpdate)
+        release.continuation.finish()
+        _ = await work.value
+        model.operation = nil
+        XCTAssertTrue(model.isIdleForUpdate)
+
+        model.rarInstallProgress = "Başlatılıyor…"
+        XCTAssertFalse(model.isIdleForUpdate)
+        model.rarInstallProgress = nil
+
+        model.alert = AlertInfo(title: "Başlık", message: "İleti")
+        XCTAssertFalse(model.isIdleForUpdate)
+        model.alert = nil
+
+        model.beginQuickCommand()   // görünür pencere yok: Finder'dan başlatılan hızlı oturum
+        XCTAssertFalse(model.isIdleForUpdate)
+        model.endQuickSessionTakeover()
+        XCTAssertTrue(model.isIdleForUpdate)
+    }
 }

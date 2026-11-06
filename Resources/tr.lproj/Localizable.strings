@@ -28,6 +28,7 @@
 "Anahtar Zinciri hatası: %@" = "Anahtar Zinciri hatası: %@";
 "Araçlar" = "Araçlar";
 "Araçlar doğrulanıyor…" = "Araçlar doğrulanıyor…";
+"Arşiv açılamadı." = "Arşiv açılamadı.";
 "Arşiv" = "Arşiv";
 "Arşiv adı" = "Arşiv adı";
 "Arşiv adıyla alt klasör oluştur (%@)" = "Arşiv adıyla alt klasör oluştur (%@)";
@@ -50,6 +51,7 @@
 "Arşivde ara" = "Arşivde ara";
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Arşivdeki dosyaların bütünlüğünü denetle";
+"Arşivdeki uygulama beklenen MacRAR sürümü değil." = "Arşivdeki uygulama beklenen MacRAR sürümü değil.";
 "Arşivden Sil" = "Arşivden Sil";
 "Arşivden silinsin mi?" = "Arşivden silinsin mi?";
 "Arşive dosya ekle" = "Arşive dosya ekle";
@@ -135,6 +137,7 @@
 "Bu kopya Uygulamalar klasöründe değil (%@); uygulama dosyası silinmez, onu kendiniz Çöp Kutusu’na atın. Eklenti kaydı ve seçtiğiniz veriler temizlenir." = "Bu kopya Uygulamalar klasöründe değil (%@); uygulama dosyası silinmez, onu kendiniz Çöp Kutusu’na atın. Eklenti kaydı ve seçtiğiniz veriler temizlenir.";
 "Bu parola zaten kayıtlıydı; son kullanımı güncellendi" = "Bu parola zaten kayıtlıydı; son kullanımı güncellendi";
 "Bu parolayı parola yöneticisine kaydet" = "Bu parolayı parola yöneticisine kaydet";
+"Bu Sürümü Atla" = "Bu Sürümü Atla";
 "bulunamadı" = "bulunamadı";
 "Bulunamadı." = "Bulunamadı.";
 "Bunun yerine ZIP olarak sıkıştırabilirsiniz." = "Bunun yerine ZIP olarak sıkıştırabilirsiniz.";
@@ -214,6 +217,7 @@
 "Genel" = "Genel";
 "Geçerli bir desen girin." = "Geçerli bir desen girin.";
 "Girilen parola hatalı. Tekrar deneyin." = "Girilen parola hatalı. Tekrar deneyin.";
+"GitLab yanıtı: HTTP %lld" = "GitLab yanıtı: HTTP %lld";
 "Gizli Dosyaları Gizle" = "Gizli Dosyaları Gizle";
 "Gizli dosyaları göster" = "Gizli dosyaları göster";
 "Gizli Dosyaları Göster" = "Gizli Dosyaları Göster";
@@ -222,6 +226,12 @@
 "Göster" = "Göster";
 "Gösterilecek satır yok" = "Gösterilecek satır yok";
 "Güncelleme kipi" = "Güncelleme kipi";
+"Güncelleme kurulamadı." = "Güncelleme kurulamadı.";
+"Güncellemeler denetlenemedi." = "Güncellemeler denetlenemedi.";
+"Güncellemeler" = "Güncellemeler";
+"Güncellemeleri Denetle…" = "Güncellemeleri Denetle…";
+"Güncellemeleri otomatik denetle" = "Güncellemeleri otomatik denetle";
+"Günde en çok bir kez GitLab’a son sürüm sorulur; bu Mac hakkında bilgi gönderilmez." = "Günde en çok bir kez GitLab’a son sürüm sorulur; bu Mac hakkında bilgi gönderilmez.";
 "Güvenilmeyen indirme adresi reddedildi: %@" = "Güvenilmeyen indirme adresi reddedildi: %@";
 "HATA" = "HATA";
 "Hedef" = "Hedef";
@@ -236,11 +246,14 @@
 "İki arşivin içeriği aynı (%lld dosya)." = "İki arşivin içeriği aynı (%lld dosya).";
 "İndirilen araç doğrulanamadı: %@" = "İndirilen araç doğrulanamadı: %@";
 "İndirilen dosya beklenenden büyük; kurulum durduruldu." = "İndirilen dosya beklenenden büyük; kurulum durduruldu.";
+"İndirilen dosyanın özeti tutmuyor; dosya bozuk ya da değiştirilmiş olabilir." = "İndirilen dosyanın özeti tutmuyor; dosya bozuk ya da değiştirilmiş olabilir.";
 "İndirilen pakette rar/unrar bulunamadı." = "İndirilen pakette rar/unrar bulunamadı.";
 "İndirilenler" = "İndirilenler";
 "İndirme başarısız: %@" = "İndirme başarısız: %@";
+"İndirme Sayfasını Aç" = "İndirme Sayfasını Aç";
 "İptal" = "İptal";
 "İpucu / not (isteğe bağlı; parolanın kendisini yazmayın)" = "İpucu / not (isteğe bağlı; parolanın kendisini yazmayın)";
+"İsterseniz yeni sürümü indirme sayfasından elle kurabilirsiniz." = "İsterseniz yeni sürümü indirme sayfasından elle kurabilirsiniz.";
 "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir)." = "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir).";
 "İyi" = "İyi";
 "İçerik farklı (CRC)" = "İçerik farklı (CRC)";
@@ -288,6 +301,8 @@
 "Komutlar" = "Komutlar";
 "Konum" = "Konum";
 "Kritik hata." = "Kritik hata.";
+"Kullandığınız sürüm (%@) en son sürüm." = "Kullandığınız sürüm (%@) en son sürüm.";
+"Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir." = "Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir.";
 "Kullanım" = "Kullanım";
 "Kurtarma kaydı" = "Kurtarma kaydı";
 "Kurtarma kaydı ekle" = "Kurtarma kaydı ekle";
@@ -302,6 +317,10 @@
 "macOS %@" = "macOS %@";
 "macOS için WinRAR tarzı arşiv yöneticisi" = "macOS için WinRAR tarzı arşiv yöneticisi";
 "macOS’un ‘bsdtar’ aracı bulunamadı. Ayarlar ▸ Araçlar’dan yolunu belirtin." = "macOS’un ‘bsdtar’ aracı bulunamadı. Ayarlar ▸ Araçlar’dan yolunu belirtin.";
+"MacRAR %@ hazır" = "MacRAR %@ hazır";
+"MacRAR güncel (%@)." = "MacRAR güncel (%@).";
+"MacRAR güncel." = "MacRAR güncel.";
+"MacRAR güncelleniyor" = "MacRAR güncelleniyor";
 "MacRAR" = "MacRAR";
 "MacRAR girdilerini sağ tık menüsünde göster" = "MacRAR girdilerini sağ tık menüsünde göster";
 "MacRAR Hakkında" = "MacRAR Hakkında";
@@ -419,10 +438,15 @@
 "Sistem dili" = "Sistem dili";
 "Son kullanılan hedefler" = "Son kullanılan hedefler";
 "Son kullanım: %@" = "Son kullanım: %@";
+"Sonra" = "Sonra";
 "sunucu yanıtı beklenen gibi değil" = "sunucu yanıtı beklenen gibi değil";
 "Sözlük boyutu" = "Sözlük boyutu";
+"Süren iş ya da açık pencere bitince güncellenebilir." = "Süren iş ya da açık pencere bitince güncellenebilir.";
+"Süren işin bitmesi bekleniyor…" = "Süren işin bitmesi bekleniyor…";
 "Sürükleyerek çıkarılamadı" = "Sürükleyerek çıkarılamadı";
+"Sürüm %@ indiriliyor ve doğrulanıyor…" = "Sürüm %@ indiriliyor ve doğrulanıyor…";
 "Sürüm %@" = "Sürüm %@";
+"Sürümde %@ ya da özet dosyası yok." = "Sürümde %@ ya da özet dosyası yok.";
 "Sıkıştırma" = "Sıkıştırma";
 "Sıkıştırma oranı" = "Sıkıştırma oranı";
 "Sıkıştırmasız" = "Sıkıştırmasız";
@@ -457,6 +481,7 @@
 "Uygulama siliniyor…" = "Uygulama siliniyor…";
 "Uygulamalar" = "Uygulamalar";
 "Uygulamalar klasörü" = "Uygulamalar klasörü";
+"Uygulamanın imzası doğrulanamadı." = "Uygulamanın imzası doğrulanamadı.";
 "Var olan dosyalar" = "Var olan dosyalar";
 "Varsayılan uygulama" = "Varsayılan uygulama";
 "Varsayılan yapmak için MacRAR'ın Uygulamalar klasöründe kurulu olması gerekir (şu an: %@)." = "Varsayılan yapmak için MacRAR'ın Uygulamalar klasöründe kurulu olması gerekir (şu an: %@).";
@@ -517,6 +542,7 @@
 "Özel yol boşsa araçlar /opt/homebrew/bin, /usr/local/bin, PATH ve MacRAR’ın kendi klasöründe aranır." = "Özel yol boşsa araçlar /opt/homebrew/bin, /usr/local/bin, PATH ve MacRAR’ın kendi klasöründe aranır.";
 "Özellikler" = "Özellikler";
 "Özel…" = "Özel…";
+"Özet dosyası okunamadı." = "Özet dosyası okunamadı.";
 "Üst Klasör" = "Üst Klasör";
 "Üst klasör (⌘↑)" = "Üst klasör (⌘↑)";
 "Üst klasör / arşivi kapat" = "Üst klasör / arşivi kapat";
@@ -525,6 +551,7 @@
 "Şifreli adlar" = "Şifreli adlar";
 "Şifreli arşivde parola sorulur. Parolayı kaydederseniz sonraki sefer “Kayıtlı parolalar” menüsünden seçebilirsiniz. Parolalar macOS Anahtar Zinciri'nde saklanır." = "Şifreli arşivde parola sorulur. Parolayı kaydederseniz sonraki sefer “Kayıtlı parolalar” menüsünden seçebilirsiniz. Parolalar macOS Anahtar Zinciri'nde saklanır.";
 "Şifreli arşivlerde kullandığınız parolaları macOS Anahtar Zinciri’nde saklayıp sonra listeden seçebilirsiniz." = "Şifreli arşivlerde kullandığınız parolaları macOS Anahtar Zinciri’nde saklayıp sonra listeden seçebilirsiniz.";
+"Şimdi Güncelle" = "Şimdi Güncelle";
 "Şimdi kapat" = "Şimdi kapat";
 "Şimdi Yeniden Başlat" = "Şimdi Yeniden Başlat";
 "Şunlar kaldırılır: %@, Finder sağ tık eklentisi ve kurulum kaydı. Yönetici parolası istenebilir." = "Şunlar kaldırılır: %@, Finder sağ tık eklentisi ve kurulum kaydı. Yönetici parolası istenebilir.";
@@ -537,6 +564,7 @@
 "“%@” arşivinde hata bulunmadı." = "“%@” arşivinde hata bulunmadı.";
 "“%@” açılamadı" = "“%@” açılamadı";
 "“%@” için yeni ad:" = "“%@” için yeni ad:";
+"“%@” klasörüne yazılamadı: %@" = "“%@” klasörüne yazılamadı: %@";
 "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@" = "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@";
 "“%@” parola ile korunuyor." = "“%@” parola ile korunuyor.";
 "“.%@” için MacRAR varsayılan yapıldı." = "“.%@” için MacRAR varsayılan yapıldı.";

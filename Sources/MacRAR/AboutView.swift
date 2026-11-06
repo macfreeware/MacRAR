@@ -32,7 +32,9 @@ struct AboutView: View {
     @State private var tab: Tab = .general
     @State private var toolRows: [ToolRow] = []
     @State private var finderState: FinderExtensionState = .unknown
+    @Environment(\.dismissWindow) private var dismissWindow
 
+    private let update = UpdateController.shared
     private let version = VersionInfo()
 
     var body: some View {
@@ -61,8 +63,9 @@ struct AboutView: View {
             Divider()
             footer
         }
-        .frame(width: 560, height: 640)
+        .frame(width: 560, height: 680)
         .task { await refreshSystem() }
+        .onAppear { update.aboutResult = nil }
     }
 
     // MARK: Üst bölüm
@@ -72,7 +75,18 @@ struct AboutView: View {
             Image(nsImage: NSApplication.shared.applicationIconImage)
                 .resizable().frame(width: 96, height: 96)
             Text(AppInfo.name).font(.system(size: 28, weight: .bold))
+
             Text(version.display).font(.callout).foregroundStyle(.secondary).textSelection(.enabled)
+            Button("Güncellemeleri Denetle…") {
+                Task { if await update.checkFromAbout() { dismissWindow(id: "about") } }
+            }
+            .controlSize(.small)
+            .disabled(update.isChecking)
+            if let result = update.aboutResult {
+                Text(verbatim: result).font(.caption).foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 24)
+            }
             Text("macOS için WinRAR tarzı arşiv yöneticisi").font(.callout).foregroundStyle(.secondary)
 
             HStack(spacing: 6) {

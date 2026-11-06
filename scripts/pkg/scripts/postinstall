@@ -46,6 +46,13 @@ as_user() {
   return 0
 }
 
+# 0) Paket uygulamayı root'a ait kurar. Kullanıcıya devredilmezse uygulama sonraki sürümlere kendini güncelleyemez
+#    (sürükleyerek kurulan uygulamalarda da sahip kullanıcıdır). Finder eklentisi ve unrar da paketin içindedir.
+log "+ chown -R $CONSOLE_USER $APP"
+if [ "$DRY" != "1" ]; then
+  /usr/sbin/chown -R "$CONSOLE_USER" "$APP" >> "$LOG" 2>&1 || log "  (chown başarısız; uygulama kendini güncelleyemez)"
+fi
+
 # 1) Uygulamayı ve eklentiyi sisteme tanıt (Servisler girdileri, dosya ilişkileri, ikon)
 as_user "$LSREGISTER" -f "$APP"
 as_user /usr/bin/pluginkit -a "$EXT"

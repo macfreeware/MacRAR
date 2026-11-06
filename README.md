@@ -134,6 +134,7 @@ Shows the status of the RAR tools, the Finder menu and the default app, with one
 - **About window** (MacRAR menu ▸ About MacRAR): version/build, developer, short usage notes and shortcuts, tool versions and Finder extension status.
 - **Preview** (Quick Look / Space), open with a double-click, drag and drop (open an archive / archive files), context menus.
 - A two-mode window like WinRAR: a file manager when no archive is open, the archive's contents once you enter one. Leave with Enclosing Folder / Backspace.
+- **Updates itself:** MacRAR checks GitLab for a new version, asks you, downloads and verifies it, swaps it in and reopens; the Finder menu, saved passwords, settings and the `rar` tool stay in place. Turn the automatic check off in **Settings ▸ General**; check by hand with **MacRAR ▸ Check for Updates…** or the button in the About window.
 - **English and Turkish interface:** MacRAR follows the system language; change it in **Settings ▸ General ▸ Language** or right in the **Setup Assistant** on first launch (🌐 System language / 🇹🇷 Türkçe / 🇬🇧 English). In the Setup Assistant the language changes instantly; a change made in Settings takes effect when MacRAR is reopened. The Finder right-click menu uses the chosen language too.
 
 ## Requirements
@@ -170,6 +171,8 @@ After installation nothing is left to do by hand. The package is not notarized b
 **System Settings ▸ Privacy & Security ▸ Open Anyway** (see the warning with screenshots at the top of this page).
 Installer log: `/tmp/MacRAR-kurulum.log`. To uninstall: **Help ▸ Uninstall MacRAR…** inside MacRAR (removes the app, the Finder extension and the installer receipt; offers options for settings, downloaded tools and saved passwords), or `bash uninstall.sh` in Terminal.
 If you only move the app to the Trash, the settings, `~/Library/Application Support/MacRAR` and the passwords in the Keychain stay behind.
+
+The installer gives the app to the user who installs it, so that it can update itself. 1.1.3 and older cannot update themselves; install 1.2.0 once with the package. An update does not start while compressing or extracting. If you cannot write to the app (for example, another user installed it), MacRAR offers the download page instead.
 
 The **Setup Assistant** opens automatically on MacRAR's first launch; open it later with **Help ▸ Setup Assistant…**.
 It shows the status of the RAR tools (`rar`/`unrar`), the Finder menu and the default app, and offers buttons to fix what is missing
@@ -268,11 +271,11 @@ Passwords are stored as a single item in the macOS **Keychain**; the app only to
 
 | Part | Role |
 |---|---|
-| `Sources/MacRARCore` | UI-independent core: `ProcessRunner` (subprocesses, cancellation, stdin), `RarListParser` / `TarListParser` / `UnarListParser` (listing output), `ProgressParser` / `ProgressTracker` (progress), `TransferMonitor` (byte-based progress from open file offsets), `ArchiveService` (all operations), `ZipEditing` (ZIP add/delete/rename, central directory reader), `ArchiveComparison` (comparison and merge conflicts), `SizeEstimator` (estimated archive size), `RARInstaller` (download and install rar from RARLAB), `ToolPaths` / `ToolGuidance` (finding tools and guidance), `AppRemoval` (in-app uninstall), `PasswordVault` (Keychain), `ArchiveNaming` (names and timestamps), `FinderIntegration` / `FinderToken` / `FinderState` (menu contents, extension↔app commands, secret key, `rar` status and language). |
-| `Sources/MacRAR` | The SwiftUI app: `AppModel` (state + operation flow), `MainView`, `FileTableView`, `AddSheet` / `OtherSheets` (Add/Extract), `CompareSheet` (archive comparison), `ProgressPanel` / `SheetPanel` (progress panel and movable dialog window for operations started from Finder), `SettingsView`, `AppLanguage` (language choice), `SetupAssistant`, `AppRemovalView`, `ArchiveDrag`. |
+| `Sources/MacRARCore` | UI-independent core: `ProcessRunner` (subprocesses, cancellation, stdin), `RarListParser` / `TarListParser` / `UnarListParser` (listing output), `ProgressParser` / `ProgressTracker` (progress), `TransferMonitor` (byte-based progress from open file offsets), `ArchiveService` (all operations), `ZipEditing` (ZIP add/delete/rename, central directory reader), `ArchiveComparison` (comparison and merge conflicts), `SizeEstimator` (estimated archive size), `RARInstaller` (download and install rar from RARLAB), `ToolPaths` / `ToolGuidance` (finding tools and guidance), `AppRemoval` (in-app uninstall), `UpdateInfo` / `Updater` (updating itself from GitLab), `PasswordVault` (Keychain), `ArchiveNaming` (names and timestamps), `FinderIntegration` / `FinderToken` / `FinderState` (menu contents, extension↔app commands, secret key, `rar` status and language). |
+| `Sources/MacRAR` | The SwiftUI app: `AppModel` (state + operation flow), `MainView`, `FileTableView`, `AddSheet` / `OtherSheets` (Add/Extract), `CompareSheet` (archive comparison), `ProgressPanel` / `SheetPanel` (progress panel and movable dialog window for operations started from Finder), `SettingsView`, `AppLanguage` (language choice), `SetupAssistant`, `AppRemovalView`, `UpdateController` (update flow and window), `ArchiveDrag`. |
 | `FinderExtension` | The Finder Sync extension (`MacRARFinder.appex`); compiled by `build_app.sh` and embedded in the app. Shared sources: `FinderIntegration`, `FinderToken`, `FinderState`. |
 | `Resources` | Interface translations: `tr.lproj` and `en.lproj` (`Localizable.strings`, `Localizable.stringsdict` for plurals, `InfoPlist.strings`); `FinderExtension/` holds the extension's own name. The keys are the Turkish strings in the source code. |
-| `scripts` | `build_app.sh` (packaging, signing, installing), `fetch_unrar.sh` (takes `unrar` from the official package, verified), `build_pkg.sh` (installer: scripts, pages in both languages and distribution file under `pkg/`), `check_strings.sh` (missing translation check), `uninstall.sh`, `Info.plist` files, icon generator. |
+| `scripts` | `build_app.sh` (packaging, signing, installing), `make_release.sh` (release files, checks and publishing), `fetch_unrar.sh` (takes `unrar` from the official package, verified), `build_pkg.sh` (installer: scripts, pages in both languages and distribution file under `pkg/`), `check_strings.sh` (missing translation check), `uninstall.sh`, `Info.plist` files, icon generator. |
 
 Because the extension is sandboxed, it does not touch files; it passes the selected paths to the app through a `macrar://` link.
 Links are rejected unless they contain **a secret key unique to that installation**: the key is generated randomly on first launch for each installation (user account)
@@ -337,6 +340,7 @@ scripts/check_strings.sh   # lists missing strings in both languages; exits with
 - On a cold start the main window stays hidden for about 1 second so the app can tell why it was opened (a Finder command or the user).
 - **Password** prompts coming from Finder appear in the main window for now (the Add/Extract windows are separate).
 - On incompressible data (zip, video, random) `rar` makes a second fast pass; the bar may briefly speed up.
+- The app has an ad-hoc signature, so the update check shows that the package is intact, not who published it; trust rests on the GitLab account and HTTPS. After each update macOS may ask again for Keychain access for the password manager.
 - The `Compress to “name.rar”` label in the Finder menu can be misleading for folders with a dot in their name, because the extension cannot look at the file system (the operation itself works correctly).
 
 ## FAQ
@@ -360,6 +364,10 @@ Yes. Right-click files in the Finder to compress them to RAR or ZIP, or right-cl
 ### Which Macs does it run on?
 
 Apple Silicon and Intel Macs with macOS 15 Sequoia or later.
+
+### Does MacRAR connect to the internet?
+
+Only when needed: GitLab is asked for the latest version at most once a day (you can turn this off, and nothing about your Mac is sent), updates are downloaded from gitlab.com, and rarlab.com is used if you choose to install `rar`.
 
 ### Why does macOS block it the first time?
 

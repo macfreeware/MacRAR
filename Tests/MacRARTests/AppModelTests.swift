@@ -859,7 +859,9 @@ final class AppModelTests: XCTestCase {
         try FileManager.default.createDirectory(at: fakeApp, withIntermediateDirectories: true)
         let (code, log) = try runPostinstall(app: fakeApp.path, user: NSUserName())
         XCTAssertEqual(code, 0)
-        let steps = ["lsregister -f", "pluginkit -a", "pbs -update", "pluginkit -e use -i local.macrar.app.FinderSync", "killall Finder", "open -a"]
+        // Uygulama kullanıcıya devredilmezse sonraki sürümlere kendini güncelleyemez.
+        XCTAssertTrue(log.contains("chown -R \(NSUserName()) \(fakeApp.path)"), log)
+        let steps = ["chown -R", "lsregister -f", "pluginkit -a", "pbs -update", "pluginkit -e use -i local.macrar.app.FinderSync", "killall Finder", "open -a"]
         var cursor = log.startIndex
         for step in steps {
             let r = try XCTUnwrap(log.range(of: step, range: cursor..<log.endIndex), "adım eksik/sırasız: \(step)\n\(log)")
@@ -871,6 +873,7 @@ final class AppModelTests: XCTestCase {
         // 3) giriş yapmış kullanıcı yok (uzaktan kurulum) → kullanıcı adımları atlanır, kurulum başarılı
         let (c3, l3) = try runPostinstall(app: fakeApp.path, user: "root")
         XCTAssertEqual(c3, 0); XCTAssertTrue(l3.contains("Giriş yapmış kullanıcı yok")); XCTAssertFalse(l3.contains("killall Finder"))
+        XCTAssertFalse(l3.contains("chown"))
     }
 
     func testInstallerResourcesAreValid() throws {

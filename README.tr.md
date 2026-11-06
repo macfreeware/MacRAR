@@ -136,6 +136,7 @@ RAR araçları, Finder menüsü ve varsayılan uygulama durumunu gösterir, eksi
 - **Hakkında penceresi** (MacRAR menüsü ▸ MacRAR Hakkında): sürüm/derleme, geliştirici, kısa kullanım ve kısayollar, araç sürümleri ile Finder eklentisi durumu.
 - **Önizle** (Quick Look / Boşluk), çift tıkla açma, sürükle-bırak (arşivi aç / dosyaları arşivle), bağlam menüleri.
 - WinRAR gibi iki kipli pencere: arşiv açık değilken dosya yöneticisi, arşive girince arşiv içeriği. Üst klasör / Backspace ile çıkış.
+- **Kendini güncelleme:** MacRAR yeni sürümü GitLab'dan denetler, sorar, indirip doğrular ve yerine koyup yeniden açılır; Finder menüsü, kayıtlı parolalar, ayarlar ve `rar` aracı yerinde kalır. Otomatik denetim **Ayarlar ▸ Genel**'den kapatılabilir; elle denetim için **MacRAR ▸ Güncellemeleri Denetle…** ya da Hakkında penceresindeki düğme kullanılır.
 - **Türkçe ve İngilizce arayüz:** MacRAR sistem dilini izler; **Ayarlar ▸ Genel ▸ Dil**'den ya da ilk açılışta doğrudan **Kurulum Yardımcısı**'ndan (🌐 Sistem dili / 🇹🇷 Türkçe / 🇬🇧 English) değiştirilebilir. Kurulum Yardımcısı'nda dil anında değişir; Ayarlar'dan yapılan değişiklik MacRAR yeniden açılınca geçerli olur. Finder sağ tık menüsü de seçilen dili kullanır.
 
 ## Gereksinimler
@@ -172,6 +173,8 @@ Kurulumdan sonra elle yapılacak bir şey kalmaz. Paket Apple onaylı olmadığ�
 **Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Yine de Aç**'a tıklayın (bu sayfanın başındaki ekran görüntülü uyarıya bakın).
 Kurulum günlüğü: `/tmp/MacRAR-kurulum.log`. Kaldırmak için: MacRAR içinde **Yardım ▸ MacRAR'ı Kaldır…** (uygulamayı, Finder eklentisini ve kurulum kaydını siler; ayarlar, indirilen araçlar ve kayıtlı parolalar için seçenek sunar) ya da Terminal'de `bash uninstall.sh`.
 Uygulamayı yalnızca Çöp Sepeti'ne atarsanız ayarlar, `~/Library/Application Support/MacRAR` ve Anahtar Zinciri'ndeki parolalar geride kalır.
+
+Kurulum, kendini güncelleyebilmesi için uygulamanın sahipliğini kurulumu yapan kullanıcıya verir. 1.1.3 ve öncesi kendini güncelleyemez; 1.2.0 bir kez paketle elle kurulur. Sıkıştırma ya da çıkarma sürerken güncelleme başlamaz. Uygulamaya yazma izniniz yoksa (ör. başka bir kullanıcının kurduğu kopya) MacRAR indirme sayfasını önerir.
 
 **Kurulum Yardımcısı**, MacRAR'ın ilk açılışında kendiliğinden açılır; sonradan **Yardım ▸ Kurulum Yardımcısı…** ile açılır.
 RAR araçları (`rar`/`unrar`), Finder menüsü ve varsayılan uygulama durumunu gösterir, eksikleri düzeltme düğmeleri sunar
@@ -270,11 +273,11 @@ Parolalar macOS **Anahtar Zinciri**'nde tek bir öğe olarak saklanır; uygulama
 
 | Parça | Görev |
 |---|---|
-| `Sources/MacRARCore` | Arayüzden bağımsız çekirdek: `ProcessRunner` (alt süreç, iptal, stdin), `RarListParser` / `TarListParser` / `UnarListParser` (liste çıktısı), `ProgressParser` / `ProgressTracker` (ilerleme), `TransferMonitor` (açık dosya konumundan bayt bazlı ilerleme), `ArchiveService` (tüm işlemler), `ZipEditing` (ZIP ekleme/silme/yeniden adlandırma, merkezî dizin okuyucu), `ArchiveComparison` (karşılaştırma ve birleştirme çakışmaları), `SizeEstimator` (tahmini arşiv boyutu), `RARInstaller` (rar'ı RARLAB'dan indirip kurma), `ToolPaths` / `ToolGuidance` (araç bulma ve yönergeler), `AppRemoval` (uygulama içi kaldırma), `PasswordVault` (Anahtar Zinciri), `ArchiveNaming` (ad ve zaman damgası), `FinderIntegration` / `FinderToken` / `FinderState` (menü içeriği, eklenti↔uygulama komutları, gizli anahtar, `rar` durumu ve dil). |
-| `Sources/MacRAR` | SwiftUI uygulaması: `AppModel` (durum + işlem akışı), `MainView`, `FileTableView`, `AddSheet` / `OtherSheets` (Ekle/Çıkar), `CompareSheet` (arşiv karşılaştırma), `ProgressPanel` / `SheetPanel` (Finder'dan başlatılan işlemlerin ilerleme paneli ve taşınabilir diyalog penceresi), `SettingsView`, `AppLanguage` (dil seçimi), `SetupAssistant`, `AppRemovalView`, `ArchiveDrag`. |
+| `Sources/MacRARCore` | Arayüzden bağımsız çekirdek: `ProcessRunner` (alt süreç, iptal, stdin), `RarListParser` / `TarListParser` / `UnarListParser` (liste çıktısı), `ProgressParser` / `ProgressTracker` (ilerleme), `TransferMonitor` (açık dosya konumundan bayt bazlı ilerleme), `ArchiveService` (tüm işlemler), `ZipEditing` (ZIP ekleme/silme/yeniden adlandırma, merkezî dizin okuyucu), `ArchiveComparison` (karşılaştırma ve birleştirme çakışmaları), `SizeEstimator` (tahmini arşiv boyutu), `RARInstaller` (rar'ı RARLAB'dan indirip kurma), `ToolPaths` / `ToolGuidance` (araç bulma ve yönergeler), `AppRemoval` (uygulama içi kaldırma), `UpdateInfo` / `Updater` (GitLab'dan kendini güncelleme), `PasswordVault` (Anahtar Zinciri), `ArchiveNaming` (ad ve zaman damgası), `FinderIntegration` / `FinderToken` / `FinderState` (menü içeriği, eklenti↔uygulama komutları, gizli anahtar, `rar` durumu ve dil). |
+| `Sources/MacRAR` | SwiftUI uygulaması: `AppModel` (durum + işlem akışı), `MainView`, `FileTableView`, `AddSheet` / `OtherSheets` (Ekle/Çıkar), `CompareSheet` (arşiv karşılaştırma), `ProgressPanel` / `SheetPanel` (Finder'dan başlatılan işlemlerin ilerleme paneli ve taşınabilir diyalog penceresi), `SettingsView`, `AppLanguage` (dil seçimi), `SetupAssistant`, `AppRemovalView`, `UpdateController` (güncelleme akışı ve penceresi), `ArchiveDrag`. |
 | `FinderExtension` | Finder Sync eklentisi (`MacRARFinder.appex`); `build_app.sh` tarafından derlenip uygulamaya gömülür. Ortak kaynaklar: `FinderIntegration`, `FinderToken`, `FinderState`. |
 | `Resources` | Arayüz çevirileri: `tr.lproj` ve `en.lproj` (`Localizable.strings`, çoğullar için `Localizable.stringsdict`, `InfoPlist.strings`); `FinderExtension/` eklentinin kendi adı. Anahtarlar kaynak koddaki Türkçe metinlerin kendisidir. |
-| `scripts` | `build_app.sh` (paketleme, imzalama, kurulum), `fetch_unrar.sh` (resmi paketten `unrar`ı doğrulayarak alır), `build_pkg.sh` (kurulum paketi: `pkg/` altında betikler, iki dilli sayfalar, dağıtım tanımı), `check_strings.sh` (eksik çeviri denetimi), `uninstall.sh`, `Info.plist` dosyaları, simge üreteci. |
+| `scripts` | `build_app.sh` (paketleme, imzalama, kurulum), `make_release.sh` (sürüm dosyaları, denetimler ve yayım), `fetch_unrar.sh` (resmi paketten `unrar`ı doğrulayarak alır), `build_pkg.sh` (kurulum paketi: `pkg/` altında betikler, iki dilli sayfalar, dağıtım tanımı), `check_strings.sh` (eksik çeviri denetimi), `uninstall.sh`, `Info.plist` dosyaları, simge üreteci. |
 
 Eklenti korumalı (sandbox) çalıştığından dosyalara dokunmaz; seçilen yolları `macrar://` bağlantısıyla uygulamaya iletir.
 Bağlantılar, **o kuruluma özgü gizli bir anahtar** içermiyorsa reddedilir: anahtar her kurulumda (kullanıcı hesabında) ilk açılışta
@@ -339,6 +342,7 @@ scripts/check_strings.sh   # her iki dilde eksik metinleri listeler; eksik yoksa
 - Soğuk açılışta ana pencere, açılış nedeni (Finder komutu mu, kullanıcı mı) anlaşılsın diye ilk yaklaşık 1 saniye gizli tutulur.
 - Finder'dan gelen **parola** soruları şimdilik ana pencerede çıkar (Ekle/Çıkar pencereleri bağımsızdır).
 - `rar` sıkıştırılamayan verilerde (zip, video, rastgele) ikinci bir hızlı geçiş yapar; çubukta kısa bir hızlanma görülebilir.
+- Uygulama imzası ad-hoc olduğundan güncelleme denetimi yalnızca paketin bozulmadığını gösterir, yayıncıyı doğrulamaz; güven GitLab hesabına ve HTTPS'e dayanır. Her güncellemeden sonra macOS parola yöneticisi için Anahtar Zinciri iznini yeniden sorabilir.
 - Finder menüsündeki `“ad.rar” olarak Sıkıştır` yazısı, eklenti dosya sistemine bakamadığı için adında nokta olan klasörlerde yanıltıcı olabilir (işlem doğru çalışır).
 
 ## Sık sorulan sorular
@@ -362,6 +366,10 @@ Evet. Finder'da dosyalara sağ tıklayıp RAR ya da ZIP olarak sıkıştırabili
 ### Hangi Mac'lerde çalışır?
 
 macOS 15 Sequoia veya üstü yüklü Apple Silicon ve Intel Mac'lerde.
+
+### MacRAR internete bağlanır mı?
+
+Yalnızca gerektiğinde: günde en çok bir kez GitLab'a son sürüm sorulur (kapatılabilir; bu Mac hakkında bilgi gönderilmez), güncelleme gitlab.com'dan indirilir ve `rar` kurulumu istenirse rarlab.com kullanılır.
 
 ### macOS neden ilk seferde engelliyor?
 

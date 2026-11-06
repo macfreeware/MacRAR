@@ -24,6 +24,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         AppModel.shared.onQuickSessionEnd = { NSApp.terminate(nil) }
         AppModel.shared.startUIWatcher()
+        UpdateController.shared.startAutomaticChecks()
         // Alt süreçlere yazarken kapanan boru uygulamayı düşürmesin.
         signal(SIGPIPE, SIG_IGN)
         // `swift run` ile paketlenmeden başlatılsa da normal bir uygulama gibi davran.
@@ -42,6 +43,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 @main
 struct MacRARApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
+
+    init() {
+        #if DEBUG
+        Updater.runSelfTestIfRequested()
+        #endif
+    }
 
     var body: some Scene {
         // Tek pencere: arşiv dosyasıyla açılışta da ikinci bir pencere oluşmaz.
@@ -114,7 +121,10 @@ struct AppCommands: Commands {
     let model: AppModel
 
     var body: some Commands {
-        CommandGroup(replacing: .appInfo) { AboutCommand() }
+        CommandGroup(replacing: .appInfo) {
+            AboutCommand()
+            Button("Güncellemeleri Denetle…") { UpdateController.shared.checkFromMenu() }
+        }
         CommandGroup(after: .help) {
             SetupCommand()
             Divider()

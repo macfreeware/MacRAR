@@ -22,6 +22,7 @@
 "Anahtar Zinciri hatası: %@" = "Keychain error: %@";
 "Araçlar" = "Tools";
 "Araçlar doğrulanıyor…" = "Verifying the tools…";
+"Arşiv açılamadı." = "The archive could not be opened.";
 "Arşiv" = "Archive";
 "Arşiv adı" = "Archive name";
 "Arşiv adıyla alt klasör oluştur (%@)" = "Create a subfolder named after the archive (%@)";
@@ -43,6 +44,7 @@
 "Arşivde ara" = "Search in archive";
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Files in the archive are kept; files with the same name are replaced by the new ones.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Check the integrity of the files in the archive";
+"Arşivdeki uygulama beklenen MacRAR sürümü değil." = "The app in the archive is not the expected MacRAR version.";
 "Arşivden Sil" = "Delete from Archive";
 "Arşivden silinsin mi?" = "Delete from the archive?";
 "Arşive dosya ekle" = "Add files to the archive";
@@ -128,6 +130,7 @@
 "Bu kopya Uygulamalar klasöründe değil (%@); uygulama dosyası silinmez, onu kendiniz Çöp Kutusu’na atın. Eklenti kaydı ve seçtiğiniz veriler temizlenir." = "This copy is not in the Applications folder (%@); the app itself will not be deleted, move it to the Trash yourself. The extension registration and the data you choose are removed.";
 "Bu parola zaten kayıtlıydı; son kullanımı güncellendi" = "This password was already saved; its last use was updated";
 "Bu parolayı parola yöneticisine kaydet" = "Save this password in the password manager";
+"Bu Sürümü Atla" = "Skip This Version";
 "bulunamadı" = "not found";
 "Bulunamadı." = "Not found.";
 "Bunun yerine ZIP olarak sıkıştırabilirsiniz." = "You can compress to ZIP instead.";
@@ -207,6 +210,7 @@
 "Genel" = "General";
 "Geçerli bir desen girin." = "Enter a valid pattern.";
 "Girilen parola hatalı. Tekrar deneyin." = "The password is wrong. Try again.";
+"GitLab yanıtı: HTTP %lld" = "GitLab replied: HTTP %lld";
 "Gizli Dosyaları Gizle" = "Hide Hidden Files";
 "Gizli dosyaları göster" = "Show hidden files";
 "Gizli Dosyaları Göster" = "Show Hidden Files";
@@ -215,6 +219,12 @@
 "Göster" = "Show";
 "Gösterilecek satır yok" = "No rows to show";
 "Güncelleme kipi" = "Update mode";
+"Güncelleme kurulamadı." = "The update could not be installed.";
+"Güncellemeler denetlenemedi." = "Could not check for updates.";
+"Güncellemeler" = "Updates";
+"Güncellemeleri Denetle…" = "Check for Updates…";
+"Güncellemeleri otomatik denetle" = "Check for updates automatically";
+"Günde en çok bir kez GitLab’a son sürüm sorulur; bu Mac hakkında bilgi gönderilmez." = "GitLab is asked for the latest version at most once a day; nothing about this Mac is sent.";
 "Güvenilmeyen indirme adresi reddedildi: %@" = "Rejected an untrusted download address: %@";
 "HATA" = "ERROR";
 "Hedef" = "Destination";
@@ -228,11 +238,14 @@
 "içerik farklı" = "different content";
 "İndirilen araç doğrulanamadı: %@" = "Could not verify the downloaded tool: %@";
 "İndirilen dosya beklenenden büyük; kurulum durduruldu." = "The downloaded file is larger than expected; installation stopped.";
+"İndirilen dosyanın özeti tutmuyor; dosya bozuk ya da değiştirilmiş olabilir." = "The checksum of the downloaded file does not match; it may be corrupt or altered.";
 "İndirilen pakette rar/unrar bulunamadı." = "rar/unrar was not found in the downloaded package.";
 "İndirilenler" = "Downloads";
 "İndirme başarısız: %@" = "Download failed: %@";
+"İndirme Sayfasını Aç" = "Open Download Page";
 "İptal" = "Cancel";
 "İpucu / not (isteğe bağlı; parolanın kendisini yazmayın)" = "Hint / note (optional; do not enter the password itself)";
+"İsterseniz yeni sürümü indirme sayfasından elle kurabilirsiniz." = "You can install the new version by hand from the download page.";
 "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir)." = "Optional: open MacRAR when you double-click an archive (macOS will ask for confirmation).";
 "İyi" = "Good";
 "İçerik farklı (CRC)" = "Different content (CRC)";
@@ -279,6 +292,8 @@
 "Komutlar" = "Commands";
 "Konum" = "Location";
 "Kritik hata." = "Fatal error.";
+"Kullandığınız sürüm (%@) en son sürüm." = "The version you are using (%@) is the latest.";
+"Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir." = "You are using version %@. The update is downloaded and verified, and MacRAR reopens. Saved passwords, settings and the rar tool stay in place; macOS may ask again for access to the passwords.";
 "Kullanım" = "Usage";
 "Kurtarma kaydı" = "Recovery record";
 "Kurtarma kaydı ekle" = "Add recovery record";
@@ -293,6 +308,10 @@
 "macOS %@" = "macOS %@";
 "macOS için WinRAR tarzı arşiv yöneticisi" = "A WinRAR-style archive manager for macOS";
 "macOS’un ‘bsdtar’ aracı bulunamadı. Ayarlar ▸ Araçlar’dan yolunu belirtin." = "macOS’s ‘bsdtar’ tool was not found. Set its path in Settings ▸ Tools.";
+"MacRAR %@ hazır" = "MacRAR %@ is available";
+"MacRAR güncel (%@)." = "MacRAR is up to date (%@).";
+"MacRAR güncel." = "MacRAR is up to date.";
+"MacRAR güncelleniyor" = "Updating MacRAR";
 "MacRAR" = "MacRAR";
 "MacRAR girdilerini sağ tık menüsünde göster" = "Show MacRAR items in the right-click menu";
 "MacRAR Hakkında" = "About MacRAR";
@@ -409,10 +428,15 @@
 "Sistem dili" = "System language";
 "Son kullanılan hedefler" = "Recent destinations";
 "Son kullanım: %@" = "Last used: %@";
+"Sonra" = "Later";
 "sunucu yanıtı beklenen gibi değil" = "unexpected server response";
 "Sözlük boyutu" = "Dictionary size";
+"Süren iş ya da açık pencere bitince güncellenebilir." = "The update can start when the running task or open dialog has finished.";
+"Süren işin bitmesi bekleniyor…" = "Waiting for the running task to finish…";
 "Sürükleyerek çıkarılamadı" = "Could not extract by dragging";
+"Sürüm %@ indiriliyor ve doğrulanıyor…" = "Downloading and verifying version %@…";
 "Sürüm %@" = "Version %@";
+"Sürümde %@ ya da özet dosyası yok." = "The release has no %@ or checksum file.";
 "Sıkıştırma" = "Compression";
 "Sıkıştırma oranı" = "Compression ratio";
 "Sıkıştırmasız" = "Store (no compression)";
@@ -446,6 +470,7 @@
 "Uygulama siliniyor…" = "Deleting the app…";
 "Uygulamalar" = "Applications";
 "Uygulamalar klasörü" = "Applications folder";
+"Uygulamanın imzası doğrulanamadı." = "The app's signature could not be verified.";
 "Var olan dosyalar" = "Existing files";
 "Varsayılan uygulama" = "Default app";
 "Varsayılan yapmak için MacRAR'ın Uygulamalar klasöründe kurulu olması gerekir (şu an: %@)." = "MacRAR must be installed in the Applications folder to become the default (currently: %@).";
@@ -506,6 +531,7 @@
 "Özel yol boşsa araçlar /opt/homebrew/bin, /usr/local/bin, PATH ve MacRAR’ın kendi klasöründe aranır." = "If the custom path is empty, the tools are looked for in /opt/homebrew/bin, /usr/local/bin, PATH and MacRAR’s own folder.";
 "Özellikler" = "Features";
 "Özel…" = "Custom…";
+"Özet dosyası okunamadı." = "The checksum file could not be read.";
 "Üst Klasör" = "Enclosing Folder";
 "Üst klasör (⌘↑)" = "Enclosing folder (⌘↑)";
 "Üst klasör / arşivi kapat" = "Enclosing folder / close archive";
@@ -514,6 +540,7 @@
 "Şifreli adlar" = "Encrypted names";
 "Şifreli arşivde parola sorulur. Parolayı kaydederseniz sonraki sefer “Kayıtlı parolalar” menüsünden seçebilirsiniz. Parolalar macOS Anahtar Zinciri'nde saklanır." = "Encrypted archives ask for a password. If you save it, next time you can pick it from the “Saved passwords” menu. Passwords are stored in the macOS Keychain.";
 "Şifreli arşivlerde kullandığınız parolaları macOS Anahtar Zinciri’nde saklayıp sonra listeden seçebilirsiniz." = "Store the passwords you use for encrypted archives in the macOS Keychain and pick them from a list later.";
+"Şimdi Güncelle" = "Update Now";
 "Şimdi kapat" = "Quit Now";
 "Şimdi Yeniden Başlat" = "Restart Now";
 "Şunlar kaldırılır: %@, Finder sağ tık eklentisi ve kurulum kaydı. Yönetici parolası istenebilir." = "This removes: %@, the Finder right-click extension and the installer receipt. An administrator password may be required.";
@@ -526,6 +553,7 @@
 "“%@” arşivinde hata bulunmadı." = "No errors were found in “%@”.";
 "“%@” açılamadı" = "Could not open “%@”";
 "“%@” için yeni ad:" = "New name for “%@”:";
+"“%@” klasörüne yazılamadı: %@" = "Could not write to the folder “%@”: %@";
 "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@" = "The “%@” command-line tool was not found. Set its path in Settings or install it. %@";
 "“%@” parola ile korunuyor." = "“%@” is password protected.";
 "“.%@” için MacRAR varsayılan yapıldı." = "MacRAR is now the default for “.%@”.";
