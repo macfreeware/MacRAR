@@ -151,6 +151,10 @@ enum Icons {
         }
     }
 
+    static func applicationIcon() -> NSImage {
+        cached("•application") { NSWorkspace.shared.icon(for: .applicationBundle) }
+    }
+
     static func archiveIcon() -> NSImage {
         cached("•archive") { NSWorkspace.shared.icon(for: UTType(filenameExtension: "rar") ?? .archive) }
     }

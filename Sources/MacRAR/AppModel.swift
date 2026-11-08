@@ -30,6 +30,12 @@ final class AppModel {
     var listing: ArchiveListing?
     private(set) var archiveIsZip = false
     var archivePassword: String?
+    /// Açık arşivdeki Mac uygulamaları (bkz. ArchivedAppFlow).
+    var archivedApps: [ArchivedApp] = []
+    var archivedAppDetails: [String: ArchivedAppDetails] = [:]
+    /// Testlerde değiştirilir: gerçek Uygulamalar klasörüne ve Finder'a dokunulmaz.
+    @ObservationIgnored var applicationsFolder = URL(fileURLWithPath: "/Applications", isDirectory: true)
+    @ObservationIgnored var revealInFinder: ([URL]) -> Void = { NSWorkspace.shared.activateFileViewerSelecting($0) }
     /// Açık arşivin özeti; her çizimde yeniden saymamak için arşiv yüklenirken bir kez hesaplanır.
     struct ArchiveStats: Equatable { var files = 0, folders = 0; var size: Int64 = 0, packed: Int64 = 0 }
     var archiveStats: ArchiveStats?
@@ -327,6 +333,7 @@ final class AppModel {
     private func clearArchiveState() {
         archiveURL = nil
         listing = nil
+        refreshArchivedApps()
         archiveIsZip = false
         archiveStats = nil
         archivePassword = nil
@@ -350,6 +357,7 @@ final class AppModel {
     }
 
     private func buildIndex() {
+        refreshArchivedApps()
         guard let entries = listing?.entries else { childrenIndex = [:]; archiveStats = nil; return }
         var stats = ArchiveStats()
         for e in entries {
@@ -415,7 +423,8 @@ final class AppModel {
 
     func open(_ row: Row) {
         if isInArchive {
-            if row.isDirectory { enterArchivePath(row.archivePath) } else { openEntry(row, quickLook: false) }
+            if let app = archivedApp(for: row) { askArchivedAppAction(app) }
+            else if row.isDirectory { enterArchivePath(row.archivePath) } else { openEntry(row, quickLook: false) }
         } else if let url = row.url {
             if row.isDirectory, url.pathExtension.lowercased() != "app" {
                 openFolder(url)

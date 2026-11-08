@@ -92,7 +92,14 @@ struct AppAlertModifier: ViewModifier {
         content.alert(model.alert?.title ?? "", isPresented: isPresented, presenting: model.alert) { info in
             if let c = info.confirm {
                 Button(c.label, role: c.destructive ? .destructive : nil) { c.action() }
-                Button("İptal", role: .cancel) {}
+                ForEach(info.extras.indices, id: \.self) { i in
+                    Button(info.extras[i].label) { info.extras[i].action() }
+                }
+                if let label = info.cancelLabel {
+                    Button(label, role: .cancel) { info.onCancel?() }
+                } else {
+                    Button("İptal", role: .cancel) { info.onCancel?() }
+                }
             } else {
                 Button("Tamam") {}
             }
@@ -120,6 +127,10 @@ struct DetailView: View {
             Divider()
             if !model.tools.canReadRAR || !model.tools.canWriteRAR {
                 ToolsBanner(model: model)
+            }
+            if model.isInArchive, !model.archivedApps.isEmpty {
+                ArchivedAppBanner(model: model)
+                Divider()
             }
             ZStack {
                 FileTableView(model: model)

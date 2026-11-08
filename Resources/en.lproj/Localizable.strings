@@ -2,8 +2,12 @@
 
 "%%%lld" = "%lld%%";
 "%@ arşivden kalıcı olarak silinecek. Bu işlem geri alınamaz." = "%@ will be permanently deleted from the archive. This cannot be undone.";
+"%@ açık" = "%@ is open";
 "%@ beklenen çıktıyı vermedi" = "%@ did not produce the expected output";
 "%@ dosyası" = "%@ file";
+"%@ kurulamadı" = "%@ could not be installed";
+"%@ kuruldu" = "%@ installed";
+"%@ kurulsun mu?" = "Install %@?";
 "%@ oluşturulamıyor" = "Cannot create %@";
 "%@ silinemedi." = "Could not delete %@.";
 "%@ çalıştırılamadı (%@)" = "Could not run %@ (%@)";
@@ -45,6 +49,7 @@
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Files in the archive are kept; files with the same name are replaced by the new ones.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Check the integrity of the files in the archive";
 "Arşivdeki uygulama beklenen MacRAR sürümü değil." = "The app in the archive is not the expected MacRAR version.";
+"Arşivdeki öğe geçerli bir uygulama değil." = "The item in the archive is not a valid app.";
 "Arşivden Sil" = "Delete from Archive";
 "Arşivden silinsin mi?" = "Delete from the archive?";
 "Arşive dosya ekle" = "Add files to the archive";
@@ -119,8 +124,10 @@
 "Bu ad ZIP düzenleme için çok fazla özel karakter içeriyor." = "This name contains too many special characters for ZIP editing.";
 "Bu ada sahip arşiv var; dosyalar ona eklenecek." = "An archive with this name exists; the files will be added to it.";
 "Bu ada sahip dosyanın üzerine yazılacak." = "The file with this name will be overwritten.";
+"Bu arşiv bir Mac uygulaması içeriyor: %@" = "This archive contains a Mac app: %@";
 "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı." = "Files cannot be added to this archive format (only RAR and ZIP), or the ‘rar’ tool needed for RAR was not found.";
 "Bu arşiv parola ile korunuyor." = "This archive is password protected.";
+"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın." = "This archive contains %lld Mac apps. Double-click one in the list to install or extract it.";
 "Bu biçim için ek seçenek yok." = "There are no extra options for this format.";
 "Bu biçim için sıkıştırma düzeyi otomatik seçilir." = "The compression level is chosen automatically for this format.";
 "Bu dosya geçerli bir RAR arşivi olarak tanınmadı." = "This file was not recognized as a valid RAR archive.";
@@ -131,6 +138,8 @@
 "Bu parola zaten kayıtlıydı; son kullanımı güncellendi" = "This password was already saved; its last use was updated";
 "Bu parolayı parola yöneticisine kaydet" = "Save this password in the password manager";
 "Bu Sürümü Atla" = "Skip This Version";
+"Bu uygulama imzasız; kaynağına güveniyorsanız kurun." = "This app is unsigned; install it only if you trust its source.";
+"Bu öğe bir Mac uygulaması. Ne yapmak istersiniz?" = "This item is a Mac app. What would you like to do?";
 "bulunamadı" = "not found";
 "Bulunamadı." = "Not found.";
 "Bunun yerine ZIP olarak sıkıştırabilirsiniz." = "You can compress to ZIP instead.";
@@ -148,6 +157,7 @@
 "Değiştirilemedi (.%@): %@" = "Could not change (.%@): %@";
 "Değiştirilemedi: %@" = "Could not change: %@";
 "Değiştirilme" = "Modified";
+"Dikkat: Var olan uygulama aynı adda ama farklı bir uygulama." = "Warning: the existing app has the same name but is a different app.";
 "Dil" = "Language";
 "Diske yazma hatası (disk dolu veya izin yok)." = "Write error (the disk is full or permission was denied).";
 "Dosya" = "File";
@@ -249,6 +259,7 @@
 "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir)." = "Optional: open MacRAR when you double-click an archive (macOS will ask for confirmation).";
 "İyi" = "Good";
 "İçerik farklı (CRC)" = "Different content (CRC)";
+"İçeriğe Bak" = "Browse Contents";
 "İşlem başarısız oldu (çıkış kodu %d)." = "The operation failed (exit code %d).";
 "İşlem iptal edildi." = "The operation was cancelled.";
 "İşlem kullanıcı tarafından durduruldu." = "The operation was stopped by the user.";
@@ -295,6 +306,8 @@
 "Kullandığınız sürüm (%@) en son sürüm." = "The version you are using (%@) is the latest.";
 "Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir." = "You are using version %@. The update is downloaded and verified, and MacRAR reopens. Saved passwords, settings and the rar tool stay in place; macOS may ask again for access to the passwords.";
 "Kullanım" = "Usage";
+"Kur" = "Install";
+"Kurmadan önce uygulamayı kapatın, sonra yeniden deneyin." = "Quit the app before installing, then try again.";
 "Kurtarma kaydı" = "Recovery record";
 "Kurtarma kaydı ekle" = "Add recovery record";
 "Kurtarma kaydı ekleniyor" = "Adding recovery record";
@@ -312,6 +325,7 @@
 "MacRAR güncel (%@)." = "MacRAR is up to date (%@).";
 "MacRAR güncel." = "MacRAR is up to date.";
 "MacRAR güncelleniyor" = "Updating MacRAR";
+"MacRAR kendini bu yolla kuramaz" = "MacRAR cannot install itself this way";
 "MacRAR" = "MacRAR";
 "MacRAR girdilerini sağ tık menüsünde göster" = "Show MacRAR items in the right-click menu";
 "MacRAR Hakkında" = "About MacRAR";
@@ -324,6 +338,7 @@
 "MacRAR'a hoş geldiniz" = "Welcome to MacRAR";
 "MacRAR'ı varsayılan yap" = "Make MacRAR the default";
 "MacRAR, RARLAB veya WinRAR ile bağlantılı değildir. Birlikte gelen unrar, RARLAB’ın kendi lisansıyla dağıtılan ücretsiz ve ayrı bir programdır; MacRAR’ın GPL lisansı onu kapsamaz. rar ücretli bir üründür ve MacRAR ile gelmez." = "MacRAR is not affiliated with RARLAB or WinRAR. The bundled unrar is a free, separate program distributed under RARLAB’s own license; MacRAR’s GPL license does not cover it. rar is a paid product and does not come with MacRAR.";
+"MacRAR’ı güncellemek için MacRAR menüsünden Güncellemeleri Denetle… komutunu kullanın." = "To update MacRAR, use Check for Updates… in the MacRAR menu.";
 "MacRAR’ı Kaldır" = "Uninstall MacRAR";
 "MacRAR’ı Kaldır…" = "Uninstall MacRAR…";
 "Masaüstü" = "Desktop";
@@ -468,8 +483,16 @@
 "Uygulama / paket" = "Application / package";
 "Uygulama dosyası silinmedi: %@ konumundaki MacRAR’ı Çöp Kutusu’na atın." = "The app was not deleted: move MacRAR at %@ to the Trash.";
 "Uygulama siliniyor…" = "Deleting the app…";
+"Uygulama Uygulamalar klasörüne kondu. İnternetten indirildiyse macOS ilk açılışta onay isteyebilir." = "The app is in the Applications folder. If it was downloaded from the internet, macOS may ask for confirmation the first time you open it.";
+"Uygulama yerine konamadı: %@" = "The app could not be put in place: %@";
+"Uygulama çıkarılamadı" = "The app could not be extracted";
+"Uygulama, paketinin dışını gösteren bir bağlantı içeriyor: %@" = "The app contains a link pointing outside its bundle: %@";
+"Uygulamalar klasöründe aynı adda bir öğe var. Çöp Sepeti’ne taşınacak." = "An item with the same name is in the Applications folder. It will be moved to the Trash.";
+"Uygulamalar klasöründe sürüm %@ var; %@ ile değiştirilecek. Eski kopya Çöp Sepeti’ne taşınır." = "Version %@ is in the Applications folder; it will be replaced with %@. The old copy is moved to the Trash.";
 "Uygulamalar" = "Applications";
 "Uygulamalar klasörü" = "Applications folder";
+"Uygulamalar’a Kur" = "Install in Applications";
+"Uygulamanın imzası bozuk; dosyalar değiştirilmiş olabilir." = "The app's signature is broken; its files may have been altered.";
 "Uygulamanın imzası doğrulanamadı." = "The app's signature could not be verified.";
 "Var olan dosyalar" = "Existing files";
 "Varsayılan uygulama" = "Default app";
@@ -556,6 +579,7 @@
 "“%@” klasörüne yazılamadı: %@" = "Could not write to the folder “%@”: %@";
 "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@" = "The “%@” command-line tool was not found. Set its path in Settings or install it. %@";
 "“%@” parola ile korunuyor." = "“%@” is password protected.";
+"“%@” çıkarıldı" = "“%@” extracted";
 "“.%@” için MacRAR varsayılan yapıldı." = "MacRAR is now the default for “.%@”.";
 "“Boyutu aynı” satırlarda bir tarafın CRC değeri okunamadığından içeriğin aynı olduğu doğrulanamadı." = "For “Same size” rows, the CRC of one side could not be read, so identical content could not be verified.";
 "“Ekle…” ile ilk parolanızı kaydedin." = "Save your first password with “Add…”.";

@@ -49,6 +49,11 @@ struct AlertInfo: Identifiable {
     var title: String
     var message: String
     var confirm: Confirm?
+    /// Ek seçenekler (ör. Çıkar, İçeriğe Bak).
+    var extras: [Confirm] = []
+    /// Vazgeçme düğmesinin metni; nil ise onaylı uyarıda "İptal".
+    var cancelLabel: String?
+    var onCancel: (() -> Void)?
 }
 
 // MARK: - Pencere (sheet) istekleri

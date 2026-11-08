@@ -8,7 +8,7 @@ struct NameCell: View {
 
     var body: some View {
         HStack(spacing: 6) {
-            Image(nsImage: Icons.icon(for: row)).resizable().frame(width: 18, height: 18)
+            Image(nsImage: AppModel.shared.archivedAppIcon(for: row) ?? Icons.icon(for: row)).resizable().frame(width: 18, height: 18)
             Text(row.name).lineLimit(1).truncationMode(.middle)
             if row.isEncrypted {
                 Image(systemName: "lock.fill").font(.caption2).foregroundStyle(.secondary)

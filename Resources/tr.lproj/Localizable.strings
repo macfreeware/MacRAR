@@ -2,8 +2,12 @@
 
 "%%%lld" = "%%%lld";
 "%@ arşivden kalıcı olarak silinecek. Bu işlem geri alınamaz." = "%@ arşivden kalıcı olarak silinecek. Bu işlem geri alınamaz.";
+"%@ açık" = "%@ açık";
 "%@ beklenen çıktıyı vermedi" = "%@ beklenen çıktıyı vermedi";
 "%@ dosyası" = "%@ dosyası";
+"%@ kurulamadı" = "%@ kurulamadı";
+"%@ kuruldu" = "%@ kuruldu";
+"%@ kurulsun mu?" = "%@ kurulsun mu?";
 "%@ oluşturulamıyor" = "%@ oluşturulamıyor";
 "%@ silinemedi." = "%@ silinemedi.";
 "%@ çalıştırılamadı (%@)" = "%@ çalıştırılamadı (%@)";
@@ -52,6 +56,7 @@
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Arşivdeki dosyaların bütünlüğünü denetle";
 "Arşivdeki uygulama beklenen MacRAR sürümü değil." = "Arşivdeki uygulama beklenen MacRAR sürümü değil.";
+"Arşivdeki öğe geçerli bir uygulama değil." = "Arşivdeki öğe geçerli bir uygulama değil.";
 "Arşivden Sil" = "Arşivden Sil";
 "Arşivden silinsin mi?" = "Arşivden silinsin mi?";
 "Arşive dosya ekle" = "Arşive dosya ekle";
@@ -126,8 +131,10 @@
 "Bu ad ZIP düzenleme için çok fazla özel karakter içeriyor." = "Bu ad ZIP düzenleme için çok fazla özel karakter içeriyor.";
 "Bu ada sahip arşiv var; dosyalar ona eklenecek." = "Bu ada sahip arşiv var; dosyalar ona eklenecek.";
 "Bu ada sahip dosyanın üzerine yazılacak." = "Bu ada sahip dosyanın üzerine yazılacak.";
+"Bu arşiv bir Mac uygulaması içeriyor: %@" = "Bu arşiv bir Mac uygulaması içeriyor: %@";
 "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı." = "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı.";
 "Bu arşiv parola ile korunuyor." = "Bu arşiv parola ile korunuyor.";
+"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın." = "Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın.";
 "Bu biçim için ek seçenek yok." = "Bu biçim için ek seçenek yok.";
 "Bu biçim için sıkıştırma düzeyi otomatik seçilir." = "Bu biçim için sıkıştırma düzeyi otomatik seçilir.";
 "Bu dosya geçerli bir RAR arşivi olarak tanınmadı." = "Bu dosya geçerli bir RAR arşivi olarak tanınmadı.";
@@ -138,6 +145,8 @@
 "Bu parola zaten kayıtlıydı; son kullanımı güncellendi" = "Bu parola zaten kayıtlıydı; son kullanımı güncellendi";
 "Bu parolayı parola yöneticisine kaydet" = "Bu parolayı parola yöneticisine kaydet";
 "Bu Sürümü Atla" = "Bu Sürümü Atla";
+"Bu uygulama imzasız; kaynağına güveniyorsanız kurun." = "Bu uygulama imzasız; kaynağına güveniyorsanız kurun.";
+"Bu öğe bir Mac uygulaması. Ne yapmak istersiniz?" = "Bu öğe bir Mac uygulaması. Ne yapmak istersiniz?";
 "bulunamadı" = "bulunamadı";
 "Bulunamadı." = "Bulunamadı.";
 "Bunun yerine ZIP olarak sıkıştırabilirsiniz." = "Bunun yerine ZIP olarak sıkıştırabilirsiniz.";
@@ -155,6 +164,7 @@
 "Değiştirilemedi (.%@): %@" = "Değiştirilemedi (.%@): %@";
 "Değiştirilemedi: %@" = "Değiştirilemedi: %@";
 "Değiştirilme" = "Değiştirilme";
+"Dikkat: Var olan uygulama aynı adda ama farklı bir uygulama." = "Dikkat: Var olan uygulama aynı adda ama farklı bir uygulama.";
 "Dil" = "Dil";
 "Diske yazma hatası (disk dolu veya izin yok)." = "Diske yazma hatası (disk dolu veya izin yok).";
 "Dosya" = "Dosya";
@@ -257,6 +267,7 @@
 "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir)." = "İsteğe bağlı: arşive çift tıklayınca MacRAR açılsın (macOS onay isteyecektir).";
 "İyi" = "İyi";
 "İçerik farklı (CRC)" = "İçerik farklı (CRC)";
+"İçeriğe Bak" = "İçeriğe Bak";
 "İşlem başarısız oldu (çıkış kodu %d)." = "İşlem başarısız oldu (çıkış kodu %d).";
 "İşlem iptal edildi." = "İşlem iptal edildi.";
 "İşlem kullanıcı tarafından durduruldu." = "İşlem kullanıcı tarafından durduruldu.";
@@ -304,6 +315,8 @@
 "Kullandığınız sürüm (%@) en son sürüm." = "Kullandığınız sürüm (%@) en son sürüm.";
 "Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir." = "Kullandığınız sürüm: %@. Güncelleme indirilir, doğrulanır ve MacRAR yeniden açılır. Kayıtlı parolalar, ayarlar ve rar aracı yerinde kalır; macOS parolalar için izni yeniden sorabilir.";
 "Kullanım" = "Kullanım";
+"Kur" = "Kur";
+"Kurmadan önce uygulamayı kapatın, sonra yeniden deneyin." = "Kurmadan önce uygulamayı kapatın, sonra yeniden deneyin.";
 "Kurtarma kaydı" = "Kurtarma kaydı";
 "Kurtarma kaydı ekle" = "Kurtarma kaydı ekle";
 "Kurtarma kaydı ekleniyor" = "Kurtarma kaydı ekleniyor";
@@ -321,6 +334,7 @@
 "MacRAR güncel (%@)." = "MacRAR güncel (%@).";
 "MacRAR güncel." = "MacRAR güncel.";
 "MacRAR güncelleniyor" = "MacRAR güncelleniyor";
+"MacRAR kendini bu yolla kuramaz" = "MacRAR kendini bu yolla kuramaz";
 "MacRAR" = "MacRAR";
 "MacRAR girdilerini sağ tık menüsünde göster" = "MacRAR girdilerini sağ tık menüsünde göster";
 "MacRAR Hakkında" = "MacRAR Hakkında";
@@ -333,6 +347,7 @@
 "MacRAR'a hoş geldiniz" = "MacRAR'a hoş geldiniz";
 "MacRAR'ı varsayılan yap" = "MacRAR'ı varsayılan yap";
 "MacRAR, RARLAB veya WinRAR ile bağlantılı değildir. Birlikte gelen unrar, RARLAB’ın kendi lisansıyla dağıtılan ücretsiz ve ayrı bir programdır; MacRAR’ın GPL lisansı onu kapsamaz. rar ücretli bir üründür ve MacRAR ile gelmez." = "MacRAR, RARLAB veya WinRAR ile bağlantılı değildir. Birlikte gelen unrar, RARLAB’ın kendi lisansıyla dağıtılan ücretsiz ve ayrı bir programdır; MacRAR’ın GPL lisansı onu kapsamaz. rar ücretli bir üründür ve MacRAR ile gelmez.";
+"MacRAR’ı güncellemek için MacRAR menüsünden Güncellemeleri Denetle… komutunu kullanın." = "MacRAR’ı güncellemek için MacRAR menüsünden Güncellemeleri Denetle… komutunu kullanın.";
 "MacRAR’ı Kaldır" = "MacRAR’ı Kaldır";
 "MacRAR’ı Kaldır…" = "MacRAR’ı Kaldır…";
 "Masaüstü" = "Masaüstü";
@@ -479,8 +494,16 @@
 "Uygulama / paket" = "Uygulama / paket";
 "Uygulama dosyası silinmedi: %@ konumundaki MacRAR’ı Çöp Kutusu’na atın." = "Uygulama dosyası silinmedi: %@ konumundaki MacRAR’ı Çöp Kutusu’na atın.";
 "Uygulama siliniyor…" = "Uygulama siliniyor…";
+"Uygulama Uygulamalar klasörüne kondu. İnternetten indirildiyse macOS ilk açılışta onay isteyebilir." = "Uygulama Uygulamalar klasörüne kondu. İnternetten indirildiyse macOS ilk açılışta onay isteyebilir.";
+"Uygulama yerine konamadı: %@" = "Uygulama yerine konamadı: %@";
+"Uygulama çıkarılamadı" = "Uygulama çıkarılamadı";
+"Uygulama, paketinin dışını gösteren bir bağlantı içeriyor: %@" = "Uygulama, paketinin dışını gösteren bir bağlantı içeriyor: %@";
+"Uygulamalar klasöründe aynı adda bir öğe var. Çöp Sepeti’ne taşınacak." = "Uygulamalar klasöründe aynı adda bir öğe var. Çöp Sepeti’ne taşınacak.";
+"Uygulamalar klasöründe sürüm %@ var; %@ ile değiştirilecek. Eski kopya Çöp Sepeti’ne taşınır." = "Uygulamalar klasöründe sürüm %@ var; %@ ile değiştirilecek. Eski kopya Çöp Sepeti’ne taşınır.";
 "Uygulamalar" = "Uygulamalar";
 "Uygulamalar klasörü" = "Uygulamalar klasörü";
+"Uygulamalar’a Kur" = "Uygulamalar’a Kur";
+"Uygulamanın imzası bozuk; dosyalar değiştirilmiş olabilir." = "Uygulamanın imzası bozuk; dosyalar değiştirilmiş olabilir.";
 "Uygulamanın imzası doğrulanamadı." = "Uygulamanın imzası doğrulanamadı.";
 "Var olan dosyalar" = "Var olan dosyalar";
 "Varsayılan uygulama" = "Varsayılan uygulama";
@@ -567,6 +590,7 @@
 "“%@” klasörüne yazılamadı: %@" = "“%@” klasörüne yazılamadı: %@";
 "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@" = "“%@” komut satırı aracı bulunamadı. Ayarlar’dan yolunu belirtin veya kurun. %@";
 "“%@” parola ile korunuyor." = "“%@” parola ile korunuyor.";
+"“%@” çıkarıldı" = "“%@” çıkarıldı";
 "“.%@” için MacRAR varsayılan yapıldı." = "“.%@” için MacRAR varsayılan yapıldı.";
 "“Boyutu aynı” satırlarda bir tarafın CRC değeri okunamadığından içeriğin aynı olduğu doğrulanamadı." = "“Boyutu aynı” satırlarda bir tarafın CRC değeri okunamadığından içeriğin aynı olduğu doğrulanamadı.";
 "“Ekle…” ile ilk parolanızı kaydedin." = "“Ekle…” ile ilk parolanızı kaydedin.";
