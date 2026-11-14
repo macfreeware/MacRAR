@@ -49,6 +49,7 @@
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Files in the archive are kept; files with the same name are replaced by the new ones.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Check the integrity of the files in the archive";
 "Arşivdeki uygulama beklenen MacRAR sürümü değil." = "The app in the archive is not the expected MacRAR version.";
+"Arşivdeki uygulamayı kurmak için buraya sürükleyin" = "Drag the app from the archive here to install it";
 "Arşivdeki öğe geçerli bir uygulama değil." = "The item in the archive is not a valid app.";
 "Arşivden Sil" = "Delete from Archive";
 "Arşivden silinsin mi?" = "Delete from the archive?";
@@ -127,7 +128,7 @@
 "Bu arşiv bir Mac uygulaması içeriyor: %@" = "This archive contains a Mac app: %@";
 "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı." = "Files cannot be added to this archive format (only RAR and ZIP), or the ‘rar’ tool needed for RAR was not found.";
 "Bu arşiv parola ile korunuyor." = "This archive is password protected.";
-"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın." = "This archive contains %lld Mac apps. Double-click one in the list to install or extract it.";
+"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın ya da Uygulamalar’a sürükleyin." = "This archive contains %lld Mac apps. Double-click one in the list to install or extract it, or drag it to Applications.";
 "Bu biçim için ek seçenek yok." = "There are no extra options for this format.";
 "Bu biçim için sıkıştırma düzeyi otomatik seçilir." = "The compression level is chosen automatically for this format.";
 "Bu dosya geçerli bir RAR arşivi olarak tanınmadı." = "This file was not recognized as a valid RAR archive.";

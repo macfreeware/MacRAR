@@ -452,7 +452,8 @@ final class AppModel {
 
     /// Pencereye sürükle-bırak.
     func handleDrop(_ urls: [URL]) {
-        guard !urls.isEmpty else { return }
+        // Arşivden sürüklenip yine pencereye bırakılan öğe: kendi kopyasını arşive eklemeye çalışma.
+        guard !urls.isEmpty, !urls.allSatisfy(isFromArchiveDrag) else { return }
         if isInArchive {
             if canModifyArchive { openAddSheet(sources: urls) }
             else { alert = AlertInfo(title: String(localized: "Arşive eklenemiyor"), message: String(localized: "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı.")) }

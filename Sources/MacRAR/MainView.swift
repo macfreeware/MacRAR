@@ -445,7 +445,13 @@ struct SidebarView: View {
             get: { model.isInArchive ? nil : model.folderURL },
             set: { if let u = $0 { model.openFolder(u) } })) {
             Section("Yerler") {
-                ForEach(places) { p in Label(p.title, systemImage: p.icon).tag(p.url) }
+                ForEach(places) { p in
+                    if p.url.path == "/Applications" {
+                        ApplicationsPlace(place: p, model: model).tag(p.url)
+                    } else {
+                        Label(p.title, systemImage: p.icon).tag(p.url)
+                    }
+                }
             }
             Section("Aygıtlar") {
                 ForEach(volumes) { p in Label(p.title, systemImage: p.icon).tag(p.url) }
@@ -453,6 +459,28 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .safeAreaInset(edge: .top, spacing: 0) { SidebarBrand() }
+    }
+}
+
+/// Kenar çubuğundaki Uygulamalar: arşivdeki bir uygulama buraya sürüklenip bırakılınca kurulur.
+private struct ApplicationsPlace: View {
+    let place: Place
+    let model: AppModel
+    @State private var targeted = false
+
+    var body: some View {
+        Label(place.title, systemImage: place.icon)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .background(RoundedRectangle(cornerRadius: 5).fill(Color.accentColor.opacity(targeted ? 0.3 : 0)))
+            // Düşük seviyede: içerik eşzamansız okunur, ana iş parçacığı sürüklenen dosyanın çıkarılmasını beklemez.
+            .onDrop(of: AppModel.applicationsDropTypes, isTargeted: Binding(
+                get: { targeted },
+                set: { targeted = $0 && model.isInArchive && !model.archivedApps.isEmpty })) { providers in
+                model.handleApplicationsDrop(providers)
+            }
+            .help(model.isInArchive && !model.archivedApps.isEmpty
+                  ? Text("Arşivdeki uygulamayı kurmak için buraya sürükleyin") : Text(verbatim: ""))
     }
 }
 

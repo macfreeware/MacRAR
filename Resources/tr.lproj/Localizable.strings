@@ -56,6 +56,7 @@
 "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir." = "Arşivdeki dosyalar korunur; aynı adlı dosyalar yenileriyle değiştirilir.";
 "Arşivdeki dosyaların bütünlüğünü denetle" = "Arşivdeki dosyaların bütünlüğünü denetle";
 "Arşivdeki uygulama beklenen MacRAR sürümü değil." = "Arşivdeki uygulama beklenen MacRAR sürümü değil.";
+"Arşivdeki uygulamayı kurmak için buraya sürükleyin" = "Arşivdeki uygulamayı kurmak için buraya sürükleyin";
 "Arşivdeki öğe geçerli bir uygulama değil." = "Arşivdeki öğe geçerli bir uygulama değil.";
 "Arşivden Sil" = "Arşivden Sil";
 "Arşivden silinsin mi?" = "Arşivden silinsin mi?";
@@ -134,7 +135,7 @@
 "Bu arşiv bir Mac uygulaması içeriyor: %@" = "Bu arşiv bir Mac uygulaması içeriyor: %@";
 "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı." = "Bu arşiv biçimine (yalnızca RAR ve ZIP) dosya eklenemez ya da RAR için ‘rar’ aracı bulunamadı.";
 "Bu arşiv parola ile korunuyor." = "Bu arşiv parola ile korunuyor.";
-"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın." = "Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın.";
+"Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın ya da Uygulamalar’a sürükleyin." = "Bu arşivde %lld Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın ya da Uygulamalar’a sürükleyin.";
 "Bu biçim için ek seçenek yok." = "Bu biçim için ek seçenek yok.";
 "Bu biçim için sıkıştırma düzeyi otomatik seçilir." = "Bu biçim için sıkıştırma düzeyi otomatik seçilir.";
 "Bu dosya geçerli bir RAR arşivi olarak tanınmadı." = "Bu dosya geçerli bir RAR arşivi olarak tanınmadı.";

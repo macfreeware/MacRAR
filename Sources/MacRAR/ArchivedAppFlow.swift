@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 import AppKit
 import MacRARCore
 
@@ -115,9 +116,69 @@ extension AppModel {
 
     func installArchivedApp(_ app: ArchivedApp) async {
         guard let prepared = await prepare(app) else { return }
-        let inspected = prepared.inspected
-        let name = inspected.info.name ?? app.name
-        func discard() { try? FileManager.default.removeItem(at: prepared.work) }
+        await finishInstall(prepared.inspected, fileName: app.fileName, fallbackName: app.name, work: prepared.work)
+    }
+
+    // MARK: Uygulamalar'a sürükleyip bırakma
+
+    /// Arşivden sürüklenen öğe kenar çubuğundaki Uygulamalar'a bırakıldı. Öğe uygulamanın kendisi ya da onu içeren
+    /// tek üst klasör olabilir; kurma, Uygulamalar'a Kur düğmesiyle aynı yoldan gider.
+    func handleDropOnApplications(_ refs: [ArchiveItemRef]) -> Bool {
+        guard refs.count == 1, let archive = archiveURL, refs[0].archivePath == archive.path else { return false }
+        let path = refs[0].entryPath
+        let matches = archivedApps.filter { $0.path == path || $0.path.hasPrefix(path + "/") }
+        guard matches.count == 1 else { return false }
+        Task { await installArchivedApp(matches[0]) }
+        return true
+    }
+
+    static let applicationsDropTypes: [UTType] = [.macrarArchiveItem, .folder, .data]
+
+    /// Kenar çubuğundaki Uygulamalar'a bırakılanlar. Önce MacRAR'ın kaydı aranır; yoksa macOS'un verdiği dosyanın adı
+    /// son sürüklemeyle eşlenir. İçerik eşzamansız okunur.
+    func handleApplicationsDrop(_ providers: [NSItemProvider]) -> Bool {
+        guard providers.count == 1, isInArchive, !archivedApps.isEmpty else { return false }
+        let provider = providers[0]
+        let refType = UTType.macrarArchiveItem.identifier
+        if provider.hasItemConformingToTypeIdentifier(refType) {
+            provider.loadDataRepresentation(forTypeIdentifier: refType) { data, _ in
+                guard let data, let ref = try? JSONDecoder().decode(ArchiveItemRef.self, from: data) else { return }
+                Task { @MainActor in _ = AppModel.shared.handleDropOnApplications([ref]) }
+            }
+            return true
+        }
+        guard let type = provider.registeredTypeIdentifiers.first(where: {
+            UTType($0).map { $0.conforms(to: .folder) || $0.conforms(to: .data) } ?? false
+        }) else { return false }
+        provider.loadFileRepresentation(forTypeIdentifier: type) { url, _ in
+            guard let name = url?.lastPathComponent else { return }
+            Task { @MainActor in AppModel.shared.handleDroppedFileNamed(name) }
+        }
+        return true
+    }
+
+    /// Kayıt gelmediyse: bırakılan dosyanın adı son sürüklenen satırla eşleşiyorsa o satırın uygulaması kurulur.
+    func handleDroppedFileNamed(_ name: String) {
+        guard let archive = archiveURL, let drag = DragRecord.shared.latest, drag.archive == archive,
+              Date().timeIntervalSince(drag.at) < 300,
+              name.precomposedStringWithCanonicalMapping == (drag.rootPath as NSString).lastPathComponent.precomposedStringWithCanonicalMapping
+        else { return }
+        _ = handleDropOnApplications([ArchiveItemRef(archivePath: archive.path, entryPath: drag.rootPath)])
+    }
+
+    /// Bırakılan öğe arşivden mi sürüklendi (pencereye geri bırakıldığında arşive eklenmesin)? macOS kopyayı başka bir
+    /// yerde verebildiği için son sürüklemeyle ad ve zamana göre de eşlenir.
+    func isFromArchiveDrag(_ url: URL) -> Bool {
+        let root = ArchiveService.temporaryRoot.resolvingSymlinksInPath().pathComponents
+        if Array(url.resolvingSymlinksInPath().pathComponents.prefix(root.count)) == root { return true }
+        guard let drag = DragRecord.shared.latest, drag.archive == archiveURL, Date().timeIntervalSince(drag.at) < 300 else { return false }
+        return url.lastPathComponent.precomposedStringWithCanonicalMapping == drag.url.lastPathComponent.precomposedStringWithCanonicalMapping
+    }
+
+    /// Denetlenmiş uygulama için ortak kurma adımları: gerekiyorsa sorar, sonra yerine koyar.
+    private func finishInstall(_ inspected: AppInstaller.Inspected, fileName: String, fallbackName: String, work: URL) async {
+        let name = inspected.info.name ?? fallbackName
+        func discard() { try? FileManager.default.removeItem(at: work) }
 
         if inspected.info.identifier == Bundle.main.bundleIdentifier {
             discard()
@@ -126,7 +187,7 @@ extension AppModel {
             return
         }
 
-        let destination = applicationsFolder.appendingPathComponent(app.fileName, isDirectory: true)
+        let destination = applicationsFolder.appendingPathComponent(fileName, isDirectory: true)
         let exists = FileManager.default.fileExists(atPath: destination.path)
         let existing = (try? Data(contentsOf: destination.appendingPathComponent("Contents/Info.plist"))).flatMap(AppBundleInfo.init(plist:))
         if exists {
@@ -154,11 +215,11 @@ extension AppModel {
         }
 
         if questions.isEmpty {
-            await place(inspected, at: destination, name: name, work: prepared.work)
+            await place(inspected, at: destination, name: name, work: work)
         } else {
             alert = AlertInfo(title: String(localized: "\(name) kurulsun mu?"), message: questions.joined(separator: "\n\n"),
                               confirm: .init(label: String(localized: "Kur"), destructive: false) { [weak self] in
-                                  Task { await self?.place(inspected, at: destination, name: name, work: prepared.work) }
+                                  Task { await self?.place(inspected, at: destination, name: name, work: work) }
                               },
                               onCancel: discard)
         }
@@ -205,7 +266,7 @@ struct ArchivedAppBanner: View {
                     .disabled(model.operation != nil)
             } else {
                 Image(nsImage: Icons.applicationIcon()).resizable().frame(width: 24, height: 24)
-                Text("Bu arşivde \(model.archivedApps.count) Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın.")
+                Text("Bu arşivde \(model.archivedApps.count) Mac uygulaması var. Kurmak ya da çıkarmak için listeden birine çift tıklayın ya da Uygulamalar’a sürükleyin.")
                     .font(.callout).lineLimit(2).minimumScaleFactor(0.9)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }

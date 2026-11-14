@@ -16,14 +16,56 @@ struct ArchiveDragPayload: Sendable {
     func materialize() async throws -> URL {
         let selection = ArchiveSelection.expand([root], in: allEntries)
         do {
-            return try await service.extractToTemporary(archive: archive, root: root,
-                                                        selection: selection.isEmpty ? [root] : selection,
-                                                        password: password)
+            let url = try await service.extractToTemporary(archive: archive, root: root,
+                                                           selection: selection.isEmpty ? [root] : selection,
+                                                           password: password)
+            DragRecord.shared.set(DraggedItem(archive: archive, rootPath: root.path, url: url, at: Date()))
+            return url
         } catch {
-            await AppModel.shared.dragExtractionFailed(archive: archive, error: error)
+            // Beklemeden: uygulama içi bırakmada ana iş parçacığı bu dosyayı eşzamanlı bekler; beklenirse kilitlenir.
+            let archive = archive
+            Task { @MainActor in AppModel.shared.dragExtractionFailed(archive: archive, error: error) }
             throw error
         }
     }
+
+    var reference: ArchiveItemRef { ArchiveItemRef(archivePath: archive.path, entryPath: root.path) }
+}
+
+/// MacRAR içinde bırakılan sürüklemeler için hangi arşivin hangi öğesi olduğu. Dosya çıkarılmaz; bu yüzden ana iş
+/// parçacığını bekletmez. Finder bu türü tanımaz ve dosyayı ister.
+struct ArchiveItemRef: Codable, Transferable, Sendable {
+    let archivePath: String
+    let entryPath: String
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .macrarArchiveItem)
+            .visibility(.ownProcess)
+    }
+}
+
+extension UTType {
+    static let macrarArchiveItem = UTType(exportedAs: "local.macrar.archive-item")
+}
+
+/// Son sürüklenip çıkarılan öğe. Herhangi bir iş parçacığından yazılır.
+final class DragRecord: @unchecked Sendable {
+    static let shared = DragRecord()
+    private let lock = NSLock()
+    private var item: DraggedItem?
+
+    var latest: DraggedItem? { lock.withLock { item } }
+    func set(_ value: DraggedItem?) { lock.withLock { item = value } }
+}
+
+/// Son sürüklenip çıkarılan öğe. macOS uygulama içi bırakmada dosyanın bir kopyasını başka bir yerde verir; pencereye
+/// geri bırakılan öğenin arşivden geldiği buradan anlaşılır.
+struct DraggedItem: Sendable {
+    let archive: URL
+    let rootPath: String
+    /// MacRAR'ın geçici klasöründeki asıl kopya.
+    let url: URL
+    let at: Date
 }
 
 /// Dosya sürüklemesi. (Klasörler için `ArchiveFolderDrag`: içerik türü öğeye göre değişemediğinden ayrı tür.)
@@ -35,6 +77,9 @@ struct ArchiveFileDrag: Transferable, Sendable {
             SentTransferredFile(try await item.payload.materialize(), allowAccessingOriginalFile: false)
         }
         .suggestedFileName { $0.payload.root.name }
+        // Yalnızca MacRAR içinde (kenar çubuğundaki Uygulamalar); Finder bunu görürse dosya diye kaydeder.
+        ProxyRepresentation(exporting: \.payload.reference)
+            .visibility(.ownProcess)
     }
 }
 
@@ -46,6 +91,9 @@ struct ArchiveFolderDrag: Transferable, Sendable {
             SentTransferredFile(try await item.payload.materialize(), allowAccessingOriginalFile: false)
         }
         .suggestedFileName { $0.payload.root.name }
+        // Yalnızca MacRAR içinde (kenar çubuğundaki Uygulamalar); Finder bunu görürse dosya diye kaydeder.
+        ProxyRepresentation(exporting: \.payload.reference)
+            .visibility(.ownProcess)
     }
 }
 

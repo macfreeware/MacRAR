@@ -1,4 +1,5 @@
 import XCTest
+import UniformTypeIdentifiers
 import MacRARCore
 @testable import MacRAR
 
@@ -170,6 +171,110 @@ final class ArchivedAppModelTests: XCTestCase {
         XCTAssertFalse(fm.fileExists(atPath: apps.appendingPathComponent("Deneme.app").path))
         XCTAssertNil(model.alert?.confirm)
         XCTAssertNotNil(model.alert)
+        model.alert = nil
+    }
+
+    // MARK: Uygulamalar'a sürükleyip bırakma
+
+    /// Tek üst klasörlü düzen: "Deneme/Deneme.app" + lisans.
+    private func openWrappedZip() async throws {
+        let src = tmp.appendingPathComponent("kaynak", isDirectory: true)
+        let folder = src.appendingPathComponent("Deneme", isDirectory: true)
+        try makeApp(at: folder.appendingPathComponent("Deneme.app", isDirectory: true), version: "3.0")
+        try Data("lisans".utf8).write(to: folder.appendingPathComponent("LICENSE.txt"))
+        let zip = tmp.appendingPathComponent("Paket.zip")
+        try run("/usr/bin/ditto", "-c", "-k", "--keepParent", folder.path, zip.path)
+        try fm.removeItem(at: src)
+        await model.loadArchive(zip)
+    }
+
+    private func waitForAlert() async throws -> AlertInfo {
+        for _ in 0..<300 where model.alert == nil { try await Task.sleep(for: .milliseconds(20)) }
+        return try XCTUnwrap(model.alert)
+    }
+
+    private func reference(for name: String) throws -> ArchiveItemRef {
+        let row = try XCTUnwrap(model.rows.first { $0.name == name })
+        return model.dragPayload(for: row).reference
+    }
+
+    func testDroppingWrapperFolderOnApplicationsInstallsTheApp() async throws {
+        try await openWrappedZip()
+        XCTAssertEqual(model.archivedApps, [ArchivedApp(path: "Deneme/Deneme.app")])
+        XCTAssertTrue(model.handleDropOnApplications([try reference(for: "Deneme")]))
+        let alert = try await waitForAlert()
+        XCTAssertEqual(alert.confirm?.label, String(localized: "Aç"))
+        XCTAssertEqual(version(apps.appendingPathComponent("Deneme.app")), "3.0")
+        model.alert = nil
+    }
+
+    func testDroppingAppItselfAsksBeforeReplacing() async throws {
+        try makeApp(at: apps.appendingPathComponent("Deneme.app"), version: "1.0")
+        _ = try await openZip()
+        XCTAssertTrue(model.handleDropOnApplications([try reference(for: "Deneme.app")]))
+        let alert = try await waitForAlert()
+        XCTAssertTrue(alert.message.contains("1.0"), alert.message)
+        XCTAssertEqual(version(apps.appendingPathComponent("Deneme.app")), "1.0", "onay olmadan değişmez")
+        alert.onCancel?()
+        model.alert = nil
+    }
+
+    func testDropsThatAreNotArchivedAppsAreRefused() async throws {
+        try await openWrappedZip()
+        let license = ArchiveItemRef(archivePath: try XCTUnwrap(model.archiveURL).path, entryPath: "Deneme/LICENSE.txt")
+        XCTAssertFalse(model.handleDropOnApplications([license]), "uygulama değil")
+        XCTAssertFalse(model.handleDropOnApplications([ArchiveItemRef(archivePath: "/baska.zip", entryPath: "Deneme")]), "başka arşiv")
+        XCTAssertNil(model.alert)
+    }
+
+    func testReferenceSurvivesTheDragPasteboard() throws {
+        let ref = ArchiveItemRef(archivePath: "/tmp/ş a.zip", entryPath: "Deneme/Deneme.app")
+        let back = try JSONDecoder().decode(ArchiveItemRef.self, from: JSONEncoder().encode(ref))
+        XCTAssertEqual(back.entryPath, ref.entryPath)
+        XCTAssertEqual(back.archivePath, ref.archivePath)
+    }
+
+    /// macOS uygulama içi bırakmada dosyanın kopyasını başka bir klasörde verir; pencereye geri bırakılınca arşive eklenmez.
+    func testDroppingSystemCopyBackIntoWindowDoesNothing() async throws {
+        try await openWrappedZip()
+        let row = try XCTUnwrap(model.rows.first { $0.name == "Deneme" })
+        let original = try await model.dragPayload(for: row).materialize()
+        let copy = tmp.appendingPathComponent("NSIRD_kopya", isDirectory: true).appendingPathComponent("Deneme", isDirectory: true)
+        try fm.createDirectory(at: copy.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try fm.copyItem(at: original, to: copy)
+        model.handleDrop([copy])
+        XCTAssertNil(model.sheet)
+        XCTAssertNil(model.alert)
+        model.handleDrop([original])
+        XCTAssertNil(model.sheet)
+    }
+
+    /// Kayıt yerine dosya geldiyse ad, son sürüklenen satırla eşlenir.
+    func testDroppedFileIsMatchedByNameToTheLastDrag() async throws {
+        try await openWrappedZip()
+        let row = try XCTUnwrap(model.rows.first { $0.name == "Deneme" })
+        _ = try await model.dragPayload(for: row).materialize()
+        model.handleDroppedFileNamed("Başka")
+        XCTAssertNil(model.operation)
+        XCTAssertNil(model.alert)
+        model.handleDroppedFileNamed("Deneme")
+        let alert = try await waitForAlert()
+        XCTAssertEqual(alert.confirm?.label, String(localized: "Aç"))
+        XCTAssertEqual(version(apps.appendingPathComponent("Deneme.app")), "3.0")
+        model.alert = nil
+    }
+
+    func testApplicationsDropReadsTheReference() async throws {
+        try await openWrappedZip()
+        let provider = NSItemProvider()
+        let ref = try reference(for: "Deneme")
+        let data = try JSONEncoder().encode(ref)
+        provider.registerDataRepresentation(forTypeIdentifier: UTType.macrarArchiveItem.identifier, visibility: .all) { done in
+            done(data, nil); return nil
+        }
+        XCTAssertTrue(model.handleApplicationsDrop([provider]))
+        _ = try await waitForAlert()
+        XCTAssertEqual(version(apps.appendingPathComponent("Deneme.app")), "3.0")
         model.alert = nil
     }
 }
